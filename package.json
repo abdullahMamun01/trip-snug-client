@@ -1,0 +1,50 @@
+{
+  "name": "travel-hotel-booking",
+  "version": "1.3.5",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@nextui-org/avatar": "^2.0.33",
+    "@nextui-org/button": "^2.0.38",
+    "@nextui-org/card": "^2.0.34",
+    "@nextui-org/checkbox": "^2.1.5",
+    "@nextui-org/input": "^2.2.5",
+    "@nextui-org/navbar": "^2.0.37",
+    "@nextui-org/pagination": "^2.0.36",
+    "@nextui-org/select": "^2.2.7",
+    "@nextui-org/switch": "^2.0.34",
+    "@nextui-org/system": "^2.2.6",
+    "@nextui-org/table": "^2.0.40",
+    "@nextui-org/tabs": "^2.0.37",
+    "@nextui-org/theme": "^2.2.11",
+    "apexcharts": "^3.45.2",
+    "flatpickr": "^4.6.13",
+    "framer-motion": "^11.11.11",
+    "jsvectormap": "^1.6.0",
+    "lucide-react": "^0.454.0",
+    "next": "^14.2.4",
+    "next-themes": "^0.4.3",
+    "react": "^18",
+    "react-apexcharts": "^1.4.1",
+    "react-dom": "^18",
+    "zustand": "^5.0.2"
+  },
+  "devDependencies": {
+    "@types/node": "^20",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "autoprefixer": "^10.0.1",
+    "eslint": "^8",
+    "eslint-config-next": "14.1.0",
+    "postcss": "^8",
+    "prettier": "^3.2.5",
+    "prettier-plugin-tailwindcss": "^0.5.11",
+    "tailwindcss": "^3.4.1",
+    "typescript": "^5"
+  }
+}
