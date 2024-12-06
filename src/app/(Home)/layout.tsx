@@ -13,12 +13,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-   
-        <Providers>
-          <NavItem />
-          {children}
-          <Footer />
-        </Providers>
-
+    <Providers>
+      <NavItem />
+      {children}
+      <Footer />
+    </Providers>
   );
 }

@@ -8,17 +8,17 @@ const config: Config = {
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
-    "./node_modules/@nextui-org/theme/dist/components/(avatar|button|card|checkbox|input|navbar|pagination|select|toggle|table|tabs|ripple|spinner|listbox|divider|popover|scroll-shadow|spacer).js",
+    "./node_modules/@nextui-org/theme/dist/components/(avatar|button|card|checkbox|input|navbar|pagination|select|skeleton|toggle|table|tabs|ripple|spinner|listbox|divider|popover|scroll-shadow|spacer).js",
   ],
   darkMode: "class",
   theme: {
     container: {
       padding: {
-        DEFAULT: '1rem',
-        sm: '2rem',
-        lg: '4rem',
-        xl: '5rem',
-        '2xl': '6rem',
+        DEFAULT: "1rem",
+        sm: "2rem",
+        lg: "4rem",
+        xl: "5rem",
+        "2xl": "6rem",
       },
     },
     fontFamily: {

@@ -5,35 +5,9 @@ import { Card, CardBody, CardFooter } from "@nextui-org/card"
 import Image from "next/image"
 import { Button } from "@nextui-org/button"
 import ResortImage from "@/assests/resort.avif"
-export default function DiscoverSection() {
-  const discoveries = [
-    {
-      title: "Resort",
-      image: ResortImage,
-      alt: "Luxury resort with pool and arched architecture"
-    },
-    {
-      title: "Spa",
-      image: ResortImage,
-      alt: "Indoor pool in a stone vault setting"
-    },
-    {
-      title: "Cabin",
-      image: ResortImage,
-      alt: "Wooden cabin with porch in nature"
-    },
-    {
-      title: "Hot tub",
-      image: ResortImage,
-      alt: "Outdoor hot tub with palm trees and mountain view"
-    },
-    {
-      title: "Pet friendly",
-      image: ResortImage,
-      alt: "Modern living room with person and pet"
-    },
-    
-  ]
+import { fetchRecentHotels } from "@/services/hotel.service"
+export default async function DiscoverSection() {
+  const hotels = await fetchRecentHotels()
 
   return (
     <section className="py-12 px-4 md:px-6  min-h-[50vh] bg-sky-50 dark:bg-boxdark-2 dark:text-bodydark">
@@ -43,18 +17,20 @@ export default function DiscoverSection() {
         </h2>
         <div className="relative">
           <div className="flex space-x-4 overflow-x-auto pb-4 scrollbar-hide ">
-            {discoveries.map((item, index) => (
+            {hotels.slice(5).map((item) => (
               <Card
-                key={index}
+                key={item.id}
                 isPressable
                 className="w-[300px] h-[300px]"
               >
                 <CardBody className="p-0">
                   <Image
                 
-                    alt={item.alt}
+                    alt={item.title}
                     className="z-0 w-full h-full object-cover"
-                    src={ResortImage}
+                    src={item.image}
+                    width={1000}
+                    height={1000}
                   />
                 </CardBody>
                 <CardFooter className="absolute bg-black/40 bottom-0 z-10 border-t-1 border-default-600 dark:border-default-100">

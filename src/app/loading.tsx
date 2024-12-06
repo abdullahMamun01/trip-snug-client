@@ -2,6 +2,6 @@ import React from 'react'
 
 export default function Laoding() {
   return (
-    <span className='loader'></span>
+    <div className='loader w-full min-h-screen'></div>
   )
 }
