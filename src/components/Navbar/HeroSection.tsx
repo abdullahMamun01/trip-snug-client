@@ -1,14 +1,11 @@
-"use client";
-import { Button } from "@nextui-org/button";
-import { Input } from "@nextui-org/input";
-import { Select, SelectItem } from "@nextui-org/select";
+
 import Image from "next/image";
-import React, { useState } from "react";
+
 import HeroImage from "@/assests/hero.avif";
+import HotelSearchForm from "../form/HotelSearchForm";
 
 export default function HeroSection() {
-  const [adults, setAdults] = useState("1");
-  const [children, setChildren] = useState("1");
+
   return (
     <div className="relative min-h-screen ">
       <Image
@@ -42,94 +39,8 @@ export default function HeroSection() {
           Deleniti nostrum laboriosam praesentium quasi quam voluptate.
         </p>
 
-        {/* Booking form */}
-        <div className="flex w-[90%] max-w-5xl items-center gap-2 rounded-full bg-white p-2 shadow-xl">
-          <div className="flex flex-1 items-center gap-2 px-4">
-            <span className="text-sm font-medium text-default-700">
-              Check-in
-            </span>
-            <Input
-              type="date"
-              variant="flat"
-              className="w-40 rounded-md bg-sky-100"
-              classNames={{
-                input: "text-sm ",
-                inputWrapper: "bg-transparent shadow-none",
-              }}
-            />
-          </div>
-
-          <div className="h-8 w-px bg-default-200" />
-
-          <div className="flex flex-1 items-center gap-2 px-4">
-            <span className="text-sm font-medium text-default-700">
-              Check-out
-            </span>
-            <Input
-              type="date"
-              variant="flat"
-              className="w-40 rounded-md bg-sky-100"
-              classNames={{
-                input: "text-sm",
-                inputWrapper: "bg-transparent shadow-none",
-              }}
-            />
-          </div>
-
-          <div className="h-8 w-px bg-default-200" />
-
-          <div className="flex flex-1 items-center gap-2 px-4">
-            <span className="text-sm font-medium text-default-700">Adults</span>
-
-          
-
-            <Select
-              value={[adults]}
-              onChange={(e) => setAdults(e.target.value)}
-              classNames={{
-                trigger: "bg-sky-100 text-black shadow-none h-unit-10",
-                value: "text-sm text-black",
-              }}
-              placeholder="select item"
-            >
-              {["1", "2", "3", "4", "5"].map((a, i) => (
-                <SelectItem key={`${a}`} value={`${a}`}>
-                  {a}
-                </SelectItem>
-              ))}
-            </Select>
-          </div>
-
-          <div className="h-8 w-px bg-default-200" />
-
-          <div className="flex flex-1 items-center gap-2 px-4">
-            <span className="text-sm font-medium text-default-700">
-              Children
-            </span>
-            <Select
-              selectedKeys={[children]}
-              onChange={(e) => setChildren(e.target.value)}
-              classNames={{
-                trigger: "bg-sky-100 text-black shadow-none h-unit-10",
-                value: "text-sm text-black",
-              }}
-              placeholder="select item"
-            >
-              {["1", "2", "3", "4", "5"].map((ch, i) => (
-                <SelectItem key={`${ch}`} value={ch}>
-                  {ch}
-                </SelectItem>
-              ))}
-            </Select>
-          </div>
-
-          <Button
-            size="lg"
-            className="rounded-full bg-[#4F46E5] px-8 text-white"
-          >
-            Search
-          </Button>
-        </div>
+        
+        <HotelSearchForm/>
       </div>
 
       {/* Scroll indicator */}

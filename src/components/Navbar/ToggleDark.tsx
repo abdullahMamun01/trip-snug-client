@@ -1,9 +1,9 @@
 "use client";
 import {useTheme} from "next-themes";
 
-import { Switch } from "@nextui-org/switch";
 import { MoonIcon, SunIcon } from "lucide-react";
 import React, { useEffect, useState } from "react";
+import { Switch } from "@nextui-org/switch";
 
 export default function ToggleDark() {
   const [mounted, setMounted] = useState(false)

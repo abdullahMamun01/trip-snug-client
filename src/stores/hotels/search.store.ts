@@ -1,25 +1,28 @@
 import { create } from "zustand";
 
-interface HotelSearchState {
+export interface HotelSearch {
   location: string | null;
   checkIn: string | null;
   checkOut: string | null;
   adults: number | null;
   children: number | null;
-  search: string | null;
-  setSearchState: (state: Partial<HotelSearchState>) => void;
+}
+
+interface HotelSearchState {
+  searchState: HotelSearch;
+  setSearchState: (state: Partial<HotelSearch>) => void; // Accept partial updates
 }
 
 export const useHotelSearchStore = create<HotelSearchState>((set) => ({
-  location: null,
-  checkIn: null,
-  checkOut: null,
-  adults: null,
-  children: null,
-  search: null,
+  searchState: {
+    location: null,
+    checkIn: null,
+    checkOut: null,
+    adults: null,
+    children: null,
+  },
   setSearchState: (newState) =>
     set((state) => ({
-      ...newState,
-      ...state
+      searchState: { ...state.searchState, ...newState },
     })),
 }));

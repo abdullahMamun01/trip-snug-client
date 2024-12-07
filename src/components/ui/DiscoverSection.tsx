@@ -6,7 +6,7 @@ import Image from "next/image"
 import { Button } from "@nextui-org/button"
 import ResortImage from "@/assests/resort.avif"
 import { fetchRecentHotels } from "@/services/hotel.service"
-export default async function DiscoverSection() {
+export default async function DiscoverSection() : Promise<JSX.Element> {
   const hotels = await fetchRecentHotels()
 
   return (
@@ -47,7 +47,6 @@ export default async function DiscoverSection() {
           <Button
             isIconOnly
             className="absolute right-0 top-1/2 -translate-y-1/2 bg-white/50 backdrop-blur-md hidden md:flex"
-            aria-label="Scroll right"
           >
             <ChevronRight className="h-4 w-4" />
           </Button>

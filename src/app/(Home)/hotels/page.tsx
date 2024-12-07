@@ -25,6 +25,7 @@ export default function HotelPage() {
 
       {/* Main Content */}
       <div>
+        
         <HotelsCard />
         <div className="mt-10 w-full flex justify-center">
           <Pagination isCompact showControls total={20} initialPage={1} className="p-4" />

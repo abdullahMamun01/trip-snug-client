@@ -255,7 +255,26 @@ input[type="search"]::-webkit-search-cancel-button {
     display: none !important;
 }
 
-
+[data-selection-start="true"] {
+    @apply bg-sky-400;
+    @apply rounded-r-medium;
+  }
+  
+  [data-selection-end="true"] {
+    @apply bg-sky-400;
+    @apply rounded-l-medium;
+  }
+  
+  [data-range-selection="true"]:not([data-selection-start="true"]):not([data-selection-end="true"]) {
+    @apply bg-sky-300;
+    @apply rounded-none;
+  }
+  
+  [data-slot="cell"]:hover {
+    @apply bg-sky-300;
+    @apply text-white;
+    @apply rounded-full;
+  }
 
 .loader {
     position: relative;
