@@ -31,7 +31,6 @@ export const getRatingType = (rating: number): RatingType => {
 
 export default async function PopularDestination() {
   const hotels = await fetchTopRatedHotel();
-  console.log(hotels)
   return (
     <section className="container mx-auto  py-12">
       <div className="mb-10 px-4 text-center">

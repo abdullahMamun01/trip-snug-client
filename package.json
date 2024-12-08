@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@hookform/resolvers": "^3.9.1",
     "@internationalized/date": "^3.6.0",
     "@nextui-org/avatar": "^2.0.33",
     "@nextui-org/button": "^2.0.38",
@@ -20,6 +21,7 @@
     "@nextui-org/pagination": "^2.0.36",
     "@nextui-org/select": "^2.2.7",
     "@nextui-org/skeleton": "^2.0.32",
+    "@nextui-org/slider": "^2.4.3",
     "@nextui-org/switch": "^2.0.34",
     "@nextui-org/system": "^2.2.6",
     "@nextui-org/table": "^2.0.40",
@@ -30,6 +32,7 @@
     "axios": "^1.7.9",
     "flatpickr": "^4.6.13",
     "framer-motion": "^11.11.11",
+    "install": "^0.13.0",
     "jsvectormap": "^1.6.0",
     "lucide-react": "^0.454.0",
     "next": "^14.2.4",
@@ -37,6 +40,9 @@
     "react": "^18",
     "react-apexcharts": "^1.4.1",
     "react-dom": "^18",
+    "react-hook-form": "^7.54.0",
+    "react-icons": "^5.4.0",
+    "zod": "^3.23.8",
     "zustand": "^5.0.2"
   },
   "devDependencies": {

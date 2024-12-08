@@ -1,36 +1,41 @@
-"use client";
-
-import { Button } from "@nextui-org/button";
-import { Card } from "@nextui-org/card";
-import { Checkbox } from "@nextui-org/checkbox";
-import { Input } from "@nextui-org/input";
-import {
-  Heart,
-  Search,
-  ChevronLeft,
-  ChevronRight,
-  Waves,
-  PenTool,
-} from "lucide-react";
-import Image from "next/image";
-import HotelImage from "@/assests/popular-hotel.jpg";
 import FilterSidebar from "@/components/hotels/FilterSidebar";
+import HotelList from "@/components/hotels/HotelList";
 import HotelsCard from "@/components/hotels/HotelsCard";
+import { fetchHotels } from "@/services/hotel.service";
+
 import { Pagination } from "@nextui-org/pagination";
-export default function HotelPage() {
+import {
+  dehydrate,
+  HydrationBoundary,
+  QueryClient,
+} from "@tanstack/react-query";
+type ISearchParams = {
+  [key: string]: string;
+};
+export default async function HotelPage({
+  searchParams,
+}: {
+  searchParams: ISearchParams;
+}) {
+  const queries = new URLSearchParams(searchParams).toString();
+  const queryClient = new QueryClient();
+  await queryClient.prefetchQuery({
+    queryKey: ["hotels" , queries],
+    queryFn: async () => await fetchHotels(queries),
+  });
+
   return (
     <div className="mx-auto flex max-w-7xl flex-col gap-6 bg-white p-6 md:flex-row">
       {/* Left Sidebar */}
       <FilterSidebar />
-
       {/* Main Content */}
-      <div>
+
+        <HydrationBoundary state={dehydrate(queryClient)}>
+          <HotelList queries={queries}/>
+        </HydrationBoundary>
+        {/* <HotelsCard /> */}
         
-        <HotelsCard />
-        <div className="mt-10 w-full flex justify-center">
-          <Pagination isCompact showControls total={20} initialPage={1} className="p-4" />
-        </div>
-      </div>
+
     </div>
   );
 }
