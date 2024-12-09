@@ -6,10 +6,17 @@ import { z } from "zod";
 import { DateRangePicker } from "@nextui-org/date-picker";
 import { Select, SelectItem } from "@nextui-org/select";
 import { Button } from "@nextui-org/button";
-import { DateValue, parseDate, parseZonedDateTime, ZonedDateTime } from "@internationalized/date";
-import { useRouter } from 'next/navigation'
+import {
+  DateValue,
+  parseDate,
+  parseZonedDateTime,
+  ZonedDateTime,
+} from "@internationalized/date";
+import { useRouter } from "next/navigation";
 import getDateWithOffset from "@/lib/date";
 import useSetQueryParams from "@/hooks/useSetQueryParams";
+import { Input } from "@nextui-org/input";
+import { Locate, MapPin } from "lucide-react";
 
 type RangeValue = {
   start: DateValue | null;
@@ -34,8 +41,8 @@ const hotelSearchSchema = z.object({
 type HotelSearchFormValues = z.infer<typeof hotelSearchSchema>;
 
 export default function HotelSearchForm() {
-  const {getQueryParams} = useSetQueryParams()
-  const router = useRouter()
+  const { getQueryParams } = useSetQueryParams();
+  const router = useRouter();
   const {
     register,
     handleSubmit,
@@ -50,8 +57,8 @@ export default function HotelSearchForm() {
       children: 1,
     },
   });
-  const checkinIn = getQueryParams('checkIn') || getDateWithOffset() 
-  const checkOut = getQueryParams('checkOut') || getDateWithOffset(1) 
+  const checkinIn = getQueryParams("checkIn") || getDateWithOffset();
+  const checkOut = getQueryParams("checkOut") || getDateWithOffset(1);
   const onSubmit = (data: HotelSearchFormValues) => {
     console.log("Form submitted:", data);
     // Add your submission logic here
@@ -62,20 +69,15 @@ export default function HotelSearchForm() {
       children: data.children.toString(),
     });
 
-    router.push(`/hotels?${params.toString()}`)
+    router.push(`/hotels?${params.toString()}`);
   };
 
   const handleRangeChange = (value: RangeValue) => {
-    
-
     if (value.start) {
       setValue("checkIn", formatDate(value.start));
-      
     }
     if (value.end) {
       setValue("checkOut", formatDate(value.end));
-      
-
     }
   };
   const defaultDateRange: { start: DateValue; end: DateValue } = {
@@ -87,6 +89,20 @@ export default function HotelSearchForm() {
       onSubmit={handleSubmit(onSubmit)}
       className="flex w-[90%] max-w-5xl items-center gap-2 rounded-full bg-white p-2 shadow-xl"
     >
+      {/* destination */}
+      <div className="flex flex-1 items-center gap-2 px-4">
+        <span className="text-sm font-medium text-default-700"><MapPin /></span>
+        <Input  className=""
+        classNames={{
+          inputWrapper:"bg-sky-100 text-black shadow-none h-unit-10"
+        }}
+        placeholder="location"/>
+        {errors.adults && (
+          <p className="text-red-500">{errors.adults.message}</p>
+        )}
+      </div>
+      <div className="h-8 w-px bg-default-200" />
+
       {/* Date Range Picker */}
       <div className="flex flex-1 items-center gap-2 px-4">
         <DateRangePicker
@@ -97,7 +113,7 @@ export default function HotelSearchForm() {
             inputWrapper: "bg-sky-100",
           }}
           defaultValue={{
-            start: parseDate(checkinIn) as any ,
+            start: parseDate(checkinIn) as any,
             end: parseDate(checkOut) as any,
           }}
           onChange={handleRangeChange}
@@ -137,7 +153,7 @@ export default function HotelSearchForm() {
       <div className="h-8 w-px bg-default-200" />
 
       {/* Children */}
-      <div className="flex flex-1 items-center gap-2 px-4">
+      {/* <div className="flex flex-1 items-center gap-2 px-4">
         <span className="text-sm font-medium text-default-700">Children</span>
         <Select
           {...register("children", { valueAsNumber: true })}
@@ -158,7 +174,7 @@ export default function HotelSearchForm() {
         {errors.children && (
           <p className="text-red-500">{errors.children.message}</p>
         )}
-      </div>
+      </div> */}
 
       {/* Submit Button */}
       <Button

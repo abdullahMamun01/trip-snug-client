@@ -1,9 +1,8 @@
 import FilterSidebar from "@/components/hotels/FilterSidebar";
 import HotelList from "@/components/hotels/HotelList";
-import HotelsCard from "@/components/hotels/HotelsCard";
 import { fetchHotels } from "@/services/hotel.service";
 
-import { Pagination } from "@nextui-org/pagination";
+
 import {
   dehydrate,
   HydrationBoundary,

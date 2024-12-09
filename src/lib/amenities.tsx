@@ -34,9 +34,11 @@ import {
 export const getAmenityIcon = (amenity: string): JSX.Element => {
   const amenitiesMap: Record<string, JSX.Element> = {
     wifi: <FaWifi title="WiFi" />,
+    'free wi-fi' : <FaWifi title="WiFi" className="w-5 h-5"/>,
     pool: <FaSwimmingPool title="Swimming Pool" />,
     parking: <FaParking title="Parking" />,
     restaurant: <FaUtensils title="Restaurant" />,
+    'on-site restaurant' : <FaUtensils title="Restaurant" />,
     gym: <FaDumbbell title="Gym" />,
     bed: <FaBed title="Comfortable Bed" />,
     coffee: <FaCoffee title="Coffee Maker" />,
@@ -60,8 +62,13 @@ export const getAmenityIcon = (amenity: string): JSX.Element => {
     ice_cream: <FaIceCream title="Ice Cream Machine" />,
   };
 
-  // Return the corresponding icon or fallback
-  return amenitiesMap[amenity.toLowerCase()] || (
-    <FaQuestionCircle title="Unknown Amenity" />
+  const normalizedAmenity = amenity.toLowerCase();
+
+  // Find a matching key in amenitiesMap
+  const matchedKey = Object.keys(amenitiesMap).find((key) =>
+    normalizedAmenity.includes(key)
   );
+
+  // Return the matching icon or fallback to default
+  return matchedKey ? amenitiesMap[matchedKey] : <FaQuestionCircle title="Unknown Amenity" />;
 };

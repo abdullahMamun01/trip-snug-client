@@ -2,8 +2,10 @@
 import { Button } from "@nextui-org/button"
 import { Card, CardBody } from "@nextui-org/card"
 import { Info, Calendar, Check } from "lucide-react"
-
-export default function HotelPricingCard() {
+interface IPorps {
+  price: number
+}
+export default function HotelPricingCard({price} : IPorps) {
   return (
     <Card className="sticky top-20 my-10">
       <CardBody className="p-6">
@@ -19,7 +21,7 @@ export default function HotelPricingCard() {
           {/* Pricing */}
           <div>
             <div className="flex items-baseline gap-2 mb-4">
-              <span className="text-3xl font-bold">$457</span>
+              <span className="text-3xl font-bold">${price}</span>
               <span className="text-gray-600">per night</span>
             </div>
 

@@ -1,11 +1,21 @@
 import ApiResponse from "@/types/apiResponse.types";
-import { HotelPaginationResponse, IHotel, PaginatedResponse } from "@/types/hotel.types";
+import {
+  HotelPaginationResponse,
+  IHotel,
+  PaginatedResponse,
+} from "@/types/hotel.types";
 import fetchData from "./api.service";
 
 const fetchHotels = async (params: string) => {
   const hotels = await fetchData<HotelPaginationResponse>(`/hotels?${params}`);
-  return hotels.data
+  return hotels.data;
 };
+
+const fetchHotel = async (hotelId: string) => {
+  const hotels = await fetchData<IHotel>(`/hotels/${hotelId}`);
+  return hotels.data;
+};
+
 const fetchRecentHotels = async () => {
   const hotels = await fetchData<IHotel[]>("/hotels/recent");
   return hotels.data.map((hotel) => ({
@@ -20,4 +30,4 @@ const fetchTopRatedHotel = async () => {
   const hotels = await fetchData<IHotel[]>("/hotels/top-rated");
   return hotels;
 };
-export { fetchHotels, fetchRecentHotels, fetchTopRatedHotel };
+export { fetchHotels, fetchHotel, fetchRecentHotels, fetchTopRatedHotel };
