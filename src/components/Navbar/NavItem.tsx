@@ -8,6 +8,7 @@ import {
 import Link from "next/link";
 import React from "react";
 import ToggleDark from "./ToggleDark";
+import UserNav from "../user/UserNav";
 
 export default function NavItem() {
   return (
@@ -47,12 +48,13 @@ export default function NavItem() {
       </NavbarContent>
       <NavbarContent justify="end" className="gap-4">
         <NavbarItem>
-          <Button
+          {/* <Button
             radius="full"
             className="bg-[#4F46E5] px-8 text-sm font-normal text-white"
           >
             Book now
-          </Button>
+          </Button> */}
+          <UserNav/>
         </NavbarItem>
         <NavbarItem>
           <Button isIconOnly variant="light" radius="full"></Button>

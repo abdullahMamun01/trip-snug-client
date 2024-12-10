@@ -13,10 +13,14 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { registerValidationSchema } from "@/validations/auth.validation";
 import { TRegisterSchemaType } from "@/types/auth.type";
+import { catchError } from "@/lib/catchError";
+import { registerAction } from "@/actions/auth.action";
+import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
 export default function RegisterForm() {
   const [isVisible, setIsVisible] = React.useState(false);
-
+const router = useRouter()
   const toggleVisibility = () => setIsVisible(!isVisible);
   const {
     handleSubmit,
@@ -26,13 +30,19 @@ export default function RegisterForm() {
     resolver: zodResolver(registerValidationSchema),
   });
 
-  const onSubmit = (formData: TRegisterSchemaType) => {
-    console.log(formData);
+  const onSubmit = async (formData: TRegisterSchemaType) => {
+    try {
+      const response = await registerAction(formData);
+      toast.success(response.message, { position: "top-right" });
+      router.push('/login')
+      router.refresh()
+    } catch (error) {
+      catchError(error);
+    }
   };
 
   return (
     <form className="flex flex-col gap-3" onSubmit={handleSubmit(onSubmit)}>
-      
       <div className="flex  gap-1">
         <FormInput
           label="First Name"

@@ -12,13 +12,14 @@ import { Input } from "@nextui-org/input";
 import { TLoginType } from "@/types/auth.type";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { loginValidationSchema } from "@/validations/auth.validation";
-import { loginUser } from "@/services/auth.service";
-import { catchError } from "@/lib/catchError";
-import toast from "react-hot-toast";
-import { loginAction } from "@/actions/auth.action";
+import { useRouter } from "next/navigation";
+import {Spinner} from "@nextui-org/spinner";
+import useLoginMutation from "@/hooks/useLoginMutation";
 
 export default function LoginForm() {
   const [isVisible, setIsVisible] = React.useState(false);
+  const { mutateAsync, isPending } = useLoginMutation()
+
   const {
     control,
     formState: { errors },
@@ -29,12 +30,7 @@ export default function LoginForm() {
   const toggleVisibility = () => setIsVisible(!isVisible);
 
   const onSubmit = async (formData: TLoginType) => {
-    try {
-      const data = await loginAction(formData);
-      toast.success(data.message, { position: "top-right" });
-    } catch (error: any) {
-      catchError(error);
-    }
+    await mutateAsync(formData);
   };
 
   return (
@@ -89,7 +85,7 @@ export default function LoginForm() {
         </Link>
       </div>
       <Button color="primary" type="submit">
-        Log In
+        {isPending ? <><Spinner color="default"  size="sm"/> <span>Login...</span></> : <span>Login</span>}
       </Button>
     </form>
   );

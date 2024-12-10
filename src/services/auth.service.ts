@@ -18,7 +18,7 @@ const loginUser = async (payload: TLoginType) => {
 };
 
 const registerUser = async (payload: TLoginType) => {
-  const response = await apiClient.post<ApiResponse<TRegisterSchemaType>>(
+  const response = await apiClient.post<ApiResponse<TUser>>(
     "/auth/signup",
     payload,
   );
