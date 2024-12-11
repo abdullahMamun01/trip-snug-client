@@ -17,11 +17,23 @@ import { catchError } from "@/lib/catchError";
 import { registerAction } from "@/actions/auth.action";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
+import { Spinner } from "@nextui-org/spinner";
+import { useMutation } from "@tanstack/react-query";
 
 export default function RegisterForm() {
   const [isVisible, setIsVisible] = React.useState(false);
-const router = useRouter()
-  const toggleVisibility = () => setIsVisible(!isVisible);
+  const router = useRouter();
+  const { mutateAsync, isPending } = useMutation({
+    mutationFn: registerAction,
+    onSuccess: (data) => {
+      toast.success(data.message, { position: "top-right" });
+      router.push("/login");
+      router.refresh();
+    },
+    onError: (error) => {
+      catchError(error);
+    },
+  });
   const {
     handleSubmit,
     control,
@@ -31,14 +43,7 @@ const router = useRouter()
   });
 
   const onSubmit = async (formData: TRegisterSchemaType) => {
-    try {
-      const response = await registerAction(formData);
-      toast.success(response.message, { position: "top-right" });
-      router.push('/login')
-      router.refresh()
-    } catch (error) {
-      catchError(error);
-    }
+    await mutateAsync(formData);
   };
 
   return (
@@ -99,8 +104,15 @@ const router = useRouter()
         control={control}
         errorMessage={errors.country?.message}
       />
+
       <Button color="primary" type="submit">
-        Sign Up
+        {isPending ? (
+          <>
+            <Spinner color="default" size="sm" /> <span>Sign Up...</span>
+          </>
+        ) : (
+          <span>Sign Up</span>
+        )}
       </Button>
     </form>
   );

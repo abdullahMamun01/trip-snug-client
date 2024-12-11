@@ -37,4 +37,7 @@ const getCurrentUser = async () => {
   return decodedToken;
 };
 
-export { loginAction, getCurrentUser, registerAction };
+const logoutAction = async () => {
+  await cookies().delete('accessToken')
+}
+export { loginAction, getCurrentUser, registerAction ,logoutAction};

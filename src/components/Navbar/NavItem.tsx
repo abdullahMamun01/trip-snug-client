@@ -1,3 +1,4 @@
+"use client";
 import { Button } from "@nextui-org/button";
 import {
   Navbar,
@@ -9,18 +10,25 @@ import Link from "next/link";
 import React from "react";
 import ToggleDark from "./ToggleDark";
 import UserNav from "../user/UserNav";
+import { User } from "lucide-react";
+import useAuth from "@/stores/hotels/auth.store";
 
 export default function NavItem() {
+  const { token } = useAuth();
   return (
     <Navbar
       maxWidth="full"
-      className="dark:bg-boxdark-2 dark:text-bodydark w-full border-b bg-white py-2 md:px-20"
+      className="w-full border-b bg-white py-2 dark:bg-boxdark-2 dark:text-bodydark md:px-20"
       classNames={{
         wrapper: "px-8 gap-16",
       }}
     >
       <NavbarBrand>
-        <Link href='/'><p className="font-serif text-2xl font-bold">Trip-<span className="text-blue-500 font-bold">Snug</span> </p></Link>
+        <Link href="/">
+          <p className="font-serif text-2xl font-bold">
+            Trip-<span className="font-bold text-blue-500">Snug</span>{" "}
+          </p>
+        </Link>
       </NavbarBrand>
       <NavbarContent className="gap-8" justify="center">
         {[
@@ -48,13 +56,30 @@ export default function NavItem() {
       </NavbarContent>
       <NavbarContent justify="end" className="gap-4">
         <NavbarItem>
-          {/* <Button
-            radius="full"
-            className="bg-[#4F46E5] px-8 text-sm font-normal text-white"
-          >
-            Book now
-          </Button> */}
-          <UserNav/>
+          {token ? (
+            <UserNav />
+          ) : (
+            <div>
+              <User className="mr-1 inline h-5 w-5" />
+              <Link
+                href="/login"
+                className="text-md rounded-md py-2 font-medium dark:text-gray-300 text-gray-700  hover:text-blue-600"
+              >
+                Login
+              </Link>
+              <span className="px-1.5 text-red-400 font-semibold">/</span>
+              <Link
+                href="/register"
+                className="text-md rounded-md py-2 font-medium dark:text-gray-300 text-gray-700 hover:text-blue-600"
+              >
+                Register
+              </Link>
+            </div>
+          )}
+          {/* <Link href="/login">
+            <User className="mr-1 inline h-5 w-5" />
+            Login / Register
+          </Link> */}
         </NavbarItem>
         <NavbarItem>
           <Button isIconOnly variant="light" radius="full"></Button>

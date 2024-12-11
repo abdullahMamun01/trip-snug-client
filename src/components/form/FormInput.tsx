@@ -8,7 +8,8 @@ interface FormInputProps {
   label: string;
   placeholder: string;
   type?: string;
-  variant?: "bordered" | "underlined" | "filled";
+  variant?: "bordered" | "faded" | "flat" | "underlined";
+  labelPlacement? : "inside" | "outside" | "outside-left"
   errorMessage?: string;
 }
 
@@ -20,33 +21,37 @@ const FormInput: React.FC<FormInputProps> = ({
   type = "text",
   variant = "bordered",
   errorMessage,
+  labelPlacement = "outside"
 }) => {
 
   return (
-   <div className="w-full">
-    <Controller
-      name={name}
-      control={control}
-      defaultValue=""
-      render={({ field }) => (
-        <Input
-          {...field}
-          label={label}
-          name="firstName"
-          placeholder={placeholder}
-          labelPlacement="outside"
-          errorMessage={errorMessage}
-          type={type}
-          classNames={{
-            label: 'font-bold' ,
-            inputWrapper:"rounded-md"
-          }}
-          variant="bordered"
-        />
-      )}
-    />
-    <span className="text-red-500 py-0 text-sm flex-row no-flex" >{errorMessage}</span>
-   </div>
+    <div className="w-full">
+      <Controller
+        name={name}
+        control={control}
+        defaultValue=""
+        render={({ field }) => (
+          <Input
+            {...field}
+            label={label}
+            name="firstName"
+            placeholder={placeholder}
+            labelPlacement={labelPlacement}
+            errorMessage={errorMessage}
+            type={type}
+            classNames={{
+              label: "font-bold",
+              inputWrapper: "rounded-md",
+            }}
+            
+            variant={variant}
+          />
+        )}
+      />
+      <span className="no-flex flex-row py-0 text-sm text-red-500">
+        {errorMessage}
+      </span>
+    </div>
   );
 };
 

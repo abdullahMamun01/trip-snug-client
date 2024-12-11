@@ -39,6 +39,7 @@ export default function ContactInformationCard() {
           </div>
         </div>
       </CardBody>
+      
     </Card>
   )
 }

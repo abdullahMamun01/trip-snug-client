@@ -17,4 +17,16 @@ export type TUser = {
   };
 
 
+  export type TProfile = {
+    firstName?: string;
+    lastName?: string;
+    phone?: string;
+    address?: string;
+    image?: string;
+    city?: string; // New field
+    country?: string; // New field
+    dateOfBirth?: Date ; // New field
+    currency?:string 
+  };
+
   
