@@ -1,27 +1,26 @@
-import { loginAction } from "@/actions/auth.action";
+
+import { profileAction } from "@/actions/user.action";
 import { catchError } from "@/lib/catchError";
 import useAuth from "@/stores/auth.store";
 import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 
-const useLoginMutation = () => {
-    const router = useRouter();
-    const { login ,token } = useAuth();
-    console.log(token) 
+const useProfileMutation = () => {
+  const router = useRouter();
+  const { login } = useAuth();
+
   return useMutation({
-    mutationFn: loginAction,
+    mutationFn: profileAction,
     onSuccess: (data) => {
       toast.success(data.message, { position: "top-right" });
-      console.log(data.data)
-      login({ token: data.token, user: data.data });
-      router.push("/");
-      router.refresh();
+      login({ user: data.data });
     },
     onError: (error) => {
       catchError(error);
+      console.log(error)
     },
   });
 };
 
-export default useLoginMutation;
+export default useProfileMutation;

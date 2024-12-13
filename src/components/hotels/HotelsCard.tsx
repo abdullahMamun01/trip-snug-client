@@ -13,6 +13,7 @@ import HotelImage from "@/assests/popular-hotel.jpg";
 import { IHotel } from "@/types/hotel.types";
 import { getAmenityIcon } from "@/lib/amenities";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 
 export default function HotelsCard({ hotel }: { hotel: IHotel }) {
   const {
@@ -35,6 +36,8 @@ export default function HotelsCard({ hotel }: { hotel: IHotel }) {
   const discountedPrice = Math.floor(
     (discount.percentage / 100) * pricePerNight,
   );
+  const searhParams = useSearchParams()
+
   return (
     <Card className="w overflow-hidden rounded-sm border border-gray-200 shadow-none">
       <div className="grid md:grid-cols-[320px_1fr] ">
@@ -73,11 +76,11 @@ export default function HotelsCard({ hotel }: { hotel: IHotel }) {
             </Button>
           </div>
         </div>
-        <Link href={`/hotels/${id}`}>
+        <Link href={{pathname: `/hotels/${id}` , query:searhParams.toString()}}>
           <div className="p-4">
             <div className="flex justify-between">
               <div className="space-y-2">
-                <h3 className="text-xl font-semibold">{title}</h3>
+                <h3 className="text-xl font-semibold text-blue-500 line-clamp-1">{title}</h3>
                 <p className="text-sm">{location.address}</p>
                 {policies && (
                   <>
@@ -111,8 +114,8 @@ export default function HotelsCard({ hotel }: { hotel: IHotel }) {
                 )}
 
                 <div>
-                  <p className="text-green-600">Fully refundable</p>
-                  <p className="text-sm">Earn in OneKeyCash</p>
+                  <p className="text-orange-600">Not refundable</p>
+
                 </div>
               </div>
 

@@ -1,105 +1,73 @@
-
-import { Button } from "@nextui-org/button"
-import { Card, CardBody } from "@nextui-org/card"
-import { Info, Calendar, Check } from "lucide-react"
+"use client";
+import useAuth from "@/stores/auth.store";
+import { Button } from "@nextui-org/button";
+import { Card, CardBody } from "@nextui-org/card";
+import {
+  Info,
+  Calendar,
+  Check,
+  Link,
+  ArrowRight,
+  MoveRight,
+  User,
+  Clock,
+} from "lucide-react";
+import { useSearchParams } from "next/navigation";
 interface IPorps {
-  price: number
+  price: number;
 }
-export default function HotelPricingCard({price} : IPorps) {
+export default function HotelPricingCard({ price = 20 }: IPorps) {
+  const { user } = useAuth();
+  const queryParams = useSearchParams();
+  const adults = queryParams.get("adults");
+  const children = queryParams.get("children");
+
   return (
-    <Card className="sticky top-20 my-10">
-      <CardBody className="p-6">
-        <div className="space-y-6">
-          {/* OneKeyCash Promo */}
-          <div className="bg-navy-900 text-white p-4 rounded-xl">
-     
-            <Button color="primary" className="w-full mt-1">
-              Sign in
-            </Button>
+    <div className="sticky top-10 w-full border-l p-4 lg:w-[400px] lg:p-6">
+      <Card>
+        <CardBody className="p-6">
+          <div className="mb-6 flex items-center gap-2">
+            <h2 className="text-lg font-semibold">Business Suite</h2>
           </div>
-
-          {/* Pricing */}
-          <div>
-            <div className="flex items-baseline gap-2 mb-4">
-              <span className="text-3xl font-bold">${price}</span>
-              <span className="text-gray-600">per night</span>
-            </div>
-
-            <div className="mb-4">
-              <div className="flex items-center gap-1 text-green-600 mb-1">
-                <span className="font-medium">Fully refundable</span>
-                <Info className="w-4 h-4" />
-              </div>
-              <span className="text-sm text-gray-600">Before Fri, Nov 8</span>
-            </div>
-
-            <div className="flex items-center gap-1 text-green-600 mb-4">
-              <Check className="w-4 h-4" />
-              <span>Your dates are available</span>
-            </div>
-
-            <div className="grid grid-cols-2 gap-2 mb-6">
-              <div className="border rounded-lg p-3">
-                <div className="text-sm text-gray-600 mb-1">Start date</div>
-                <div className="flex items-center gap-2">
-                  <Calendar className="w-4 h-4 text-gray-500" />
-                  <span>Nov 22</span>
-                </div>
-              </div>
-              <div className="border rounded-lg p-3">
-                <div className="text-sm text-gray-600 mb-1">End date</div>
-                <div className="flex items-center gap-2">
-                  <Calendar className="w-4 h-4 text-gray-500" />
-                  <span>Nov 24</span>
-                </div>
-              </div>
-            </div>
-
-            <div className="space-y-3 border-t pt-4">
-              <div className="flex justify-between">
+          <div className="space-y-6 border-t py-3">
+            <div className="flex items-center gap-2 text-gray-600">
+              <Calendar className="h-5 w-5" />
+              <div>
                 <div>
-                  <div>2 nights</div>
-                  <div className="text-sm text-gray-600">$457 per night</div>
+                  December 13, 2024 <ArrowRight className="inline h-4 w-4" />{" "}
+                  December 14, 2024
                 </div>
-                <span>$914</span>
-              </div>
-              <div className="flex justify-between items-center">
-                <div className="flex items-center gap-1">
-                  <span>Taxes & fees</span>
-                  <Info className="w-4 h-4" />
-                </div>
-                <span>$135</span>
-              </div>
-              <div className="flex justify-between items-center">
-                <div className="flex items-center gap-1">
-                  <span>Service fee</span>
-                  <Info className="w-4 h-4" />
-                </div>
-                <span>$168</span>
-              </div>
-              <div className="flex justify-between">
-                <span>Host fee</span>
-                <span>$265</span>
-              </div>
-              <div className="flex justify-between pt-3 border-t font-semibold">
-                <span>Total</span>
-                <span>$1,482</span>
+                <div className="text-sm">1 night</div>
               </div>
             </div>
 
-            <Button 
-              color="primary" 
-              className="w-full bg-blue-600 hover:bg-blue-700"
-              size="lg"
-            >
-              Reserve
-            </Button>
-            <div className="text-center text-sm text-gray-600 mt-2">
-              You will not be charged yet
+            <div className="flex items-center gap-2 border-t py-3 text-gray-600 ">
+              <User className="h-5 w-5" />
+              {adults && <span>{adults} adult</span>}
+              {children && <span>{children} children</span>}
             </div>
+            <div className="space-y-2 text-sm text-gray-600 ">
+              <div className="flex items-center justify-between">
+                <span className="text-gray-600 uppercase"> Per Night</span>
+                <span className="font-semibold">201,48$</span>
+              </div>
+            </div>
+            <div className="border-t pt-4">
+              <div className="mb-1 flex items-center justify-between">
+                <span className="font-semibold">TOTAL</span>
+                <span className="text-xl font-bold">237,74$</span>
+              </div>
+              <div className="text-right text-sm text-gray-500">
+                i.e. 20176,82$
+              </div>
+            </div>
+
+            <Button className="w-full bg-blue-700 text-gray-50 hover:bg-blue-600">
+              Continue
+            </Button>
           </div>
-        </div>
-      </CardBody>
-    </Card>
-  )
+        </CardBody>
+      </Card>
+    </div>
+  );
 }

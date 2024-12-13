@@ -8,9 +8,10 @@ import HotelOverView from "./HotelOverView";
 import { useQuery } from "@tanstack/react-query";
 import { fetchHotel } from "@/services/hotel.service";
 import Loader from "@/components/Dashboard/common/Loader";
+import RoomList from "@/components/rooms/RoomList";
 
 export default function HotelDetails({ hotelId }: { hotelId: string }) {
-  const { data, isLoading, isError } = useQuery({
+  const { data, isLoading } = useQuery({
     queryKey: ["hotels", hotelId],
     queryFn: async () => await fetchHotel(hotelId),
   });
@@ -20,23 +21,28 @@ export default function HotelDetails({ hotelId }: { hotelId: string }) {
   }
 
   return (
-    <div>
+    <>
       <HotelImages images={data?.images as string[]} />
-      <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
-        <div className="col-span-1 md:col-span-2">
-          <HotelOverView
-            title={data?.title as string}
-            description={data?.description as string}
-            rating={data?.rating as number}
-            amenities={data?.amenities as string[]}
-          />
-          <HotelDescription description={data?.description as string} />
-          {/* <ReviewList /> */}
+      <div className="grid grid-cols-12 gap-4">
+        <div className="col-span-8">
+          <div className="">
+            <HotelOverView
+              title={data?.title as string}
+              description={data?.description as string}
+              rating={data?.rating as number}
+              amenities={data?.amenities as string[]}
+            />
+            <HotelDescription description={data?.description as string} />
+          </div>
+
+          <div>
+            <RoomList hotelId={hotelId} />
+          </div>
         </div>
-        <div className="col-span-1">
-          <HotelPricingCard price={data?.pricePerNight as number}/>
+        <div className="col-span-4">
+          <HotelPricingCard price={18}/>
         </div>
       </div>
-    </div>
+    </>
   );
 }

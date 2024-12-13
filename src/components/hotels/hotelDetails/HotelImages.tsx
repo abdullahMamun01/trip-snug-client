@@ -14,7 +14,7 @@ import convertImagesToPhotos from "@/lib/convertImagesToPhotos";
 export default function HotelImages({ images }: { images: string[] }) {
   const [index, setIndex] = useState(-1);
   return (
-    <div className="mb-8 grid grid-cols-4 gap-2">
+    <div className="mb-8 grid grid-cols-4 gap-2 py-4">
       <div className="col-span-2 row-span-2">
         <Image
           src={images[0]}

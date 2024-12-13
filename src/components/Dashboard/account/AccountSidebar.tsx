@@ -1,5 +1,5 @@
 'use client'
-import React from "react";
+import React, { useEffect } from "react";
 
 import {
   UserCircle,
@@ -11,11 +11,12 @@ import {
   Lock,
   Book,
 } from "lucide-react";
-import { Button } from "@nextui-org/button";
+
 import Link from "next/link";
-import { Avatar } from "@nextui-org/avatar";
+
 import { Card } from "@nextui-org/card";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
+
 
 const navItems = [
   {
@@ -40,6 +41,7 @@ const navItems = [
 
 export function AccountSidebar() {
   const pathname = usePathname();
+
   const getIcon = (icon: string) => {
     switch (icon) {
       case "user":
@@ -52,6 +54,7 @@ export function AccountSidebar() {
         return null;
     }
   };
+
 
   return (
     <nav className="space-y-2">
@@ -92,7 +95,12 @@ export function AccountSidebar() {
           return (
             <Link
               key={item.href}
-              href={item.href}
+              href={{
+                pathname: item.href ,
+              
+              }}
+              prefetch={true}
+              
               className={`flex items-center gap-3 ${
                 isActive
                   ? "bg-blue-50 font-medium text-blue-600"

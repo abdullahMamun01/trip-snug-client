@@ -14,8 +14,9 @@ import {
   LogOut,
 } from "lucide-react";
 import { Button } from "@nextui-org/button";
-import useAuth from "@/stores/hotels/auth.store";
+import useAuth from "@/stores/auth.store";
 import { logoutAction } from "@/actions/auth.action";
+import Link from "next/link";
 
 export default function UserNav() {
   const [isOpen, setIsOpen] = useState(false);
@@ -61,13 +62,15 @@ export default function UserNav() {
         </PopoverTrigger>
         <PopoverContent>
           <div className="flex w-56 flex-col px-1 py-2">
-            <Button
-              variant="light"
-              className="flex h-12 items-center justify-start gap-3 rounded-none px-4  hover:bg-gray-100"
-              startContent={<User className="h-4 w-4" />}
-            >
-              My account
-            </Button>
+            <Link href="/account">
+              <Button
+                variant="light"
+                className="flex h-12 items-center justify-start gap-3 rounded-none px-4  hover:bg-gray-100"
+                startContent={<User className="h-4 w-4" />}
+              >
+                My account
+              </Button>
+            </Link>
             <Button
               variant="light"
               className="flex h-12 items-center justify-start gap-3 rounded-none px-4 hover:bg-gray-100"

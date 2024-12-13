@@ -35,7 +35,7 @@ const hotelSearchSchema = z.object({
   checkIn: z.string().nonempty("Check-in date is required"),
   checkOut: z.string().nonempty("Check-out date is required"),
   adults: z.number().int().positive().min(1, "At least 1 adult is required"),
-  children: z.number().int().nonnegative(),
+  children: z.number().int().nonnegative().optional(),
 });
 
 type HotelSearchFormValues = z.infer<typeof hotelSearchSchema>;
@@ -66,7 +66,7 @@ export default function HotelSearchForm() {
       checkIn: data.checkIn,
       checkOut: data.checkOut,
       adults: data.adults.toString(),
-      children: data.children.toString(),
+      // children: data.children.toString(),
     });
 
     router.push(`/hotels?${params.toString()}`);
@@ -97,9 +97,9 @@ export default function HotelSearchForm() {
           inputWrapper:"bg-sky-100 text-black shadow-none h-unit-10"
         }}
         placeholder="location"/>
-        {errors.adults && (
-          <p className="text-red-500">{errors.adults.message}</p>
-        )}
+        {/* {errors.adults && (
+          <p className="text-red-500">{errors.checkIn.message}</p>
+        )} */}
       </div>
       <div className="h-8 w-px bg-default-200" />
 

@@ -3,8 +3,8 @@ import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
 
 interface AuthData {
-  user: TUser | null;
-  token: string | null;
+  user?: TUser | null;
+  token?: string | null;
 }
 
 interface AuthState extends AuthData {
@@ -26,5 +26,7 @@ const useAuth = create<AuthState>()(
     },
   ),
 );
+
+
 
 export default useAuth;

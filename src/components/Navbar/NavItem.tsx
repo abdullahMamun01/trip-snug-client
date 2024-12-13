@@ -11,7 +11,7 @@ import React from "react";
 import ToggleDark from "./ToggleDark";
 import UserNav from "../user/UserNav";
 import { User } from "lucide-react";
-import useAuth from "@/stores/hotels/auth.store";
+import useAuth from "@/stores/auth.store";
 
 export default function NavItem() {
   const { token } = useAuth();
@@ -34,7 +34,7 @@ export default function NavItem() {
         {[
           "Home",
           "About",
-          "Rooms",
+          "Hotels",
           "Restaurant",
           "Blog",
           "Shop",
@@ -43,7 +43,7 @@ export default function NavItem() {
           <NavbarItem key={item}>
             <Link
               className="text-md font-medium text-default-600 transition-colors hover:text-default-900"
-              href="#"
+              href={`/${item.toLowerCase()}`}
             >
               {item}
             </Link>

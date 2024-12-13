@@ -11,9 +11,11 @@ import {
   useDisclosure,
 } from "@nextui-org/modal";
 import ProfileForm from "@/components/form/auth/ProfileForm";
+import useAuth from "@/stores/auth.store";
 
 export default function BasicInformationCard() {
-  const { isOpen, onOpenChange,onOpen,onClose } = useDisclosure();
+  const { isOpen, onOpenChange, onOpen, onClose } = useDisclosure();
+  const { user } = useAuth();
   return (
     <Card className="rounded-sm p-3 shadow-sm">
       <CardHeader className="flex justify-between">
@@ -32,11 +34,13 @@ export default function BasicInformationCard() {
       </CardHeader>
       {/* edit profile modal */}
       <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
-        <ModalContent >
+        <ModalContent>
           {(onclose) => (
-            <ModalBody >
-              <ModalHeader className="flex flex-col gap-1">Edit Basic Information</ModalHeader>
-              <ProfileForm  onClose={onClose}/>
+            <ModalBody>
+              <ModalHeader className="flex flex-col gap-1">
+                Edit Basic Information
+              </ModalHeader>
+              <ProfileForm onClose={onClose} />
             </ModalBody>
           )}
         </ModalContent>
@@ -49,36 +53,39 @@ export default function BasicInformationCard() {
         <div className="grid gap-4 md:grid-cols-2">
           <div>
             <h3 className="font-medium text-blue-600">Name</h3>
-            <p className="text-default-500">Md Abdullah Mamun</p>
+            <p className="text-default-500">
+              {user?.firstName} {user?.lastName}
+            </p>
           </div>
           <div></div>
           <div>
             <h3 className="font-medium text-blue-600">Date of birth</h3>
-            <p className="text-default-500">Not provided</p>
+            <p className="text-default-500">{`${user?.dateOfBirth || "Not provided"}`}</p>
           </div>
           <div>
             <h3 className="font-medium text-blue-600">Gender</h3>
-            <p className="text-default-500">Not provided</p>
+            <p className="text-default-500">{`${user?.gender || "Not provided"}`}</p>
           </div>
           <div>
             <h3 className="font-medium text-blue-600">Address</h3>
-            <p className="text-default-500">Not provided</p>
+            <p className="text-default-500">{`${user?.address || "Not provided"}`}</p>
           </div>
           <div>
             <h3 className="font-medium text-blue-600">Currency</h3>
-            <p className="text-default-500">Not provided</p>
+            <p className="text-default-500">{`${user?.currency || "Not provided"}`}</p>
+          </div>
+
+          <div>
+            <h3 className="font-medium text-blue-600">Country</h3>
+            <p className="text-default-500">{`${user?.country || "Not provided"}`}</p>
           </div>
           <div>
             <h3 className="font-medium text-blue-600">City</h3>
-            <p className="text-default-500">Not provided</p>
-          </div>
-          <div>
-            <h3 className="font-medium text-blue-600">Country</h3>
-            <p className="text-default-500">Not provided</p>
+            <p className="text-default-500">{`${user?.city || "Not provided"}`}</p>
           </div>
           <div>
             <h3 className="font-medium text-blue-600">Phone</h3>
-            <p className="text-default-500">Not provided</p>
+            <p className="text-default-500">{`${user?.phone || "Not provided"}`}</p>
           </div>
         </div>
       </CardBody>

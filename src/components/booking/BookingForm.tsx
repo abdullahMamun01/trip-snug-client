@@ -5,17 +5,16 @@ import { Divider } from "@nextui-org/divider";
 import { Button } from "@nextui-org/button";
 import SpecialRequestsInput from "./SpecialRequestsInput";
 import { useState } from "react";
+import { FaRegCreditCard } from "react-icons/fa";
+import { DollarSign } from "lucide-react";
 
 const hotels = [
   { id: 1, name: "Luxury Resort & Spa", price: 299 },
   { id: 2, name: "Beachfront Paradise", price: 399 },
 ];
 
-const roomTypes = [
-  { label: "Standard Room", value: "standard" },
-  { label: "Deluxe Room", value: "deluxe" },
-  { label: "Suite", value: "suite" },
-  { label: "Executive Suite", value: "executive" },
+const currecnies = [
+  'usd' , "bdt" , "eur"
 ];
 
 export default function BookingForm() {
@@ -23,65 +22,43 @@ export default function BookingForm() {
   return (
     <div className="flex flex-col gap-6 py-4">
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-        <Select
-          label="Select Hotel"
-          placeholder="Choose a hotel"
-          className="w-full"
-        >
-          {hotels.map((hotel) => (
-            <SelectItem key={hotel.id} value={hotel.id}>
-              {hotel.name}
-            </SelectItem>
-          ))}
-        </Select>
-        <Select
+        <Input variant="faded" placeholder="hotel name" label="Hotel Name" />
+        <Input
+          variant="faded"
+          value="deluxes"
+          readOnly={false}
+          placeholder="Room Type"
           label="Room Type"
-          placeholder="Select room type"
+        />
+      </div>
+      <div>
+        <Select
+          label="Currecncy Type"
+          placeholder="Select currency"
           className="w-full"
+          
         >
-          {roomTypes.map((type) => (
-            <SelectItem key={type.value} value={type.value}>
-              {type.label}
+          {currecnies.map((currency) => (
+            <SelectItem key={currency} value={currency} >
+
+            {currency}
             </SelectItem>
           ))}
         </Select>
       </div>
-
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
         <Input type="date" label="Check-in Date" className="w-full" />
         <Input type="date" label="Check-out Date" className="w-full" />
       </div>
-
-      <Select
-        label="Number of Guests"
-        placeholder="Select number of guests"
-        className="w-full"
-        value={selectedGuests}
-        onChange={(e) => setSelectedGuests(e.target.value)}
-      >
-        {["1", "2", "3", "4"].map((num) => (
-          <SelectItem key={num} value={num}>
-            {num} {num === "1" ? "Guest" : "Guests"}
-          </SelectItem>
-        ))}
-      </Select>
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+        <label className="col-span-2">Guest Details</label>
+        <Input type="number" label="Adults" className="w-full" />
+        <Input type="number" label="Children" className="w-full" />
+      </div>
 
       <Divider className="my-4" />
-
-      <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-        <Input type="text" label="First Name" className="w-full" />
-        <Input type="text" label="Last Name" className="w-full" />
-      </div>
-
-      <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-        <Input type="email" label="Email" className="w-full" />
-        <Input type="tel" label="Phone Number" className="w-full" />
-      </div>
-
-      <SpecialRequestsInput />
-
       <Button color="primary" size="lg" className="w-full">
-        Continue to Payment
+        <FaRegCreditCard className="h-6 w-6" /> Continue to Payment
       </Button>
     </div>
   );
