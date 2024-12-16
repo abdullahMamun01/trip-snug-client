@@ -1,11 +1,41 @@
 "use client";
-
 import { getAmenityIcon } from "@/lib/amenities";
+import useBookingStore from "@/stores/booking.store";
+import { IHotel } from "@/types/hotel.types";
 import { IRoom } from "@/types/room.types";
 import { Button } from "@nextui-org/button";
+import { useQueryClient } from "@tanstack/react-query";
 import { InfoIcon, Wifi, Coffee, Tv, Bath } from "lucide-react";
+import { useParams, useSearchParams } from "next/navigation";
 
 export default function RoomCard({ room }: { room: IRoom }) {
+  const { saveBooking } = useBookingStore();
+  const { hotelId } = useParams();
+  const queryParams = useSearchParams();
+  const queryClient = useQueryClient();
+  const hotel = queryClient.getQueryData(["hotels", hotelId]) as IHotel;
+  const checkIn = queryParams.get("checkIn");
+  const checkOut = queryParams.get("checkOut");
+  const adults = queryParams.get('adults')
+  const children = queryParams.get('children')
+
+  const handleBooking = () => {
+    saveBooking({
+      hotelName: hotel.title,
+      roomType: room.roomType,
+      roomName: room.title ,
+      guest: {
+        adults: adults ? Number(adults) : 0,
+        children: children? Number(children) : 0,
+      },
+      checkIn: checkIn as string,
+      checkOut: checkOut as string,
+      totalPrice: room.totalPrice,
+      pricePerNight: room.pricePerNight,
+      hotel: hotelId as string,
+      room: room.id,
+    });
+  };
   return (
     <div className="flex flex-col gap-4 rounded-lg border bg-white p-6 shadow-sm transition-shadow hover:shadow-md">
       <div className="flex flex-col justify-between gap-4 md:flex-row">
@@ -20,10 +50,6 @@ export default function RoomCard({ room }: { room: IRoom }) {
                   key={index}
                   className="flex items-center gap-1 text-xs text-gray-600"
                 >
-                  {amenity === "Wifi" && <Wifi size={14} />}
-                  {amenity === "Breakfast" && <Coffee size={14} />}
-                  {amenity === "TV" && <Tv size={14} />}
-                  {amenity === "Private bathroom" && <Bath size={14} />}
                   {amenity}
                   {getAmenityIcon(amenity)}
                 </span>
@@ -68,11 +94,11 @@ export default function RoomCard({ room }: { room: IRoom }) {
           </div>
 
           {room.status === "soldout" ? (
-            <div className="rounded-md bg-red-100 px-2 text-center py-2 font-semibold text-red-800">
+            <div className="rounded-md bg-red-100 px-2 py-2 text-center font-semibold text-red-800">
               Sold Out
             </div>
           ) : (
-            <Button className="mt-2 rounded bg-blue-600 px-4 py-2 text-sm text-white transition-colors hover:bg-blue-700">
+            <Button onClick={handleBooking} className="mt-2 rounded bg-blue-600 px-4 py-2 text-sm text-white transition-colors hover:bg-blue-700">
               Reserve
             </Button>
           )}

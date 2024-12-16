@@ -1,109 +1,93 @@
-'use client'
+"use client";
+import { useState } from "react";
+import { Button } from "@nextui-org/button";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableColumn,
+  TableHeader,
+  TableRow,
+} from "@nextui-org/table";
 
-import { useEffect, useState } from "react"
-import Image from "next/image"
-import { Button } from "@nextui-org/button"
-import { Table, TableBody, TableCell, TableColumn, TableHeader, TableRow } from "@nextui-org/table"
-import { Avatar } from "@nextui-org/avatar"
+import useAuth from "@/stores/auth.store";
+import { useQuery } from "@tanstack/react-query";
+import { myBookings } from "@/services/bookint.service";
+import Loader from "../Dashboard/common/Loader";
+import { bookingStatus, isTimeOver } from "@/lib/date";
+import ReviewHotelForm from "../form/ReviewHotelForm";
+import {
+  Modal,
+  ModalBody,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  useDisclosure,
+} from "@nextui-org/modal";
 
-interface Booking {
-  id: number
-  roomName: string
-  unitPrice: number
-  price: number
-  discount: number
-  daysBooked: number
-  daysLeft: number
-  checkIn: string
-  image: string
-}
+const getStatusStyles = (status: string) => {
+  switch (status) {
+    case "upcoming":
+      return "bg-blue-100 text-blue-800";
+    case "running":
+      return "bg-green-100 text-green-800";
+    case "completed":
+      return "bg-gray-100 text-gray-800";
+  }
+};
 
-interface TimeLeft {
-  [key: number]: string
-}
-
-
-const bookings: Booking[] = [
-    {
-      id: 1,
-      roomName: "Executive Room",
-      unitPrice: 200,
-      price: 184,
-      discount: 8,
-      daysBooked: 1,
-      daysLeft: 5,
-      checkIn: "2024-02-20",
-      image: "/placeholder.svg?height=32&width=32"
-    },
-    {
-      id: 2,
-      roomName: "Luxury Villa",
-      unitPrice: 500,
-      price: 400,
-      discount: 20,
-      daysBooked: 1,
-      daysLeft: 12,
-      checkIn: "2024-03-01",
-      image: "/placeholder.svg?height=32&width=32"
-    },
-    {
-      id: 3,
-      roomName: "Deluxe Suite",
-      unitPrice: 100,
-      price: 552,
-      discount: 8,
-      daysBooked: 6,
-      daysLeft: 0,
-      checkIn: "2024-01-15",
-      image: "/placeholder.svg?height=32&width=32"
-    }
-  ]
 export default function BookingList() {
-  const [activeTab, setActiveTab] = useState<string>("bookings")
-  const [timeLeft, setTimeLeft] = useState<TimeLeft>({})
+  const { isOpen, onOpen, onOpenChange,onClose } = useDisclosure();
+  const [hotelId , setHotelId] = useState('')
+  const { token, user } = useAuth();
 
+  const { data, isLoading } = useQuery({
+    queryKey: ["bookings", user?.id],
+    queryFn: async () => await myBookings(token as string),
+  });
 
+  if (isLoading) {
+    return <Loader />;
+  }
+  const bookings = data?.data || [];
 
-  useEffect(() => {
-    const calculateTimeLeft = () => {
-      const times: TimeLeft = {}
-      bookings.forEach(booking => {
-        const difference = new Date(booking.checkIn).getTime() - new Date().getTime()
-        if (difference > 0) {
-          const days = Math.floor(difference / (1000 * 60 * 60 * 24))
-          const hours = Math.floor((difference / (1000 * 60 * 60)) % 24)
-          const minutes = Math.floor((difference / 1000 / 60) % 60)
-          times[booking.id] = `${days}d ${hours}h ${minutes}m`
-        }
-      })
-      setTimeLeft(times)
-    }
-
-    const timer = setInterval(calculateTimeLeft, 60000)
-    calculateTimeLeft()
-
-    return () => clearInterval(timer)
-  }, [bookings])
-
-  const totalSpent = bookings.reduce((sum, booking) => sum + booking.price, 0)
+  const handleReviewModal = (hotelId:string) => {
+    setHotelId(hotelId)
+    onOpen()
+  }
+  
 
   return (
-    <div className="max-w-7xl mx-auto p-6">
+    <div className="mx-auto max-w-7xl p-6">
       <div className="flex flex-col gap-6">
         <div className="flex items-center justify-between">
           <div>
             <h1 className="text-2xl font-bold text-primary">Booking History</h1>
-            
           </div>
           <Button color="primary">Book New Room</Button>
         </div>
 
+      {/* user reivew modal */}
+        <Modal isOpen={isOpen} onClose={onClose} size="2xl">
+          <ModalContent>
+            {(onClose) => (
+              <>
+                <ModalHeader className="flex flex-col gap-1">
+                  Write a Review 
+                </ModalHeader>
+                <ModalBody>
+                  <ReviewHotelForm onClose={onClose} hotelId={hotelId}/>
+                </ModalBody>
+              </>
+            )}
+          </ModalContent>
+        </Modal>
+
         <Table aria-label="Bookings table" className="mt-4">
           <TableHeader>
             <TableColumn>ROOM NAME</TableColumn>
-            <TableColumn>UNIT PRICE</TableColumn>
+            <TableColumn>PER NIGHT</TableColumn>
             <TableColumn>PRICE</TableColumn>
-            <TableColumn>DISCOUNT</TableColumn>
             <TableColumn>NO. DAYS BOOKED</TableColumn>
             <TableColumn>TIME UNTIL CHECK-IN</TableColumn>
             <TableColumn>ACTIONS</TableColumn>
@@ -111,31 +95,30 @@ export default function BookingList() {
           <TableBody>
             {bookings.map((booking) => (
               <TableRow key={booking.id}>
-                <TableCell>
-                  <Avatar
-                    name={booking.roomName}
-                  />
-                </TableCell>
-                <TableCell>${booking.unitPrice}</TableCell>
-                <TableCell>${booking.price}</TableCell>
-                <TableCell>${booking.discount}</TableCell>
-                <TableCell>{booking.daysBooked}</TableCell>
-                <TableCell>
-                  {timeLeft[booking.id] ? (
-                    <div className="text-primary font-medium">{timeLeft[booking.id]}</div>
-                  ) : (
-                    <span className="text-default-400">Completed</span>
-                  )}
+                <TableCell>{booking.room.title}</TableCell>
+                <TableCell>${booking.totalPrice}</TableCell>
+                <TableCell>${booking.totalPrice}</TableCell>
+                <TableCell className="text-center">
+                  {booking.duration}
                 </TableCell>
                 <TableCell>
-                  <Button
-                    size="sm"
-                    color="primary"
-                    variant="flat"
-                    disabled={!timeLeft[booking.id]}
+                  <span
+                    className={`rounded-md p-0.5 px-1 text-default-400 ${getStatusStyles(bookingStatus(booking.checkInDate, booking.checkOutDate))}`}
                   >
-                    {timeLeft[booking.id] ? "Cancel" : "Rate"}
-                  </Button>
+                    {bookingStatus(booking.checkInDate, booking.checkOutDate)}
+                  </span>
+                </TableCell>
+                <TableCell>
+                  {bookingStatus(booking.checkInDate, booking.checkOutDate) ===
+                  "upcoming" ? (
+                    <Button size="sm" color="primary" variant="flat">
+                      cancel
+                    </Button>
+                  ) : (
+                    <Button onClick={() => handleReviewModal(booking.hotel)} size="sm" color="primary" variant="flat">
+                      review
+                    </Button>
+                  )}
                 </TableCell>
               </TableRow>
             ))}
@@ -143,5 +126,5 @@ export default function BookingList() {
         </Table>
       </div>
     </div>
-  )
+  );
 }

@@ -7,7 +7,7 @@ import { jwtDecode } from "jwt-decode";
 const loginAction = async (payload: TLoginType) => {
   const response = await loginUser(payload);
   const cookieStore = await cookies();
-  cookieStore.set("accessToken", response.token, { maxAge: 60 * 60 * 24 * 7 });
+  cookieStore.set("accessToken", response.token, { maxAge: 60 * 60 * 24 * 7  ,httpOnly:true});
   return response;
 };
 

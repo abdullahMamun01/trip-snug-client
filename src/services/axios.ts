@@ -1,4 +1,5 @@
 
+import { getCurrentUser } from "@/actions/auth.action";
 import axios, { AxiosError } from "axios";
 
 const apiClient = axios.create({
@@ -9,16 +10,28 @@ const apiClient = axios.create({
   },
 });
 
+
+
 apiClient.interceptors.response.use(
-  (response) => response, // Successful response
+
+  async (response) => {
+    const {token} = await getCurrentUser() || {}
+    if(token){
+
+      response.headers.Authorization = `Bearer ${token}`;
+    }
+    return response
+  }, // Successful response
   (error) => {
+
+    console.log(error.response.data)
     if (error instanceof AxiosError) {
       const errorMessage = error.response?.data?.message;
-      console.log(errorMessage , ' from axios error')
+
       throw new Error(errorMessage);
     }else {
       const errorMessage  = error.response.data
-      console.log(errorMessage , ' from withour axios error')
+      // console.log(errorMessage)
       throw new Error(errorMessage);
     }
   }

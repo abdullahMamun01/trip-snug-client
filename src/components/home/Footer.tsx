@@ -19,13 +19,7 @@ export default function Footer() {
         <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-4">
           {/* Logo and Description */}
           <div className="space-y-6">
-            <Image
-              src="/placeholder.svg?height=40&width=120"
-              alt="Trizen Logo"
-              width={120}
-              height={40}
-              className="mb-4"
-            />
+            <h1 className="uppercase font-bold text-2xl">Trip-<span className="text-blue-500">Snug</span></h1>
             <p className="leading-relaxed text-gray-600">
               Morbi convallis bibendum urna ut viverra. Maecenas consequat
             </p>

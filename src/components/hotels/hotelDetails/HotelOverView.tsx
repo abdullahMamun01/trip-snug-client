@@ -16,6 +16,7 @@ import {
 import { Tab, Tabs } from "@nextui-org/tabs";
 import { Button } from "@nextui-org/button";
 import { getAmenityIcon } from "@/lib/amenities";
+import ReviewList from "../../review/ReviewList";
 interface IPorps {
   title: string;
   rating: number;
@@ -94,7 +95,6 @@ export default function HotelOverView({
                 <div className="flex items-center gap-2">
                   <span className="text-gray-700">Parking available</span>
                 </div>
-                
               </div>
               <Button className="mt-4" variant="light" color="primary">
                 See all property amenities
@@ -134,8 +134,11 @@ export default function HotelOverView({
             </div> */}
           </div>
         </Tab>
-        <Tab key="amenities" title="Amenities" />
-        <Tab key="policies" title="Policies" />
+        <Tab key="amenities" title="Amenities">
+        </Tab>
+        <Tab key="policies" title="Reviews">
+          <ReviewList />
+        </Tab>
       </Tabs>
     </div>
   );

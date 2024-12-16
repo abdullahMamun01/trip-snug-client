@@ -1,70 +1,91 @@
 "use client";
+import getDateWithOffset, {
+  calculateDayDifference,
+  formatDate,
+} from "@/lib/date";
 import useAuth from "@/stores/auth.store";
+import useBookingStore from "@/stores/booking.store";
 import { Button } from "@nextui-org/button";
 import { Card, CardBody } from "@nextui-org/card";
-import {
-  Info,
-  Calendar,
-  Check,
-  Link,
-  ArrowRight,
-  MoveRight,
-  User,
-  Clock,
-} from "lucide-react";
+import { Calendar, ArrowRight, User } from "lucide-react";
+import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 interface IPorps {
   price: number;
 }
+
 export default function HotelPricingCard({ price = 20 }: IPorps) {
   const { user } = useAuth();
+  const { booking } = useBookingStore();
   const queryParams = useSearchParams();
-  const adults = queryParams.get("adults");
-  const children = queryParams.get("children");
-
+  const checkIn = new Date(queryParams.get("checkIn") as string);
+  const checkOut = new Date(queryParams.get("checkOut") as string);
   return (
     <div className="sticky top-10 w-full border-l p-4 lg:w-[400px] lg:p-6">
       <Card>
         <CardBody className="p-6">
           <div className="mb-6 flex items-center gap-2">
-            <h2 className="text-lg font-semibold">Business Suite</h2>
+            {booking && (
+              <h2 className="line-clamp-1 text-lg font-semibold text-blue-500">
+                {booking.roomName}{" "}
+                <span className="text-sm text-orange-500">
+                  ({booking.roomType})
+                </span>
+              </h2>
+            )}
           </div>
           <div className="space-y-6 border-t py-3">
             <div className="flex items-center gap-2 text-gray-600">
               <Calendar className="h-5 w-5" />
               <div>
                 <div>
-                  December 13, 2024 <ArrowRight className="inline h-4 w-4" />{" "}
-                  December 14, 2024
+                  {formatDate(checkIn)}{" "}
+                  <ArrowRight className="inline h-4 w-4" />{" "}
+                  {formatDate(checkOut)}
                 </div>
-                <div className="text-sm">1 night</div>
+                <div className="text-sm">
+                  {calculateDayDifference(checkIn, checkOut)} night
+                </div>
               </div>
             </div>
 
-            <div className="flex items-center gap-2 border-t py-3 text-gray-600 ">
-              <User className="h-5 w-5" />
-              {adults && <span>{adults} adult</span>}
-              {children && <span>{children} children</span>}
-            </div>
-            <div className="space-y-2 text-sm text-gray-600 ">
-              <div className="flex items-center justify-between">
-                <span className="text-gray-600 uppercase"> Per Night</span>
-                <span className="font-semibold">201,48$</span>
-              </div>
-            </div>
-            <div className="border-t pt-4">
-              <div className="mb-1 flex items-center justify-between">
-                <span className="font-semibold">TOTAL</span>
-                <span className="text-xl font-bold">237,74$</span>
-              </div>
-              <div className="text-right text-sm text-gray-500">
+            {booking && (
+              <>
+                <div className="flex items-center gap-2 border-t py-3 text-gray-600 ">
+                  <User className="h-5 w-5" />
+                  {booking?.guest?.adults && (
+                    <span>{booking.guest.adults} adult</span>
+                  )}
+                  {booking?.guest?.children && (
+                    <span>{booking?.guest.children} children</span>
+                  )}
+                </div>
+                <div className="space-y-2 text-sm text-gray-600 ">
+                  <div className="flex items-center justify-between">
+                    <span className="uppercase text-gray-600"> Per Night</span>
+                    <span className="font-semibold">
+                      {booking?.pricePerNight}$
+                    </span>
+                  </div>
+                </div>
+                <div className="border-t pt-4">
+                  <div className="mb-1 flex items-center justify-between">
+                    <span className="font-semibold">TOTAL</span>
+                    <span className="text-xl font-bold">
+                      {booking?.totalPrice}$
+                    </span>
+                  </div>
+                  {/* <div className="text-right text-sm text-gray-500">
                 i.e. 20176,82$
-              </div>
-            </div>
-
-            <Button className="w-full bg-blue-700 text-gray-50 hover:bg-blue-600">
-              Continue
-            </Button>
+              </div> */}
+                </div>
+                <Link href='/booking'>
+                  <Button className="w-full bg-blue-700 text-gray-50 hover:bg-blue-600">
+                    Continue
+                  </Button>
+                </Link>
+              </>
+            )}
           </div>
         </CardBody>
       </Card>

@@ -60,7 +60,7 @@ export default function BasicInformationCard() {
           <div></div>
           <div>
             <h3 className="font-medium text-blue-600">Date of birth</h3>
-            <p className="text-default-500">{`${user?.dateOfBirth || "Not provided"}`}</p>
+            <p className="text-default-500">{`${user?.dateOfBirth  && new Date(user?.dateOfBirth as Date).toLocaleDateString()|| "Not provided"}`}</p>
           </div>
           <div>
             <h3 className="font-medium text-blue-600">Gender</h3>

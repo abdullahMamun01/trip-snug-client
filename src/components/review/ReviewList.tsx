@@ -1,11 +1,15 @@
+import { fetchHotelReviews } from "@/services/review.service";
 import { Avatar } from "@nextui-org/avatar";
 import { Button } from "@nextui-org/button";
 import { Card, CardBody } from "@nextui-org/card";
 import { Textarea } from "@nextui-org/input";
+import { useQuery } from "@tanstack/react-query";
 import { Info, MessageSquare, Star, ThumbsUp } from "lucide-react";
+import { useParams } from "next/navigation";
 import React from "react";
+import ReviewCard from "./ReviewCard";
 
-const reviews = [
+const ss = [
   {
     id: 1,
     name: "Alice Johnson",
@@ -39,11 +43,22 @@ const reviews = [
 ];
 
 export default function ReviewList() {
+  const { hotelId } = useParams();
+  const {data , isLoading } = useQuery({
+    queryKey: ["hotels", "reviews", hotelId],
+    queryFn: async () => fetchHotelReviews(hotelId as string),
+  });
+  if(isLoading){
+    return <div>loading...</div>
+  }
+
+  const reviews = data?.data || []
+
   return (
     <>
       <div>
         <h2 className="mb-4 text-xl font-semibold text-black-2">
-          Guest reviews
+          Guest reviews {hotelId}
         </h2>
         <div className="space-y-4">
           <div className="mb-4 flex items-center gap-2">
@@ -55,35 +70,7 @@ export default function ReviewList() {
             <span className="text-gray-600">{reviews.length} reviews</span>
           </div>
           {reviews.map((review) => (
-            <Card key={review.id} className="shadow-none">
-              <CardBody>
-                <div className="flex items-start gap-4">
-                  <Avatar
-                    src={review.avatar}
-                    name={review.name}
-                    className="h-10 w-10"
-                  />
-                  <div className="flex-1">
-                    <div className="flex items-center justify-between">
-                      <h3 className="font-semibold">{review.name}</h3>
-                      <p className="text-sm text-gray-600">{review.date}</p>
-                    </div>
-                    <div className="my-2">
-                      <span
-                        className={`rounded-full px-2 py-1 text-sm font-semibold ${review.ratingColor}`}
-                      >
-                        {review.rating}
-                      </span>
-                    </div>
-                    <p className="text-gray-600">{review.comment}</p>
-                    <div className="mt-2 flex items-center gap-2">
-                      <ThumbsUp className="h-4 w-4 text-gray-600" />
-                      <span className="text-sm text-gray-600">Helpful</span>
-                    </div>
-                  </div>
-                </div>
-              </CardBody>
-            </Card>
+            <ReviewCard key={review.id} hotelReview={review}/>
           ))}
           <Button variant="light" color="primary">
             See all reviews
@@ -92,7 +79,19 @@ export default function ReviewList() {
       </div>
 
       {/* Comment Box */}
-      <div>
+
+
+      {/* 
+      
+       <div className="my-2">
+                      <span
+                        className={`rounded-full px-2 py-1 text-sm font-semibold ${review.ratingColor}`}
+                      >
+                        {review.rating}
+                      </span>
+                    </div>
+      */}
+      {/* <div>
         <h2 className="mb-4 text-xl font-semibold">Leave a Review</h2>
         <Card className="shadow-sm">
           <CardBody>
@@ -135,7 +134,7 @@ export default function ReviewList() {
             </div>
           </CardBody>
         </Card>
-      </div>
+      </div> */}
     </>
   );
 }

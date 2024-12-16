@@ -10,7 +10,7 @@ export default function AccountPageLayout({
 }) {
   return (
     <div className="container mx-auto my-2 bg-gray-100 w-full">
-      <div className="grid grid-cols-12">
+      <div className="grid grid-cols-12 gap-4">
         <div className="col-span-3">
           <AccountSidebar/>
         </div>

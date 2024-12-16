@@ -292,6 +292,11 @@ const config: Config = {
         linspin: {
           "100%": { transform: "rotate(360deg)" },
         },
+        progress: {
+          '0%': { width: '0%' },
+          '50%': { width: '50%' },
+          '100%': { width: '100%' },
+        },
         easespin: {
           "12.5%": { transform: "rotate(135deg)" },
           "25%": { transform: "rotate(270deg)" },
@@ -335,6 +340,7 @@ const config: Config = {
       },
       animation: {
         linspin: "linspin 1568.2353ms linear infinite",
+        progress: 'progress 5s ease-in-out infinite',
         easespin: "easespin 5332ms cubic-bezier(0.4, 0, 0.2, 1) infinite both",
         "left-spin":
           "left-spin 1333ms cubic-bezier(0.4, 0, 0.2, 1) infinite both",

@@ -2,7 +2,7 @@
 import React from "react";
 import HotelImages from "./HotelImages";
 import HotelDescription from "./HotelDescription";
-import ReviewList from "./ReviewList";
+import ReviewList from "../../review/ReviewList";
 import HotelPricingCard from "./HotelPricingCard";
 import HotelOverView from "./HotelOverView";
 import { useQuery } from "@tanstack/react-query";
