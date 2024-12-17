@@ -31,8 +31,8 @@ apiClient.interceptors.response.use(
       throw new Error(errorMessage);
     }else {
       const errorMessage  = error.response.data
-      // console.log(errorMessage)
-      throw new Error(errorMessage);
+      console.log(errorMessage)
+      // throw new Error(errorMessage);
     }
   }
 );

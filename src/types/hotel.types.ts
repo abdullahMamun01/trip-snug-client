@@ -1,10 +1,7 @@
-interface IHotel {
-  id: string;
+export interface IHotelBase  {
   title: string;
   description: string;
   images: string[];
-  rating:number ,
-  reviews: number,
   location: {
     country: string;
     city: string;
@@ -25,13 +22,23 @@ interface IHotel {
     cancellationPolicy: string;
   };
   classification: string;
-  discount: {
+  discount?: {
     percentage: number;
     description: string;
     validUntil: string; // ISO date string
   };
   totalRooms: number
 }
+interface IHotel extends IHotelBase {
+  id: string;
+  rating:number ,
+  reviews: number,
+}
+
+
+
+
+
 
 interface PaginatedResponse {
   totalPage: number;

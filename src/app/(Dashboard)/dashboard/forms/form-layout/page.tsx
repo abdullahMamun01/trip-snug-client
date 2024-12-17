@@ -2,8 +2,9 @@ import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 
 import { Metadata } from "next";
 import DefaultLayout from "@/components/Layouts/DefaultLayout";
-import SelectGroupOne from "@/components/SelectGroup/SelectGroupOne";
+
 import Link from "next/link";
+import SelectGroupOne from "@/components/Dashboard/SelectGroup/SelectGroupOne";
 
 export const metadata: Metadata = {
   title: "Next.js Form Layout | TailAdmin - Next.js Dashboard Template",

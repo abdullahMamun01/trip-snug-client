@@ -9,7 +9,6 @@ import {
 
 const paymentAction = async (payload: IPaymentBody) => {
   const currentUser = await getCurrentUser();
-  console.log(currentUser?.token);
   const response = await sendPaymentRequest(
     payload,
     currentUser?.token as string,

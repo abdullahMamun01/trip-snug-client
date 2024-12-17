@@ -33,8 +33,8 @@ export default function HotelsCard({ hotel }: { hotel: IHotel }) {
     policies,
     discount,
   } = hotel;
-  const discountedPrice = Math.floor(
-    (discount.percentage / 100) * pricePerNight,
+  const discountedPrice = discount && Math.floor(
+    (discount?.percentage / 100) * pricePerNight,
   );
   const searhParams = useSearchParams()
 
@@ -123,7 +123,7 @@ export default function HotelsCard({ hotel }: { hotel: IHotel }) {
                 <div className="w-[300px] max-sm:hidden"></div>
                 {discount && (
                   <div className="mb-1 inline-block rounded bg-green-700 px-2 py-1 text-sm text-white">
-                    ${pricePerNight - discountedPrice} off
+                    ${discountedPrice && pricePerNight - discountedPrice} off
                   </div>
                 )}
                 {pricePerNight && (

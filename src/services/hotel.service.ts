@@ -2,9 +2,11 @@ import ApiResponse from "@/types/apiResponse.types";
 import {
   HotelPaginationResponse,
   IHotel,
-  PaginatedResponse,
+  IHotelBase as  IHotelFormData,
 } from "@/types/hotel.types";
 import fetchData from "./api.service";
+import apiClient from "./axios";
+import { setBearerToken } from "@/lib/setBearerToken";
 
 const fetchHotels = async (params: string) => {
   const hotels = await fetchData<HotelPaginationResponse>(`/hotels?${params}`);
@@ -30,4 +32,48 @@ const fetchTopRatedHotel = async () => {
   const hotels = await fetchData<IHotel[]>("/hotels/top-rated");
   return hotels;
 };
-export { fetchHotels, fetchHotel, fetchRecentHotels, fetchTopRatedHotel };
+
+const createHotel = async (
+  payload: IHotelFormData,
+  token: string,
+): Promise<ApiResponse<IHotel>> => {
+  const response = await apiClient.post(
+    "/hotels",
+    payload,
+    setBearerToken(token),
+  );
+  return response.data;
+};
+const updateHotel = async (
+  payload: Partial<IHotelFormData>,
+  hotelId: string,
+  token: string,
+): Promise<ApiResponse<IHotel>> => {
+  const response = await apiClient.patch(
+    `/hotels/${hotelId}`,
+    payload,
+    setBearerToken(token),
+  );
+  return response.data;
+};
+
+const deleteHotel = async (
+  hotelId: string,
+  token: string,
+): Promise<ApiResponse<IHotel>> => {
+  const response = await apiClient.delete(
+    `/hotels/${hotelId}`,
+    setBearerToken(token),
+  );
+  return response.data;
+};
+
+export {
+  fetchHotels,
+  fetchHotel,
+  fetchRecentHotels,
+  fetchTopRatedHotel,
+  createHotel,
+  updateHotel,
+  deleteHotel
+};
