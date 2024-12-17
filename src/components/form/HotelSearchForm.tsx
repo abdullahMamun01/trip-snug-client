@@ -7,6 +7,8 @@ import { DateRangePicker } from "@nextui-org/date-picker";
 import { Select, SelectItem } from "@nextui-org/select";
 import { Button } from "@nextui-org/button";
 import {
+  CalendarDate,
+  CalendarDateTime,
   DateValue,
   parseDate,
   parseZonedDateTime,
@@ -18,9 +20,9 @@ import useSetQueryParams from "@/hooks/useSetQueryParams";
 import { Input } from "@nextui-org/input";
 import { Locate, MapPin } from "lucide-react";
 
-type RangeValue = {
-  start: DateValue | null;
-  end: DateValue | null;
+type RangeValue<T = DateValue> = {
+  start: T | null;
+  end: T | null;
 };
 
 const formatDate = (date: DateValue) => {
@@ -72,14 +74,17 @@ export default function HotelSearchForm() {
     router.push(`/hotels?${params.toString()}`);
   };
 
-  const handleRangeChange = (value: RangeValue) => {
-    if (value.start) {
+  const handleRangeChange = (
+    value: RangeValue<CalendarDate | CalendarDateTime | ZonedDateTime> | null,
+  ) => {
+    if (value?.start) {
       setValue("checkIn", formatDate(value.start));
     }
-    if (value.end) {
+    if (value?.end) {
       setValue("checkOut", formatDate(value.end));
     }
   };
+
   const defaultDateRange: { start: DateValue; end: DateValue } = {
     start: parseDate("2024-04-01"),
     end: parseDate("2024-04-08"),
@@ -91,12 +96,16 @@ export default function HotelSearchForm() {
     >
       {/* destination */}
       <div className="flex flex-1 items-center gap-2 px-4">
-        <span className="text-sm font-medium text-default-700"><MapPin /></span>
-        <Input  className=""
-        classNames={{
-          inputWrapper:"bg-sky-100 text-black shadow-none h-unit-10"
-        }}
-        placeholder="location"/>
+        <span className="text-sm font-medium text-default-700">
+          <MapPin />
+        </span>
+        <Input
+          className=""
+          classNames={{
+            inputWrapper: "bg-sky-100 text-black shadow-none h-unit-10",
+          }}
+          placeholder="location"
+        />
         {/* {errors.adults && (
           <p className="text-red-500">{errors.checkIn.message}</p>
         )} */}
