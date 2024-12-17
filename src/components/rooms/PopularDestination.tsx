@@ -11,8 +11,7 @@ import {
   CarouselNavigation,
 } from "../ui/carousel/Carousel";
 import { fetchTopRatedHotel } from "@/services/hotel.service";
-import { Suspense } from "react";
-import HotelCardSkeleton from "../ui/skeleton/HotelSkeleton";
+
 
 export type RatingType = "Best" | "Better" | "Average" | "Poor";
 

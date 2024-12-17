@@ -310,11 +310,11 @@ function CarouselContent({
           duration: 0.2,
         } 
       }
-      // className={cn(
-      //   'flex items-center',
-      //   !disableDrag && 'cursor-grab active:cursor-grabbing',
-      //   className
-      // )}
+      className={cn(
+        'flex items-center',
+        !disableDrag && 'cursor-grab active:cursor-grabbing',
+        className
+      )}
       ref={containerRef}
     >
       {children}
@@ -330,10 +330,10 @@ type CarouselItemProps = {
 function CarouselItem({ children, className }: CarouselItemProps) {
   return (
     <motion.div
-      // className={cn(
-      //   'w-full min-w-0 shrink-0 grow-0 overflow-hidden',
-      //   className
-      // )}
+      className={cn(
+        'w-full min-w-0 shrink-0 grow-0 overflow-hidden',
+        className
+      )}
     >
       {children}
     </motion.div>
