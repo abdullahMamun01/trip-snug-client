@@ -9,6 +9,7 @@ import apiClient from "./axios";
 import { setBearerToken } from "@/lib/setBearerToken";
 
 const fetchHotels = async (params: string) => {
+  console.log(params)
   const hotels = await fetchData<HotelPaginationResponse>(`/hotels?${params}`);
   return hotels.data;
 };
@@ -45,7 +46,7 @@ const createHotel = async (
   return response.data;
 };
 const updateHotel = async (
-  payload: Partial<IHotelFormData>,
+  payload: FormData,
   hotelId: string,
   token: string,
 ): Promise<ApiResponse<IHotel>> => {

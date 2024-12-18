@@ -35,11 +35,6 @@ interface IHotel extends IHotelBase {
   reviews: number,
 }
 
-
-
-
-
-
 interface PaginatedResponse {
   totalPage: number;
   hasNextPage: number | null;
@@ -51,8 +46,12 @@ interface HotelPaginationResponse extends PaginatedResponse  {
   hotels: IHotel[]
 }
 
+interface IHotelUpdate extends IHotelBase{
+  id: string
+}
 export type {
     IHotel,
     PaginatedResponse,
-    HotelPaginationResponse
+    HotelPaginationResponse ,
+    IHotelUpdate
 }

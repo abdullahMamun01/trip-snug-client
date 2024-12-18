@@ -33,20 +33,20 @@ export default async function PopularDestination() {
   return (
     <section className="container mx-auto  py-12">
       <div className="mb-10 px-4 text-center">
-        <h2 className="text-3xl font-bold text-[#1e2022]">
+        <h2 className="text-3xl font-bold text-[#1e2022] dark:text-gray-400">
           Most Popular Hotel Destinations
         </h2>
       </div>
 
       <div className="relative px-4">
         <Carousel>
-          <CarouselContent className="gap-3">
+          <CarouselContent className="gap-3 ">
 
               {hotels.data.map((hotel) => (
                 <CarouselItem key={hotel.id} className=" py-4 lg:basis-1/4">
                   <Card
                     
-                    className="group overflow-hidden border-x bg-white shadow-md"
+                    className="group overflow-hidden border-x dark:border dark:border-boxdark-2  dark:bg-boxdark-2 dark:text-bodydark  shadow-xl"
                   >
                     <div className="relative">
                       <Image
@@ -63,7 +63,7 @@ export default async function PopularDestination() {
                         <Heart className="h-4 w-4" />
                       </Button>
                       <Badge
-                      className={`absolute left-3 top-3 text-[12px] font-medium text-gray-100 ${
+                      className={`absolute left-3 top-3 text-[12px] font-medium text-gray-100  ${
                         getRatingType(hotel.rating) === 'Best'
                           ? "bg-[#82ce34]"
                           : getRatingType(hotel.rating) === "Better"
@@ -81,7 +81,7 @@ export default async function PopularDestination() {
                     </Badge>
                     </div>
                     <CardBody className="p-5">
-                      <h3 className="mb-1 line-clamp-1 text-lg font-semibold text-[#1e2022]">
+                      <h3 className="mb-1 line-clamp-1 text-lg font-semibold text-[#1e2022] dark:text-gray-200">
                         {hotel.title}
                       </h3>
                       <p className="text-muted-foreground mb-3 text-sm">
@@ -110,7 +110,7 @@ export default async function PopularDestination() {
                         </div>
                         <Button
                           variant="solid"
-                          className="text-primary hover:text-primary/90"
+                          className="text-primary hover:text-primary/90 dark:bg-[#1A222C] dark:border dark:border-gray-400"
                         >
                           See details
                         </Button>

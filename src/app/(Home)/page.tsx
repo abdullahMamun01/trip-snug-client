@@ -10,7 +10,7 @@ import { Suspense } from "react";
 
 export default async function HomePage() {
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen dark:bg-[#1A222C]">
       <HeroSection />
       <HomeFeature />
       <ResortHighlight />

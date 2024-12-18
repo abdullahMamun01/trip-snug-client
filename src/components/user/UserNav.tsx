@@ -43,7 +43,7 @@ export default function UserNav() {
       >
         <PopoverTrigger>
           <Button
-            className="h-12 min-w-[auto] bg-gray-100 px-2"
+            className="h-12 min-w-[auto] bg-gray-100 dark:bg-gray-800 px-2"
             variant="light"
             radius="full"
           >

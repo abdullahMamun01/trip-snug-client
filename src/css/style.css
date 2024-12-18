@@ -22,7 +22,7 @@
 @layer base {
     /* Target all section elements when dark mode is enabled */
      .dark body{
-      @apply bg-gray-800 text-white;
+      @apply bg-[#1A222C] text-white;
     }
   }
 

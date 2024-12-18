@@ -68,9 +68,10 @@ const hotelValidateSchema = z.object({
   //   })
   //   .optional(),
 });
-
+const hotelUpdateValidationSchema  = hotelValidateSchema.partial()
 
 
 export {
-    hotelValidateSchema
+    hotelValidateSchema,
+    hotelUpdateValidationSchema
 }

@@ -10,43 +10,50 @@ import DefaultLayout from "@/components/Layouts/DefaultLayout";
 import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 import { Card } from "@nextui-org/card";
 import ImageUploadForm from "@/components/form/ImageUploadInput";
-import { hotelValidateSchema } from "@/validations/hotel.validation";
-import { IHotelBase as IHotelFormData } from "@/types/hotel.types";
+import { hotelUpdateValidationSchema, hotelValidateSchema } from "@/validations/hotel.validation";
+import { IHotelBase, IHotelBase as IHotelFormData } from "@/types/hotel.types";
 import useCreateHotel from "@/hooks/useCreateHotel";
 import SubmitBtn from "@/components/form/SubmitBtn";
 import { createHotelAction } from "@/actions/hotel.action";
 import useAuth from "@/stores/auth.store";
+import { useHotelStore } from "@/stores/hotels/hotel.store";
+import useHotelUpdate from "@/hooks/useHotelUpdate";
 
 const HotelManagePage = () => {
-  const { mutateAsync, isPending } = useCreateHotel();
-  const { token } = useAuth();
-  const form = useForm<IHotelFormData>({
-    resolver: zodResolver(hotelValidateSchema),
+  const { mutateAsync: createHotel, isPending: isAddingHotel } =
+    useCreateHotel();
+  const { mutateAsync: updateHotel, isPending: isUpdatingHotel } =
+    useHotelUpdate();
+  const { selectedHotel } = useHotelStore();
+  type HotelType = typeof selectedHotel extends null ? Partial<IHotelFormData> : IHotelFormData;
+  const HotelSchema = selectedHotel ? hotelUpdateValidationSchema : hotelValidateSchema
+
+  const form = useForm<HotelType>({
+    resolver: zodResolver(HotelSchema),
     defaultValues: {
-      title: "Grand Ocean Resort",
-      description:
-        "A luxurious beachfront resort offering stunning ocean views, world-class amenities, and unparalleled service.",
+      title: selectedHotel?.title,
+      description: selectedHotel?.description,
       location: {
-        country: "Thailand",
-        city: "Phuket",
-        zipCode: "83150",
-        address: "123 Beachfront Ave, Patong Beach",
-        latitude: 7.8804,
-        longitude: 98.2955,
+        country: selectedHotel?.location.country,
+        city: selectedHotel?.location.city,
+        zipCode: selectedHotel?.location.zipCode,
+        address: selectedHotel?.location.address,
+        latitude: selectedHotel?.location.latitude,
+        longitude: selectedHotel?.location.longitude,
       },
-      contactInfo: "+66 76 123 456",
-      pricePerNight: 350,
-      availableRooms: 20,
-      amenities: ["Free WiFi"],
-      tags: ["Beachfront", "Luxury"],
-      currency: "USD",
+      contactInfo: selectedHotel?.contactInfo,
+      pricePerNight: selectedHotel?.pricePerNight,
+      availableRooms: selectedHotel?.availableRooms,
+      amenities:   [selectedHotel?.amenities?.join(',')],
+      tags: selectedHotel?.tags,
+      currency: selectedHotel?.currency,
       policies: {
-        checkIn: "2:00 PM",
-        checkOut: "12:00 PM",
-        cancellationPolicy: "Free cancellation up to 48 hours before check-in.",
+        checkIn: selectedHotel?.policies.checkIn,
+        checkOut: selectedHotel?.policies.checkOut,
+        cancellationPolicy: selectedHotel?.policies.cancellationPolicy,
       },
-      classification: "5-Star",
-      totalRooms: 100,
+      classification: selectedHotel?.classification,
+      totalRooms: selectedHotel?.totalRooms,
     },
   });
   const {
@@ -56,7 +63,7 @@ const HotelManagePage = () => {
   } = form;
 
   const onSubmit = async (data: IHotelFormData) => {
-    console.log(data)
+    console.log(data);
     const formData = new FormData();
 
     // Append primitive fields
@@ -75,8 +82,13 @@ const HotelManagePage = () => {
         formData.append(key, value);
       }
     });
-    await mutateAsync(formData);
+    if (selectedHotel) {
+      await updateHotel({payload:formData , hotelId:selectedHotel.id} )
+    } else {
+      await createHotel(formData);
+    }
   };
+  console.log(selectedHotel?.id)
 
   return (
     <DefaultLayout>
@@ -290,9 +302,9 @@ const HotelManagePage = () => {
 
             <SubmitBtn
               className="my-2 w-full bg-blue-600 uppercase text-white"
-              defaultText="Create Hotel"
-              isLoading={isPending}
-              loadingText="creating..."
+              defaultText={selectedHotel ? 'update hotel' : 'create hotel'}
+              isLoading={selectedHotel ? isUpdatingHotel : isAddingHotel}
+              loadingText={selectedHotel ? 'update....' : 'creating...'}
             />
           </form>
         </FormProvider>

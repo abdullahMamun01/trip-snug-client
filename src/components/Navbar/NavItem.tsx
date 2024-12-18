@@ -30,7 +30,7 @@ export default function NavItem() {
           </p>
         </Link>
       </NavbarBrand>
-      <NavbarContent className="gap-8" justify="center">
+      <NavbarContent className="gap-8  flex-start" justify="center">
         {[
           "Home",
           "About",
