@@ -9,7 +9,7 @@ import { Briefcase, Coffee, Key, User } from "lucide-react";
 export default function ResortHighlight() {
   return (
     <div className="container relative mx-auto py-12">
-      <div className=" grid items-center gap-10 lg:grid-cols-2 px-4">
+      <div className=" grid items-center gap-10 px-4 lg:grid-cols-2">
         <div className="relative">
           <div className="relative aspect-[4/3] overflow-hidden rounded-lg">
             <Image
@@ -20,7 +20,6 @@ export default function ResortHighlight() {
               height={800}
             />
           </div>
-         
 
           {/* Info boxes */}
           <div className="absolute bottom-0 left-0 right-0 grid grid-cols-2">
@@ -45,15 +44,17 @@ export default function ResortHighlight() {
               Enjoy your stay
             </div>
 
-            <h1 className="font-serif text-primary-400 text-5xl leading-tight lg:text-6xl">
+            <h1 className="font-serif text-5xl leading-tight text-primary-400 lg:text-6xl">
               Best Resort in the City Area
             </h1>
 
             <p className="leading-relaxed text-neutral-600">
-              Aliquam erat volutpat. Quisque sed nisi hendrerit, consectetur
-              ipsum sed, rhoncus ligula. Donec euismod laoreet tortort, non
-              imperdiet libero aliquam in. Vestibulum varius condimentum
-              volutpat. Nunc in sapien a orci maximus
+              Experience unmatched luxury and comfort at the best resort in the
+              city area. Nestled in a prime location, our resort offers a
+              perfect blend of serene surroundings and modern amenities. 
+              Enjoy a range of recreational activities. Whether you are here for
+              a romantic getaway, a family vacation, or a business retreat, our
+              resort is your ultimate destination for an unforgettable stay
             </p>
 
             <div className="grid grid-cols-2 gap-8 py-8">
@@ -94,7 +95,7 @@ export default function ResortHighlight() {
               </div>
             </div>
 
-            <Button className=" bg-primary rounded-md px-8 py-6 text-white transition-colors hover:bg-[#2C3E50]">
+            <Button className=" rounded-md bg-primary px-8 py-6 text-white transition-colors hover:bg-[#2C3E50]">
               READ MORE
             </Button>
           </div>

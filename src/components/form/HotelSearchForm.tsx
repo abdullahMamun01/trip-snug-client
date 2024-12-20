@@ -6,12 +6,13 @@ import { z } from "zod";
 import { DateRangePicker } from "@nextui-org/date-picker";
 import { Select, SelectItem } from "@nextui-org/select";
 import { Button } from "@nextui-org/button";
+import { FaUserGroup } from "react-icons/fa6";
+import { CiCalendarDate } from "react-icons/ci";
 import {
   CalendarDate,
   CalendarDateTime,
   DateValue,
   parseDate,
-
   ZonedDateTime,
 } from "@internationalized/date";
 import { useRouter } from "next/navigation";
@@ -39,6 +40,7 @@ const hotelSearchSchema = z.object({
   adults: z.number().int().positive().min(1, "At least 1 adult is required"),
   children: z.number().int().nonnegative().optional(),
 });
+
 
 type HotelSearchFormValues = z.infer<typeof hotelSearchSchema>;
 
@@ -92,33 +94,37 @@ export default function HotelSearchForm() {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="flex w-[90%] max-w-5xl items-center gap-2 rounded-full bg-white p-2 shadow-xl"
+      className="max-sm-devide-y flex w-[90%] max-w-5xl items-center gap-2 max-sm:gap-y-4 dark:bg-[#1A222C] bg-white p-2 shadow-xl max-sm:flex-col max-sm:py-8 rounded-md sm:rounded-full"
     >
       {/* destination */}
-      <div className="flex flex-1 items-center gap-2 px-4">
+      <div className="flex w-full flex-1 items-center gap-2 px-4 ">
         <span className="text-sm font-medium text-default-700">
           <MapPin />
         </span>
         <Input
-          className=""
+
           classNames={{
             inputWrapper: "bg-sky-100 text-black shadow-none h-unit-10",
           }}
           placeholder="location"
+          
         />
         {/* {errors.adults && (
           <p className="text-red-500">{errors.checkIn.message}</p>
         )} */}
       </div>
-      <div className="h-8 w-px bg-default-200" />
+      <div className="h-8 w-px bg-default-200 max-sm:hidden" />
 
       {/* Date Range Picker */}
-      <div className="flex flex-1 items-center gap-2 px-4">
+      <div className="flex w-full flex-1 items-center gap-2 px-4 ">
+        <span className="text-sm font-medium text-default-700 sm:hidden">
+        <CiCalendarDate className="w-6 h-6"/>
+        </span>
         <DateRangePicker
           label="Select Dates"
           visibleMonths={2}
           classNames={{
-            label: "text-md font-bold",
+            label: "text-md font-bold dark:text-black",
             inputWrapper: "bg-sky-100",
           }}
           defaultValue={{
@@ -126,6 +132,7 @@ export default function HotelSearchForm() {
             end: parseDate(checkOut) as any,
           }}
           onChange={handleRangeChange}
+          className=""
         />
         {errors.checkIn && (
           <p className="text-red-500">{errors.checkIn.message}</p>
@@ -135,11 +142,11 @@ export default function HotelSearchForm() {
         )}
       </div>
 
-      <div className="h-8 w-px bg-default-200" />
+      <div className="h-8 w-px bg-default-200 max-sm:hidden" />
 
       {/* Adults */}
-      <div className="flex flex-1 items-center gap-2 px-4">
-        <span className="text-sm font-medium text-default-700">Adults</span>
+      <div className="flex w-full flex-1 items-center gap-2 px-4 ">
+        <span className="text-sm font-medium text-default-700"><FaUserGroup  className="w-6 h-6"/></span>
         <Select
           {...register("adults", { valueAsNumber: true })}
           onChange={(e) => setValue("adults", Number(e.target.value))}
@@ -149,7 +156,9 @@ export default function HotelSearchForm() {
           }}
         >
           {["0", "1", "2", "3", "4", "5"].map((a) => (
-            <SelectItem key={a} value={a}>
+            <SelectItem key={a} value={a} classNames={{
+              
+            }}>
               {a}
             </SelectItem>
           ))}
@@ -159,7 +168,7 @@ export default function HotelSearchForm() {
         )}
       </div>
 
-      <div className="h-8 w-px bg-default-200" />
+      <div className="h-8 w-px bg-default-200 max-sm:hidden" />
 
       {/* Children */}
       {/* <div className="flex flex-1 items-center gap-2 px-4">
@@ -189,7 +198,7 @@ export default function HotelSearchForm() {
       <Button
         size="lg"
         type="submit"
-        className="rounded-full bg-[#4F46E5] px-8 text-white"
+        className="rounded-full bg-[#4F46E5] px-8 text-white max-sm:w-[95%] max-sm:px-4"
       >
         Search
       </Button>
