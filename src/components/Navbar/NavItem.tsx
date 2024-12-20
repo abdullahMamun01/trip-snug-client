@@ -10,7 +10,7 @@ import {
   NavbarMenuToggle,
 } from "@nextui-org/navbar";
 import Link from "next/link";
-import React from "react";
+import React, { useRef } from "react";
 import ToggleDark from "./ToggleDark";
 import UserNav from "../user/UserNav";
 import { User } from "lucide-react";
@@ -29,40 +29,64 @@ export default function NavItem() {
     "Shop",
     "Contact",
   ];
-  const AcmeLogo = () => {
-    return (
-      <svg fill="none" height="36" viewBox="0 0 32 32" width="36">
-        <path
-          clipRule="evenodd"
-          d="M17.6482 10.1305L15.8785 7.02583L7.02979 22.5499H10.5278L17.6482 10.1305ZM19.8798 14.0457L18.11 17.1983L19.394 19.4511H16.8453L15.1056 22.5499H24.7272L19.8798 14.0457Z"
-          fill="currentColor"
-          fillRule="evenodd"
-        />
-      </svg>
-    );
-  };
-
+  const ref = useRef<any>();
+  if (ref.current) console.log(ref);
   return (
     <Navbar
+
       maxWidth="full"
-      className="w-full border-b bg-white py-2 dark:bg-boxdark-2 dark:text-bodydark md:px-20 dark:border-0"
+      className="w-full border-b bg-white py-2 dark:border-0 dark:bg-boxdark-2 dark:text-bodydark md:px-20"
       classNames={{
         wrapper: "px-8 gap-16",
       }}
     >
       <NavbarContent className="sm:hidden" justify="start">
-        <NavbarMenuToggle
+        <button
           aria-label={isMenuOpen ? "Close menu" : "Open menu"}
-        />
+          onClick={() => setIsMenuOpen(!isMenuOpen)}
+        >
+          {isMenuOpen ? (
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M6 18L18 6M6 6l12 12"
+              />
+            </svg>
+          ) : (
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M4 6h16M4 12h16m-7 6h7"
+              />
+            </svg>
+          )}
+        </button>
+
         <NavbarBrand>
           <Link href="/">
-            <p className="font-serif max-sm:text-md text-2xl font-bold uppercase">
+            <p className="font-serif text-md font-bold uppercase">
               Trip-<span className="font-bold text-blue-500">Snug</span>{" "}
             </p>
           </Link>
         </NavbarBrand>
       </NavbarContent>
-      <NavbarContent className="" justify="start">
+      <NavbarContent className="max-sm:hidden" justify="start">
         <NavbarBrand>
           <Link href="/">
             <p className="font-serif max-sm:text-md text-2xl font-bold uppercase">
@@ -76,15 +100,7 @@ export default function NavItem() {
         className="flex-start gap-8 max-sm:hidden"
         justify="center"
       >
-        {[
-          "Home",
-          "About",
-          "Hotels",
-          "Restaurant",
-          "Blog",
-          "Shop",
-          "Contact",
-        ].map((item) => (
+        {menuItems.map((item) => (
           <NavbarItem key={item}>
             <Link
               className="text-md font-medium text-default-600 transition-colors hover:text-default-900"
@@ -130,9 +146,9 @@ export default function NavItem() {
           <Button isIconOnly variant="light" radius="full"></Button>
         </NavbarItem>
       </NavbarContent>
-      <NavbarMenu className="mt-4 bg-white dark:bg-boxdark-2">
+      {/* <NavbarMenu className=" bg-white dark:bg-boxdark-2"  >
         {menuItems.map((item, index) => (
-          <NavbarMenuItem key={`${item}-${index}`}>
+          <NavbarMenuItem key={`${item}`} >
             <Link
               className="text-md font-medium text-default-600 transition-colors hover:text-default-900"
               color={
@@ -151,7 +167,27 @@ export default function NavItem() {
         <NavbarMenuItem>
           <ToggleDark />
         </NavbarMenuItem>
-      </NavbarMenu>
+      </NavbarMenu> */}
+
+      {isMenuOpen && (
+        <div className="absolute sm:hidden left-0 top-full w-full bg-white shadow-md dark:bg-gray-800 px-5">
+          <ul className="flex flex-col space-y-2 p-4">
+            {menuItems.map((item) => (
+              <li key={item}>
+                <Link
+                  href={`/${item.toLowerCase()}`}
+                  className="text-md block font-medium text-gray-700 hover:text-blue-600 dark:text-gray-300"
+                >
+                  {item}
+                </Link>
+              </li>
+            ))}
+            <li>
+              <ToggleDark />
+            </li>
+          </ul>
+        </div>
+      )}
     </Navbar>
   );
 }

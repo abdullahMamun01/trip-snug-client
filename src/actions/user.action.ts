@@ -3,7 +3,7 @@ import apiClient from "@/services/axios";
 import { TProfile, TUser } from "@/types/user.type";
 import { cookies } from "next/headers";
 import { getCurrentUser } from "./auth.action";
-import { updateProfile } from "@/services/user.service";
+import { updateProfile, updateUserRole } from "@/services/user.service";
 
 const profileAction = async (payload: TProfile) => {
   const user = await getCurrentUser();
@@ -12,4 +12,10 @@ const profileAction = async (payload: TProfile) => {
   return response;
 };
 
-export { profileAction };
+const updateUserRoleAction = async (payload: { role: string; userId: string; }) => {
+  const user  = await getCurrentUser()
+  const response = await updateUserRole(payload ,user?.token as string)
+  return response
+}
+
+export { profileAction , updateUserRoleAction};

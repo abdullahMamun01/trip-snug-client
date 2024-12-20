@@ -8,6 +8,7 @@ const config: Config = {
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
+    "./node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}",
     "./node_modules/@nextui-org/theme/dist/components/(avatar|button|card|checkbox|input|navbar|pagination|select|skeleton|toggle|table|tabs|ripple|spinner|listbox|divider|popover|scroll-shadow|spacer).js",
   ],
   darkMode: "class",

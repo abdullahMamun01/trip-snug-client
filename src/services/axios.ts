@@ -27,7 +27,7 @@ apiClient.interceptors.response.use(
     console.log(error.response.data)
     if (error instanceof AxiosError) {
       const errorMessage = error.response?.data?.message;
-
+      console.log(errorMessage)
       throw new Error(errorMessage);
     }else {
       const errorMessage  = error.response.data
