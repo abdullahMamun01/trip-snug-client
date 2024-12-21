@@ -1,10 +1,17 @@
-import HotelSearchForm from '@/components/form/HotelSearchForm'
-import React, { ReactNode } from 'react'
+import HotelSearchForm from "@/components/form/HotelSearchForm";
+import QueryValidator from "@/components/QueryValidator";
+import React, { ReactNode } from "react";
 
-export default function HotelDetailsLayout({children} : {children:ReactNode}) {
+export default function HotelDetailsLayout({
+  children,
+}: {
+  children: ReactNode;
+}) {
   return (
-    <div className='w-full bg-white border-b shadow-b-md py-6'>
+    <QueryValidator>
+      <div className="shadow-b-md w-full border-b bg-white py-6">
         {children}
-    </div>
-  )
+      </div>
+    </QueryValidator>
+  );
 }

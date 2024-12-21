@@ -1,6 +1,7 @@
 import FilterSidebar from "@/components/hotels/FilterSidebar";
 import HotelList from "@/components/hotels/HotelList";
 import DrawerComponent from "@/components/ui/drawer/DrawerComponent";
+import getDateWithOffset from "@/lib/date";
 import { fetchHotels } from "@/services/hotel.service";
 import { Button } from "@nextui-org/button";
 
@@ -9,6 +10,8 @@ import {
   HydrationBoundary,
   QueryClient,
 } from "@tanstack/react-query";
+import { redirect } from "next/navigation";
+
 import { MdFilterList } from "react-icons/md";
 type ISearchParams = {
   [key: string]: string;
@@ -25,7 +28,13 @@ export default async function HotelPage({
     queryFn: async () => await fetchHotels(queries),
   });
 
+  // const chekIn = searchParams.checkIn as string;
+  // const checkout = searchParams.checkOut as string;
+  // if(!chekIn || !checkout) {
+  //   redirect(`/hotels?checkIn=${getDateWithOffset()}&checkOut=${getDateWithOffset(1)}`)
+  // }
   return (
+    
     <div className="mx-auto flex max-w-7xl flex-col gap-6 bg-white p-6 md:flex-row">
       {/* Left Sidebar */}
       <div className="max-sm:hidden">

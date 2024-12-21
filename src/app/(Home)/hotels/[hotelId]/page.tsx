@@ -9,6 +9,7 @@ import {
   HydrationBoundary,
   QueryClient,
 } from "@tanstack/react-query";
+import { redirect } from "next/navigation";
 import React from "react";
 
 interface IHotelProps {
@@ -24,10 +25,12 @@ export default async function HotelDetailsPage({
   searchParams,
 }: IHotelProps) {
   const queryParams = new URLSearchParams(searchParams);
-  if (searchParams) {
-    queryParams.append("checkIn", getDateWithOffset());
-    queryParams.append("checkOut", getDateWithOffset(1));
-  }
+  const chekIn = searchParams.checkIn as string;
+  const checkout = searchParams.checkOut as string;
+  // if(!chekIn || !checkout) {
+  //   redirect(`/hotels/${hotelId}?checkIn=${getDateWithOffset()}&checkOut=${getDateWithOffset(1)}`)
+  // }
+  
 
   queryParams.delete("adults");
 
