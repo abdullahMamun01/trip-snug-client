@@ -9,7 +9,7 @@ import {
 } from "@nextui-org/drawer";
 import { useDisclosure } from "@nextui-org/modal";
 import { Button } from "@nextui-org/button";
-import { MdFilterList } from "react-icons/md";
+
 interface ReusableDrawerProps {
   placement?: "left" | "right" | "top" | "bottom";
   title: string;
