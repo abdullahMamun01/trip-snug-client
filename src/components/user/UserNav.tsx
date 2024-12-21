@@ -43,7 +43,7 @@ export default function UserNav() {
       >
         <PopoverTrigger>
           <Button
-            className="h-12 min-w-[auto] bg-gray-100 dark:bg-gray-800 px-2"
+            className="h-12 min-w-[auto] bg-gray-200 dark:bg-gray-800 px-2"
             variant="light"
             radius="full"
           >
@@ -53,8 +53,8 @@ export default function UserNav() {
               className="bg-blue-600 text-white"
               size="sm"
             />
-            <div className="ml-2 flex flex-col items-start text-left">
-              <span className="text-sm font-medium">
+            <div className="ml-2 flex flex-col items-start text-left max-sm:hidden">
+              <span className="text-sm font-medium max-sm:text-xs">
                 {user?.firstName.toUpperCase()} {user?.lastName.toUpperCase()}
               </span>
             </div>

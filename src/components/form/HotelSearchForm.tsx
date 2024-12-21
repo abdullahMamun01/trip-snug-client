@@ -45,7 +45,7 @@ const hotelSearchSchema = z.object({
 type HotelSearchFormValues = z.infer<typeof hotelSearchSchema>;
 
 export default function HotelSearchForm() {
-  const { getQueryParams } = useSetQueryParams();
+
   const router = useRouter();
   const {
     register,
@@ -55,14 +55,14 @@ export default function HotelSearchForm() {
   } = useForm<HotelSearchFormValues>({
     resolver: zodResolver(hotelSearchSchema),
     defaultValues: {
-      checkIn: "",
-      checkOut: "",
+      checkIn: getDateWithOffset(),
+      checkOut: getDateWithOffset(1),
       adults: 1,
       children: 1,
     },
   });
-  const checkinIn = getQueryParams("checkIn") || getDateWithOffset();
-  const checkOut = getQueryParams("checkOut") || getDateWithOffset(1);
+  const checkinIn =  getDateWithOffset();
+  const checkOut =  getDateWithOffset(1);
   const onSubmit = (data: HotelSearchFormValues) => {
     console.log("Form submitted:", data);
     // Add your submission logic here

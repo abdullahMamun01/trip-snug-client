@@ -17,7 +17,7 @@ export default function FilterSidebar() {
   const [priceRange, setPriceRange] = useState([minPrice, maxPrice]);
 
   return (
-    <div className="w-[300px] space-y-6 rounded-lg border border-gray-200 p-4">
+    <div className="w-[300px] max-sm:w-full space-y-6 rounded-lg border border-gray-200 p-4">
       <h2 className="text-lg font-semibold">Filter by:</h2>
 
       <div className="space-y-6">

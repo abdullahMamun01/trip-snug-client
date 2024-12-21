@@ -1,10 +1,11 @@
 
+
 import { getCurrentUser } from "@/actions/auth.action";
 import axios, { AxiosError } from "axios";
 
 const apiClient = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_BASE_URL,
-  timeout: 5000,
+  timeout: 10000,
   headers: {
     "Content-Type": "application/json",
   },
@@ -24,7 +25,7 @@ apiClient.interceptors.response.use(
   }, // Successful response
   (error) => {
 
-    console.log(error.message)
+    console.log(error)
     if (error instanceof AxiosError) {
       const errorMessage = error.response?.data?.message;
       console.log(errorMessage)

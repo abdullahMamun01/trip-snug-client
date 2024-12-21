@@ -142,9 +142,7 @@ export default function NavItem() {
             Login / Register
           </Link> */}
         </NavbarItem>
-        <NavbarItem>
-          <Button isIconOnly variant="light" radius="full"></Button>
-        </NavbarItem>
+
       </NavbarContent>
       {/* <NavbarMenu className=" bg-white dark:bg-boxdark-2"  >
         {menuItems.map((item, index) => (

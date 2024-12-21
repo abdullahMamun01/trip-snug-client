@@ -1,13 +1,15 @@
 import FilterSidebar from "@/components/hotels/FilterSidebar";
 import HotelList from "@/components/hotels/HotelList";
+import DrawerComponent from "@/components/ui/drawer/Drawer";
 import { fetchHotels } from "@/services/hotel.service";
-
+import { Button } from "@nextui-org/button";
 
 import {
   dehydrate,
   HydrationBoundary,
   QueryClient,
 } from "@tanstack/react-query";
+import { MdFilterList } from "react-icons/md";
 type ISearchParams = {
   [key: string]: string;
 };
@@ -19,22 +21,33 @@ export default async function HotelPage({
   const queries = new URLSearchParams(searchParams).toString();
   const queryClient = new QueryClient();
   await queryClient.prefetchQuery({
-    queryKey: ["hotels" , queries],
+    queryKey: ["hotels", queries],
     queryFn: async () => await fetchHotels(queries),
   });
 
   return (
     <div className="mx-auto flex max-w-7xl flex-col gap-6 bg-white p-6 md:flex-row">
       {/* Left Sidebar */}
-      <FilterSidebar />
+      <div className="max-sm:hidden">
+        <FilterSidebar />
+      </div>
+
+      <div className="md:hidden">
+        <DrawerComponent
+          title="Sort & Filter"
+          drawerContent={<FilterSidebar />}
+        >
+          <span className="flex gap-2">
+              <MdFilterList className="h-4 w-4" /> Sort & Filter
+            </span>
+        </DrawerComponent>
+      </div>
       {/* Main Content */}
 
-        <HydrationBoundary state={dehydrate(queryClient)}>
-          <HotelList queries={queries}/>
-        </HydrationBoundary>
-        {/* <HotelsCard /> */}
-        
-
+      <HydrationBoundary state={dehydrate(queryClient)}>
+        <HotelList queries={queries} />
+      </HydrationBoundary>
+      {/* <HotelsCard /> */}
     </div>
   );
 }
