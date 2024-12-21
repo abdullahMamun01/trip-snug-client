@@ -1,6 +1,6 @@
 import FilterSidebar from "@/components/hotels/FilterSidebar";
 import HotelList from "@/components/hotels/HotelList";
-import DrawerComponent from "@/components/ui/drawer/Drawer";
+import DrawerComponent from "@/components/ui/drawer/DrawerComponent";
 import { fetchHotels } from "@/services/hotel.service";
 import { Button } from "@nextui-org/button";
 

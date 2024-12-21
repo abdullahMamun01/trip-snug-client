@@ -1,7 +1,7 @@
 
 
 import { AccountSidebar } from "@/components/Dashboard/account/AccountSidebar";
-import DrawerComponent from "@/components/ui/drawer/Drawer";
+import DrawerComponent from "@/components/ui/drawer/DrawerComponent";
 import React, { ReactNode } from "react";
 
 import { RiMenuFold4Fill } from "react-icons/ri";
@@ -11,7 +11,7 @@ export default function AccountPageLayout({
   children: ReactNode;
 }) {
   return (
-    <div className="md:container mx-auto my-2 bg-gray-100 w-full">
+    <div className="md:container mx-auto my-2 dark:bg-[#1A222C] bg-gray-100 w-full">
       <div className="grid grid-cols-12 md:gap-4">
         <div className="col-span-3 max-sm:hidden">
           <AccountSidebar/>

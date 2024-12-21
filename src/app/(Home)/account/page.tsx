@@ -1,10 +1,4 @@
 import BasicInformationCard from "@/components/Dashboard/account/BasicInformationCard";
-import ContactInformationCard from "@/components/Dashboard/account/ContactInformationCard";
-
-
-
-
-
 
 export default function AccountPage() {
   return (

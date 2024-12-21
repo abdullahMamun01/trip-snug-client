@@ -5,7 +5,7 @@ import {
   DrawerContent,
   DrawerHeader,
   DrawerBody,
-  DrawerFooter,
+
 } from "@nextui-org/drawer";
 import { useDisclosure } from "@nextui-org/modal";
 import { Button } from "@nextui-org/button";
