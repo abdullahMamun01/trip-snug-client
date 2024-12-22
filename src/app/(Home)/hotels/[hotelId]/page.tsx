@@ -1,6 +1,5 @@
 import HotelDetails from "@/components/hotels/hotelDetails/HotelDetails";
 import RoomList from "@/components/rooms/RoomList";
-import getDateWithOffset from "@/lib/date";
 
 import { fetchHotel } from "@/services/hotel.service";
 import { fetchHotelRooms } from "@/services/room.service";
@@ -9,7 +8,7 @@ import {
   HydrationBoundary,
   QueryClient,
 } from "@tanstack/react-query";
-import { redirect } from "next/navigation";
+import { Metadata } from "next";
 import React from "react";
 
 interface IHotelProps {
@@ -19,6 +18,22 @@ interface IHotelProps {
     [key: string]: string;
   };
 }
+export async function generateMetadata({ params: { hotelId } }: IHotelProps) : Promise<Metadata> {
+  const hotel = await fetchHotel(hotelId)
+  const images = hotel.images
+  const title = hotel.title
+  const description = hotel.description
+  return {
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      images: images
+    }
+  }
+  
+}
 
 export default async function HotelDetailsPage({
   params: { hotelId },
@@ -27,11 +42,6 @@ export default async function HotelDetailsPage({
   const queryParams = new URLSearchParams(searchParams);
   const chekIn = searchParams.checkIn as string;
   const checkout = searchParams.checkOut as string;
-  // if(!chekIn || !checkout) {
-  //   redirect(`/hotels/${hotelId}?checkIn=${getDateWithOffset()}&checkOut=${getDateWithOffset(1)}`)
-  // }
-  
-
   queryParams.delete("adults");
 
   const queryClient = new QueryClient();

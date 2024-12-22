@@ -28,14 +28,8 @@ export default async function HotelPage({
     queryFn: async () => await fetchHotels(queries),
   });
 
-  // const chekIn = searchParams.checkIn as string;
-  // const checkout = searchParams.checkOut as string;
-  // if(!chekIn || !checkout) {
-  //   redirect(`/hotels?checkIn=${getDateWithOffset()}&checkOut=${getDateWithOffset(1)}`)
-  // }
   return (
-    
-    <div className="mx-auto flex max-w-7xl flex-col gap-6 bg-white p-6 md:flex-row">
+    <div className="mx-auto flex max-w-7xl flex-col gap-6 bg-transparent p-6 md:flex-row">
       {/* Left Sidebar */}
       <div className="max-sm:hidden">
         <FilterSidebar />
@@ -47,15 +41,17 @@ export default async function HotelPage({
           drawerContent={<FilterSidebar />}
         >
           <span className="flex gap-2">
-              <MdFilterList className="h-4 w-4" /> Sort & Filter
-            </span>
+            <MdFilterList className="h-4 w-4" /> Sort & Filter
+          </span>
         </DrawerComponent>
       </div>
       {/* Main Content */}
 
-      <HydrationBoundary state={dehydrate(queryClient)}>
-        <HotelList queries={queries} />
-      </HydrationBoundary>
+      <div className="w-full">
+        <HydrationBoundary state={dehydrate(queryClient)}>
+          <HotelList queries={queries} />
+        </HydrationBoundary>
+      </div>
       {/* <HotelsCard /> */}
     </div>
   );

@@ -3,7 +3,6 @@
 // import "@/css/satoshi.css";
 import "@/css/style.css";
 
-import { Providers } from "@/provider/Provider";
 import NavItem from "@/components/Navbar/NavItem";
 import Footer from "@/components/home/Footer";
 

@@ -3,12 +3,13 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
 // This function can be marked `async` if using `await` inside
-const public_routes = ["/", "/hotels", "/hotels/:hotelId", "/login", "/register"];
+const public_routes = ["/", "/hotels", "/login", "/register"];
 
 export async function middleware(request: NextRequest) {
   const currentUser = await getCurrentUser();
   const pathname = request.nextUrl.pathname;
-  const isPublicRoute = public_routes.some((route) => route === pathname)
+  console.log(pathname , ' path' , )
+  const isPublicRoute = public_routes.some((route) => route === pathname) || pathname.startsWith("/hotels/")
   const adminRoutes = pathname.startsWith('/dashboard')
 
   if (!currentUser && !isPublicRoute){

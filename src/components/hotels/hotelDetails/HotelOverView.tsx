@@ -84,12 +84,12 @@ export default function HotelOverView({
               <div className="grid grid-cols-2 gap-4">
                 {amenities?.map((amenity) => {
                   return (
-                    <>
+                    <div key={amenity}>
                       <div className="flex items-center gap-2">
                         {getAmenityIcon(amenity)}
                         <span className="text-gray-700">{amenity}</span>
                       </div>
-                    </>
+                    </div>
                   );
                 })}
                 <div className="flex items-center gap-2">

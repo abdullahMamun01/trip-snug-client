@@ -11,12 +11,12 @@ import Loader from "@/components/Dashboard/common/Loader";
 import RoomList from "@/components/rooms/RoomList";
 
 export default function HotelDetails({ hotelId }: { hotelId: string }) {
-  const { data, isLoading } = useQuery({
+  const { data, isLoading ,isFetching } = useQuery({
     queryKey: ["hotels", hotelId],
     queryFn: async () => await fetchHotel(hotelId),
   });
 
-  if (isLoading) {
+  if (isLoading || isFetching) {
     return <Loader />;
   }
 
@@ -24,7 +24,7 @@ export default function HotelDetails({ hotelId }: { hotelId: string }) {
     <>
       <HotelImages images={data?.images as string[]} />
       <div className="grid grid-cols-12 gap-4">
-        <div className="col-span-8">
+        <div className="col-span-12 md:col-span-8">
           <div className="">
             <HotelOverView
               title={data?.title as string}
@@ -39,7 +39,7 @@ export default function HotelDetails({ hotelId }: { hotelId: string }) {
             <RoomList hotelId={hotelId} />
           </div>
         </div>
-        <div className="col-span-4">
+        <div className="col-span-12 md:col-span-4">
           <HotelPricingCard price={18}/>
         </div>
       </div>
