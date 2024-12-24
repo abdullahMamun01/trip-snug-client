@@ -48,8 +48,7 @@ export default function HotelOverView({
         <Tab key="overview" title="Overview">
           <div className="space-y-6 py-6">
             <div>
-              <span className="text-sm text-gray-700">Entire home</span>
-              <h1 className="mb-4 text-3xl font-bold text-black-2">{title}</h1>
+             
               <div className="flex items-center gap-3">
                 <span className="flex items-center gap-1 rounded-md bg-green-700 px-2 py-1 text-white">
                   <span className="font-bold">{rating}</span>
@@ -133,8 +132,6 @@ export default function HotelOverView({
               </div>
             </div> */}
           </div>
-        </Tab>
-        <Tab key="amenities" title="Amenities">
         </Tab>
         <Tab key="policies" title="Reviews">
           <ReviewList />

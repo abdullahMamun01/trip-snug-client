@@ -34,7 +34,7 @@ export default function HotelList({ queries }: { queries: string }) {
 
   return (
     <div>
-      <div className="w-full flex-1 space-y-4">
+      <div className="w-full flex-1 space-y-4 gap-y-2">
         {data?.hotels.map((hotel) => (
           <HotelsCard key={hotel.id} hotel={hotel} />
         ))}

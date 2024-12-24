@@ -14,14 +14,14 @@ import convertImagesToPhotos from "@/lib/convertImagesToPhotos";
 export default function HotelImages({ images }: { images: string[] }) {
   const [index, setIndex] = useState(-1);
   return (
-    <div className="mb-8 grid grid-cols-4 gap-2 py-4">
+    <div className="mb-8 grid grid-cols-4 gap-1 py-4">
       <div className="col-span-2 row-span-2">
         <Image
           src={images[0]}
           width={1000}
           height={1000}
           alt="Main interior view"
-          className="h-full w-full rounded-l-xl object-cover"
+          className="h-full md:h-[390px] w-full rounded-l-xl object-cover"
         />
       </div>
       {images.slice(1, 5).map((image, i) => (
@@ -31,7 +31,7 @@ export default function HotelImages({ images }: { images: string[] }) {
             width={1000}
             height={1000}
             alt={`Property view ${i + 2}`}
-            className={`h-full w-full object-cover ${
+            className={`h-full md:h-[193px] rounded-md w-full object-cover ${
               i === 1 ? "rounded-tr-xl" : ""
             } ${i === 3 ? "rounded-br-xl" : ""}`}
           />
@@ -58,3 +58,26 @@ export default function HotelImages({ images }: { images: string[] }) {
     </div>
   );
 }
+/* 
+
+<div className="grid grid-cols-2 col-span-4 md:col-span-2 gap-4">
+                {[1, 2, 3, 4].map((index) => (
+                  <div key={index} className="relative h-[190px]">
+                    <Image
+                      src="/placeholder.svg"
+                      alt={`Room view ${index}`}
+                      fill
+                      className="object-cover rounded-lg"
+                    />
+                    {index === 4 && (
+                      <div className="absolute inset-0 bg-black/50 rounded-lg flex items-center justify-center">
+                        <span className="text-white text-sm font-medium">
+                          Show all 20 photos
+                        </span>
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </div>
+
+*/

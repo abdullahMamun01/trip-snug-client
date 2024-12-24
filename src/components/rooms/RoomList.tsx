@@ -20,8 +20,8 @@ export default function RoomList({ hotelId }: { hotelId: string }) {
   }
   const rooms = data?.data;
   return (
-    <>
-      <div>
+
+      <div id="room">
         <div >
           <div className="mb-6 rounded-lg bg-white shadow-sm">
             <h2 className="mb-4 text-xl font-semibold text-blue-800">
@@ -35,6 +35,6 @@ export default function RoomList({ hotelId }: { hotelId: string }) {
           </div>
         </div>
       </div>
-    </>
+
   );
 }

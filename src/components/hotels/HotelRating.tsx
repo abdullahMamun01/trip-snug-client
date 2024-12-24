@@ -5,7 +5,7 @@ import { Chip } from "@nextui-org/chip";
 
 interface HotelRatingProps {
   rating: number;
-  totalReviews: number;
+  totalReviews?: number;
   classification: string;
 }
 
