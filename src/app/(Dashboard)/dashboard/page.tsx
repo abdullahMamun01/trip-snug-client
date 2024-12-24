@@ -1,6 +1,7 @@
-import ECommerce from "@/components/Dashboard/E-commerce";
+
 import { Metadata } from "next";
 import DefaultLayout from "@/components/Layouts/DefaultLayout";
+import AnalyticOverView from "@/components/Dashboard/AnalyticOverView";
 
 export const metadata: Metadata = {
   title:
@@ -12,7 +13,7 @@ export default function AdminPage() {
   return (
     <>
       <DefaultLayout>
-        <ECommerce />
+        <AnalyticOverView />
       </DefaultLayout>
     </>
   );

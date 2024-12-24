@@ -31,7 +31,7 @@ export default async function HotelPage({
   return (
     <div className="mx-auto flex max-w-7xl flex-col gap-6 bg-transparent p-6 md:flex-row">
       {/* Left Sidebar */}
-      <div className="max-sm:hidden">
+      <div className="max-sm:hidden ">
         <FilterSidebar />
       </div>
 

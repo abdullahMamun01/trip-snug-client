@@ -8,16 +8,17 @@ import { Briefcase, Coffee, Key, User } from "lucide-react";
 
 export default function ResortHighlight() {
   return (
-    <div className="container relative mx-auto py-12">
-      <div className=" grid items-center gap-10 px-4 lg:grid-cols-2">
+    <div className="container relative mx-auto py-12 ">
+      <div className=" grid items-center gap-2 lg:grid-cols-2 ">
         <div className="relative">
-          <div className="relative aspect-[4/3] overflow-hidden rounded-lg">
+          <div className="relative aspect-[4/3] overflow-hidden rounded-lg w-full">
             <Image
               src={ResorFeatureImage}
               alt="Luxury hotel room with ocean view"
-              className="object-cover"
+              className="object-cover w-full"
               width={1000}
               height={800}
+              
             />
           </div>
 

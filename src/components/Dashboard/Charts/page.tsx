@@ -3,8 +3,8 @@ import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 
 import dynamic from "next/dynamic";
 import React from "react";
-import ChartOne from "./ChartOne";
-import ChartTwo from "./ChartTwo";
+import ChartOne from "./RevenueChart";
+import ChartTwo from "./BookingChart";
 
 
 const ChartThree = dynamic(() => import("./ChartThree"), {

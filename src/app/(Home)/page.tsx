@@ -15,7 +15,7 @@ export default  function HomePage() {
       <ResortHighlight />
       {/* <FeatureSection/> */}
       <DiscoverSection />
-      <FeatureRooms />
+      {/* <FeatureRooms /> */}
       <PopularDestination />
     </div>
   );

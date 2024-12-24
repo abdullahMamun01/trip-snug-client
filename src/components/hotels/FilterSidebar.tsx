@@ -19,7 +19,7 @@ export default function FilterSidebar() {
   const defaultContent =
     "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.";
   return (
-    <div className="w-[300px] space-y-6 rounded-lg border border-gray-200 bg-white p-4 max-sm:w-full">
+    <div className="w-[300px] sticky top-22 space-y-6 rounded-lg border border-gray-200 bg-white p-4 max-sm:w-full">
       <div className="space-y-6">
         <Accordion  >
           <AccordionItem

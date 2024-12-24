@@ -31,14 +31,14 @@ export const getRatingType = (rating: number): RatingType => {
 export default async function PopularDestination() {
   const hotels = await fetchTopRatedHotel();
   return (
-    <section className="container mx-auto  py-12">
-      <div className="mb-10 px-4 text-center">
+    <section className=" mx-auto max-sm:container py-12">
+      <div className="mb-10  text-center ">
         <h2 className="text-3xl font-bold text-[#1e2022] dark:text-gray-400">
           Most Popular Hotel Destinations
         </h2>
       </div>
 
-      <div className="relative px-4">
+      <div className="relative px-4 container mx-auto">
         <Carousel>
           <CarouselContent className="gap-3 ">
 
