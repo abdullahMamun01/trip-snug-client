@@ -17,13 +17,12 @@ import { Button } from "@nextui-org/button";
 import useAuth from "@/stores/auth.store";
 import { logoutAction } from "@/actions/auth.action";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 export default function UserNav() {
   const [isOpen, setIsOpen] = useState(false);
   const { token, user, logout } = useAuth();
-  const handleClick = () => {
-    setIsOpen(!isOpen);
-  };
+ const router = useRouter()
   const img =
     user?.image ||
     `https://ui-avatars.com/api/?name=${user?.firstName.slice(0, 1)}&background=random&size=100` ||
