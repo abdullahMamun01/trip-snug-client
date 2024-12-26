@@ -9,7 +9,7 @@ export default function HotelDetailsLayout({
 }) {
   return (
     <QueryValidator>
-      <div className="shadow-b-md w-full border-b bg-white py-6">
+      <div className="shadow-b-md w-full border-b bg-white py-1 md:py-4">
         {children}
       </div>
     </QueryValidator>

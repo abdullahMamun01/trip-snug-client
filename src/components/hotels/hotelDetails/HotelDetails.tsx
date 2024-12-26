@@ -29,9 +29,9 @@ export default function HotelDetails({ hotelId }: { hotelId: string }) {
   return (
     <>
       <div>
-        <div className="flex justify-between">
-          <div className="mb-2 flex items-center gap-4">
-            <h1 className="text-lg font-semibold text-gray-900 md:text-2xl">
+        <div className="flex md:flex-row flex-col justify-between">
+          <div className="max-sm:order-2 mb-2 flex  items-center gap-4">
+            <h1 className="text-md font-semibold text-gray-900 md:text-2xl">
               {data?.title}
             </h1>
             <div className="flex gap-1">
@@ -43,17 +43,17 @@ export default function HotelDetails({ hotelId }: { hotelId: string }) {
               ))}
             </div>
           </div>
-          <div>
-            <div className="flex items-center space-x-2">
-             <Link href="#room">
-             <Button  color="primary">Select Room</Button>
-             </Link>
-              <button className="flex items-center rounded-full bg-gray-200 p-2 hover:bg-gray-300  md:p-3">
-                <Heart className="h-4 w-4 text-red-500" />
-              </button>
-              {
-                data && <ShareButton title={data?.title as string}/>
-              }
+          <div className="max-sm:order-1 max-sm:pb-3">
+            <div className="flex items-center justify-between space-x-2">
+              <Link href="#room">
+                <Button color="primary">Select Room</Button>
+              </Link>
+              <div className="flex gap-2">
+                <button className="flex items-center rounded-full bg-gray-200 p-2 hover:bg-gray-300  md:p-3">
+                  <Heart className="h-4 w-4 text-red-500" />
+                </button>
+                {data && <ShareButton title={data?.title as string} />}
+              </div>
             </div>
           </div>
         </div>

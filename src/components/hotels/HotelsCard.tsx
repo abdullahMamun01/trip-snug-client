@@ -51,7 +51,7 @@ export default function HotelsCard({ hotel }: { hotel: IHotel }) {
               alt={title}
               width={1000}
               height={1000}
-              className="h-auto w-[110px] rounded-l-lg object-cover md:w-[172px]"
+              className="h-auto w-[110px] rounded-l-lg object-cover md:w-[200px]"
               src={images[0]}
             />
             <div className="grid w-full grid-cols-12">

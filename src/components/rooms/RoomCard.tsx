@@ -99,7 +99,7 @@ export default function RoomCard({ room }: { room: IRoom }) {
             </div>
           ) : (
             <Button onClick={handleBooking} className="mt-2 rounded bg-blue-600 px-4 py-2 text-sm text-white transition-colors hover:bg-blue-700">
-              Reserve
+              Select
             </Button>
           )}
         </div>
