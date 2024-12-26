@@ -20,7 +20,7 @@ export default function FilterSidebar() {
   return (
     <div className="sticky top-22 w-[300px] space-y-6 rounded-lg border border-gray-200 bg-white p-4 max-sm:w-full">
       <div className="space-y-6">
-        <Accordion>
+        <Accordion defaultSelectedKeys={["1"]}>
           <AccordionItem
             key="1"
             aria-label="Accordion 1"
@@ -101,38 +101,17 @@ export default function FilterSidebar() {
         </Accordion>
         {/* price with asc and desc */}
 
-        {/* Facilities */}
-        <div className="border-b border-gray-200 pb-6">
-          <h3 className="mb-3 font-medium">Facilities</h3>
-          <div className="space-y-2">
-            {[
-              { label: "Parking", count: 63 },
-              { label: "Restaurant", count: 54 },
-              { label: "Pet friendly", count: 1 },
-            ].map((facility) => (
-              <label
-                key={facility.label}
-                className="flex cursor-pointer items-center justify-between"
-              >
-                <div className="flex items-center gap-2">
-                  <Checkbox size="sm" radius="sm" />
-                  <span className="text-sm text-[#262626]">
-                    {facility.label}
-                  </span>
-                </div>
-                <span className="text-sm text-gray-500">{facility.count}</span>
-              </label>
-            ))}
-          </div>
-        </div>
+     
 
         {/* Review score */}
         <div className="border-b border-gray-200 pb-6">
           <h3 className="mb-3 font-medium">Review score</h3>
           <div className="space-y-2">
             {[
-              { label: "Good: 7+", count: 7 },
-              { label: "Pleasant: 6+", count: 20 },
+
+              { label: "3 stars" },
+              { label: "4 stars" },
+              { label: "5 stars" },
             ].map((score) => (
               <label
                 key={score.label}
@@ -140,9 +119,9 @@ export default function FilterSidebar() {
               >
                 <div className="flex items-center gap-2">
                   <Checkbox size="sm" radius="sm" />
-                  <span className="text-sm text-[#262626]">{score.label}</span>
+                  <span className="text-sm text-[#262626]">{score.label} + ratings</span>
                 </div>
-                <span className="text-sm text-gray-500">{score.count}</span>
+
               </label>
             ))}
           </div>
@@ -150,17 +129,15 @@ export default function FilterSidebar() {
 
         {/* Property rating */}
         <div className="border-b border-gray-200 pb-6">
-          <h3 className="mb-3 font-medium">Property rating</h3>
-          <p className="mb-2 text-sm text-gray-600">
-            Find high-quality hotels and vacation rentals
-          </p>
+          <h3 className="mb-3 font-medium">Property Type</h3>
+         
           <div className="space-y-2">
             {[
-              { label: "1 star", count: 2 },
-              { label: "2 stars", count: 3 },
-              { label: "3 stars", count: 30 },
-              { label: "4 stars", count: 2 },
-              { label: "5 stars", count: 4 },
+              { label: "1-stars" },
+              { label: "2-stars" }, 
+              { label: "3-stars" },
+              { label: "4-stars" },
+              { label: "5-stars" },
             ].map((rating) => (
               <label
                 key={rating.label}
@@ -168,9 +145,9 @@ export default function FilterSidebar() {
               >
                 <div className="flex items-center gap-2">
                   <Checkbox size="sm" radius="sm" />
-                  <span className="text-sm text-[#262626]">{rating.label}</span>
+                  <span className="text-sm text-[#262626]">{rating.label} </span>
                 </div>
-                <span className="text-sm text-gray-500">{rating.count}</span>
+  
               </label>
             ))}
           </div>

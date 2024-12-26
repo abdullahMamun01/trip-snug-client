@@ -21,13 +21,12 @@ export default function Footer() {
           <div className="space-y-6">
             <h1 className="uppercase font-bold text-2xl">Trip-<span className="text-blue-500">Snug</span></h1>
             <p className="leading-relaxed text-gray-600">
-              Morbi convallis bibendum urna ut viverra. Maecenas consequat
+              We are a leading online travel agency that offers a wide range of services to help you plan and book your trip.
             </p>
             <div className="space-y-2 text-gray-600">
-              <p>3015 Grand Ave, Coconut Grove,</p>
-              <p>Cerrick Way, FL 12345</p>
+              <p>10101 SW 52nd St, Miami, FL 33165</p>
               <p>+123-456-789</p>
-              <p>trizen@yourwebsite.com</p>
+              <p>trip-snug@website.com</p>
             </div>
           </div>
 
@@ -159,9 +158,8 @@ export default function Footer() {
 
           <div className="mt-8 flex flex-col items-center justify-between gap-4 text-gray-600 md:flex-row">
             <p className="flex items-center gap-1">
-              © Copyright Trizen 2024 · Made with{" "}
-              <Heart className="h-4 w-4 fill-current text-red-500" /> by
-              TechyDevs
+              © Copyright  {new Date().getFullYear()} TripSnug
+             
             </p>
             <div className="flex items-center gap-2">
               <span className="text-sm">We Accept</span>

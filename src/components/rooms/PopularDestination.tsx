@@ -11,6 +11,7 @@ import {
   CarouselNavigation,
 } from "../ui/carousel/Carousel";
 import { fetchTopRatedHotel } from "@/services/hotel.service";
+import Link from "next/link";
 
 
 export type RatingType = "Best" | "Better" | "Average" | "Poor";
@@ -31,7 +32,7 @@ export const getRatingType = (rating: number): RatingType => {
 export default async function PopularDestination() {
   const hotels = await fetchTopRatedHotel();
   return (
-    <section className=" mx-auto max-sm:container py-12">
+    <section className=" mx-auto max-sm:container  py-12">
       <div className="mb-10  text-center ">
         <h2 className="text-3xl font-bold text-[#1e2022] dark:text-gray-400">
           Most Popular Hotel Destinations
@@ -44,6 +45,8 @@ export default async function PopularDestination() {
 
               {hotels.data.map((hotel) => (
                 <CarouselItem key={hotel.id} className=" py-4 lg:basis-1/4">
+                  <Link href={`/hotels/${hotel.id}`}>
+
                   <Card
                     
                     className="group overflow-hidden border-x dark:border dark:border-boxdark-2  dark:bg-boxdark-2 dark:text-bodydark  shadow-xl"
@@ -117,6 +120,7 @@ export default async function PopularDestination() {
                       </div>
                     </CardBody>
                   </Card>
+                  </Link>
                 </CarouselItem>
               ))}
 
