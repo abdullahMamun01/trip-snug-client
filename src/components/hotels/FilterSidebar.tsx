@@ -1,4 +1,3 @@
-
 "use client";
 
 import useSetQueryParams from "@/hooks/useSetQueryParams";
@@ -19,9 +18,9 @@ export default function FilterSidebar() {
   const defaultContent =
     "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.";
   return (
-    <div className="w-[300px] sticky top-22 space-y-6 rounded-lg border border-gray-200 bg-white p-4 max-sm:w-full">
+    <div className="sticky top-22 w-[300px] space-y-6 rounded-lg border border-gray-200 bg-white p-4 max-sm:w-full">
       <div className="space-y-6">
-        <Accordion  >
+        <Accordion>
           <AccordionItem
             key="1"
             aria-label="Accordion 1"
@@ -69,34 +68,32 @@ export default function FilterSidebar() {
               <h3 className="mb-3 font-medium">Sort By Price</h3>
               <div className="space-y-2">
                 {[
-                  { label: "Price Low to High", id: "asc",  },
+                  { label: "Price Low to High", id: "asc" },
                   { label: "Price High to Low", id: "desc" },
                 ].map((filter) => (
-                  <label
-                    key={filter.id}
-                    className="flex cursor-pointer items-center justify-between"
-                  >
-                    <div className="flex items-center gap-2">
-                      <Checkbox
-                        size="sm"
-                        radius="sm"
-                        isSelected={priceToogle === filter.id || false}
-                        onClick={() => {
-                          if (priceToogle === filter.id) {
-                            removeQueryParams("price");
-                            setPriceToogle("");
-                          } else {
-                            setPriceToogle(filter.id);
-                            setQueryParams("price", filter.id);
-                          }
-                        }}
-                      />
-                      <span className="text-sm text-[#262626]">
-                        {filter.label}
-                      </span>
-                    </div>
-          
-                  </label>
+                  <div className="flex items-center gap-2" key={filter.id}>
+                    <Checkbox
+                      size="sm"
+                      className="flex cursor-pointer items-center justify-between"
+                      radius="sm"
+                      isSelected={priceToogle === filter.id || false}
+                      value={filter.id}
+                      onChange={(event) => {
+                        const priceValue = event.target.value;
+                        if (priceValue === filter.id && priceToogle !== filter.id) {
+                        
+                          setPriceToogle(filter.id);
+                          setQueryParams("price", filter.id);
+                        } else if (priceToogle === filter.id) {
+                          removeQueryParams("price");
+                          setPriceToogle("");
+                        }
+                      }}
+                    />
+                    <span className="text-sm text-[#262626]">
+                      {filter.label}
+                    </span>
+                  </div>
                 ))}
               </div>
             </div>
