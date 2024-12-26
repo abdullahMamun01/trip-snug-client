@@ -1,4 +1,4 @@
-/* eslint-disable react/no-unescaped-entities */
+
 "use client";
 
 import useSetQueryParams from "@/hooks/useSetQueryParams";
@@ -69,8 +69,8 @@ export default function FilterSidebar() {
               <h3 className="mb-3 font-medium">Sort By Price</h3>
               <div className="space-y-2">
                 {[
-                  { label: "Price Low to High", id: "asc", count: 4 },
-                  { label: "Price High to Low", id: "desc", count: 27 },
+                  { label: "Price Low to High", id: "asc",  },
+                  { label: "Price High to Low", id: "desc" },
                 ].map((filter) => (
                   <label
                     key={filter.id}
@@ -80,7 +80,7 @@ export default function FilterSidebar() {
                       <Checkbox
                         size="sm"
                         radius="sm"
-                        isSelected={priceToogle === filter.id}
+                        isSelected={priceToogle === filter.id || false}
                         onClick={() => {
                           if (priceToogle === filter.id) {
                             removeQueryParams("price");
@@ -95,9 +95,7 @@ export default function FilterSidebar() {
                         {filter.label}
                       </span>
                     </div>
-                    <span className="text-sm text-gray-500">
-                      {filter.count}
-                    </span>
+          
                   </label>
                 ))}
               </div>

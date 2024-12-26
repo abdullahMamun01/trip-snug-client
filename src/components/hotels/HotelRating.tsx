@@ -22,7 +22,10 @@ export function HotelRating({ rating, totalReviews, classification }: HotelRatin
       <Chip
         size="sm"
         variant="flat"
-        className="text-xs bg-primary-100 text-primary"
+        className="text-xs bg-primary-100 text-primary p-0"
+        classNames={{
+          content: " font-medium",
+        }}
       >
         {classification}
       </Chip>

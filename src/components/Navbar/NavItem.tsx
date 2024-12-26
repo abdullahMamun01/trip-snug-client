@@ -35,7 +35,7 @@ export default function NavItem() {
     <Navbar
 
       maxWidth="full"
-      className="w-full border-b bg-white py-2 dark:border-0 dark:bg-boxdark-2 dark:text-bodydark md:px-20"
+      className="w-full border-b bg-white md:py-2 dark:border-0 dark:bg-boxdark-2 dark:text-bodydark md:px-20"
       classNames={{
         wrapper: "px-8 gap-16",
       }}

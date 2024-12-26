@@ -43,7 +43,7 @@ export default function UserNav() {
       >
         <PopoverTrigger>
           <Button
-            className="h-12 min-w-[auto] bg-gray-200 dark:bg-gray-800 px-2"
+            className="h-12 min-w-[auto] bg-gray-200 px-2 dark:bg-gray-800"
             variant="light"
             radius="full"
           >
@@ -62,22 +62,18 @@ export default function UserNav() {
         </PopoverTrigger>
         <PopoverContent>
           <div className="flex w-56 flex-col px-1 py-2">
-            <Link href="/account">
-              <Button
-                variant="light"
-                className="flex h-12 items-center justify-start gap-3 rounded-none px-4  hover:bg-gray-100"
-                startContent={<User className="h-4 w-4" />}
-              >
-                My account
-              </Button>
-            </Link>
-            <Button
-              variant="light"
-              className="flex h-12 items-center justify-start gap-3 rounded-none px-4 hover:bg-gray-100"
-              startContent={<Calendar className="h-4 w-4" />}
+            <Link
+              href="/account"
+              className="flex h-12 items-center justify-start gap-3 rounded-none px-4  hover:bg-gray-100"
             >
-              Bookings & Trips
-            </Button>
+              <User className="h-4 w-4" /> My account
+            </Link>
+            <Link
+              href="/account"
+              className="flex h-12 items-center justify-start gap-3 rounded-none px-4  hover:bg-gray-100"
+            >
+              <Calendar className="h-4 w-4" /> Bookings
+            </Link>
 
             <Button
               variant="light"

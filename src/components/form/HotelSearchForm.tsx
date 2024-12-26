@@ -20,6 +20,7 @@ import getDateWithOffset from "@/lib/date";
 import useSetQueryParams from "@/hooks/useSetQueryParams";
 import { Input } from "@nextui-org/input";
 import { Locate, MapPin } from "lucide-react";
+import locations from "@/lib/location.constant";
 
 type RangeValue<T = DateValue> = {
   start: T | null;
@@ -35,17 +36,16 @@ const formatDate = (date: DateValue) => {
 
 // Validation Schema
 const hotelSearchSchema = z.object({
+  location: z.string().nonempty("location is required") ,
   checkIn: z.string().nonempty("Check-in date is required"),
   checkOut: z.string().nonempty("Check-out date is required"),
   adults: z.number().int().positive().min(1, "At least 1 adult is required"),
   children: z.number().int().nonnegative().optional(),
 });
 
-
 type HotelSearchFormValues = z.infer<typeof hotelSearchSchema>;
 
 export default function HotelSearchForm() {
-
   const router = useRouter();
   const {
     register,
@@ -61,8 +61,8 @@ export default function HotelSearchForm() {
       children: 1,
     },
   });
-  const checkinIn =  getDateWithOffset();
-  const checkOut =  getDateWithOffset(1);
+  const checkinIn = getDateWithOffset();
+  const checkOut = getDateWithOffset(1);
   const onSubmit = (data: HotelSearchFormValues) => {
     console.log("Form submitted:", data);
     // Add your submission logic here
@@ -70,6 +70,7 @@ export default function HotelSearchForm() {
       checkIn: data.checkIn,
       checkOut: data.checkOut,
       adults: data.adults.toString(),
+      location: data.location,
       // children: data.children.toString(),
     });
 
@@ -87,38 +88,41 @@ export default function HotelSearchForm() {
     }
   };
 
-  const defaultDateRange: { start: DateValue; end: DateValue } = {
-    start: parseDate("2024-04-01"),
-    end: parseDate("2024-04-08"),
-  };
+  
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="max-sm-devide-y flex w-[90%] max-w-5xl items-center gap-2 max-sm:gap-y-4 dark:bg-[#1A222C] bg-white p-2 shadow-xl max-sm:flex-col max-sm:py-8 rounded-md sm:rounded-full"
+      className="max-sm-devide-y flex w-[90%] max-w-5xl items-center gap-2 rounded-md bg-white p-2 shadow-xl dark:bg-[#1A222C] max-sm:flex-col max-sm:gap-y-4 max-sm:py-8 sm:rounded-full"
     >
       {/* destination */}
       <div className="flex w-full flex-1 items-center gap-2 px-4 ">
         <span className="text-sm font-medium text-default-700">
           <MapPin />
         </span>
-        <Input
-
-          classNames={{
-            inputWrapper: "bg-sky-100 text-black shadow-none h-unit-10",
-          }}
+        <Select
           placeholder="location"
-          
-        />
-        {/* {errors.adults && (
-          <p className="text-red-500">{errors.checkIn.message}</p>
-        )} */}
+          {...register("location")}
+          classNames={{
+            trigger:
+              "bg-sky-100 hover:bg-sky-100 text-black shadow-none h-unit-10",
+          }}
+        >
+          {locations.map((location) => (
+            <SelectItem key={location} value={location}>
+              {location}
+            </SelectItem>
+          ))}
+        </Select>
+        {errors.location && (
+          <p className="text-red-500">{errors.location.message}</p>
+        )}
       </div>
       <div className="h-8 w-px bg-default-200 max-sm:hidden" />
 
       {/* Date Range Picker */}
       <div className="flex w-full flex-1 items-center gap-2 px-4 ">
         <span className="text-sm font-medium text-default-700 sm:hidden">
-        <CiCalendarDate className="w-6 h-6"/>
+          <CiCalendarDate className="h-6 w-6" />
         </span>
         <DateRangePicker
           label="Select Dates"
@@ -146,7 +150,9 @@ export default function HotelSearchForm() {
 
       {/* Adults */}
       <div className="flex w-full flex-1 items-center gap-2 px-4 ">
-        <span className="text-sm font-medium text-default-700"><FaUserGroup  className="w-6 h-6"/></span>
+        <span className="text-sm font-medium text-default-700">
+          <FaUserGroup className="h-6 w-6" />
+        </span>
         <Select
           {...register("adults", { valueAsNumber: true })}
           onChange={(e) => setValue("adults", Number(e.target.value))}
@@ -156,9 +162,7 @@ export default function HotelSearchForm() {
           }}
         >
           {["0", "1", "2", "3", "4", "5"].map((a) => (
-            <SelectItem key={a} value={a} classNames={{
-              
-            }}>
+            <SelectItem key={a} value={a} classNames={{}}>
               {a}
             </SelectItem>
           ))}

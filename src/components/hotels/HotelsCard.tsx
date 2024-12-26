@@ -58,7 +58,7 @@ export default function HotelsCard({ hotel }: { hotel: IHotel }) {
               <div className="col-span-12 p-2 md:col-span-10">
                 <div className="mb-2 flex items-start justify-between">
                   <div>
-                    <h3 className="line-clamp-1 font-bold md:text-lg">
+                    <h3 className="line-clamp-1 font-bold text-md md:text-lg">
                       {title}
                     </h3>
                     <div className=" ">
@@ -92,7 +92,7 @@ export default function HotelsCard({ hotel }: { hotel: IHotel }) {
                   ))}
                 </div>
                 <div>
-                  <p className="mt-2 line-clamp-2 text-sm text-default-500">
+                  <p className="mt-2 line-clamp-1 md:line-clamp-2 text-sm text-default-500">
                     {tags.join(", ")}
                   </p>
                 </div>

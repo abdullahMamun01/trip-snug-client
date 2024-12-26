@@ -10,7 +10,7 @@ import { setBearerToken } from "@/lib/setBearerToken";
 
 const fetchHotels = async (params: string) => {
   console.log(params)
-  const hotels = await fetchData<HotelPaginationResponse>(`/hotels?${params}`);
+  const hotels = await fetchData<HotelPaginationResponse>(`/hotels?${params}&limit=5`);
   return hotels.data;
 };
 
