@@ -9,11 +9,18 @@ import {
 
 const paymentAction = async (payload: IPaymentBody) => {
   const currentUser = await getCurrentUser();
-  const response = await sendPaymentRequest(
-    payload,
-    currentUser?.token as string,
-  );
-  return response;
+
+  if (!currentUser?.token) {
+    throw new Error("User is not authenticated. Please log in.");
+  }
+
+  try {
+    const response = await sendPaymentRequest(payload, currentUser.token);
+    return response;
+  } catch (error) {
+    console.error("Payment request failed:", error);
+    throw new Error("Failed to process payment. Please try again later.");
+  }
 };
 
 const confirmPaymentAction = async (sesssion_id: string) => {
