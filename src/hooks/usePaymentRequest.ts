@@ -7,6 +7,7 @@ export default function usePaymentRequest() {
   return useMutation({
     mutationFn: paymentAction,
     onError: (error) => {
+      console.log(error, "from react hook form");
       catchError(error);
     },
   });

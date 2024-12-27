@@ -43,7 +43,7 @@ export default function HotelsCard({ hotel }: { hotel: IHotel }) {
   const searhParams = useSearchParams();
 
   return (
-    <Link href={`/hotels/${id}`} >
+    <Link href={`/hotels/${id}?${searhParams.toString()}`} >
       <Card className="w-full p-2 mb-2" >
         <CardBody className="p-0">
           <div className="flex gap-2 max-sm:h-[182px]  md:h-[180px]">

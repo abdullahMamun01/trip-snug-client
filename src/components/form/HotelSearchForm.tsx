@@ -69,7 +69,7 @@ export default function HotelSearchForm() {
     const params = new URLSearchParams({
       checkIn: data.checkIn,
       checkOut: data.checkOut,
-      adults: data.adults.toString(),
+      adults: data.adults.toString() || "1",
       location: data.location,
       // children: data.children.toString(),
     });

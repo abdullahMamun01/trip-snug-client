@@ -22,7 +22,7 @@ const currecnies = ["usd", "bdt", "eur"];
 export default function BookingForm() {
   const [selectedGuests, setSelectedGuests] = useState<string>("");
   const { booking, saveBooking } = useBookingStore();
-
+  console.log(booking , ' booking form');
   const { mutateAsync, isPending } = usePaymentRequest();
   const chekcInDate = booking?.checkIn;
   const checkOutDate = booking?.checkOut;

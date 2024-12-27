@@ -20,6 +20,9 @@ export default function HotelPricingCard({ price = 20 }: IPorps) {
   const queryParams = useSearchParams();
   const checkIn = new Date(queryParams.get("checkIn") as string);
   const checkOut = new Date(queryParams.get("checkOut") as string);
+  const handleBookingState= () => {
+    
+  }
   return (
     <div className="sticky top-10 w-full border-l p-4 lg:w-[400px] lg:p-6">
       <Card>
@@ -79,11 +82,10 @@ export default function HotelPricingCard({ price = 20 }: IPorps) {
                 i.e. 20176,82$
               </div> */}
                 </div>
-                <Link href='/booking'>
-                  <Button className="w-full bg-blue-700 text-gray-50 hover:bg-blue-600">
-                    Continue
-                  </Button>
-                </Link>
+
+                <Button className="w-full bg-blue-700 text-gray-50 hover:bg-blue-600">
+                  <Link href="/booking">Continue</Link>
+                </Button>
               </>
             )}
           </div>
