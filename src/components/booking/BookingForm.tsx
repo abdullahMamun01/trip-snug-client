@@ -22,7 +22,7 @@ const currecnies = ["usd", "bdt", "eur"];
 export default function BookingForm() {
   const [selectedGuests, setSelectedGuests] = useState<string>("");
   const { booking, saveBooking } = useBookingStore();
-  console.log(booking , ' booking form');
+  console.log(booking, " booking form");
   const { mutateAsync, isPending } = usePaymentRequest();
   const chekcInDate = booking?.checkIn;
   const checkOutDate = booking?.checkOut;
@@ -35,23 +35,23 @@ export default function BookingForm() {
       });
     }
   };
-  const {clearBooking} = useBookingStore()
+  const { clearBooking } = useBookingStore();
 
   const handlePayment = async () => {
-    clearBooking()
     const paymenBody = {
       hotel: booking?.hotel,
       room: booking?.room,
-      currency: booking?.currency || 'usd',
+      currency: booking?.currency || "usd",
       guest: booking?.guest,
       checkin: booking?.checkIn,
       checkout: booking?.checkOut,
       roomsAllocated: 1,
     } as IPaymentBody;
-   const respone =  await mutateAsync(paymenBody);
-   if(respone.data){
-    window.location.href = respone.data
-   }
+    const respone = await mutateAsync(paymenBody);
+    if (respone.data) {
+      window.location.href = respone.data;
+      clearBooking();
+    }
   };
 
   return (
@@ -121,7 +121,12 @@ export default function BookingForm() {
       </div>
 
       <Divider className="my-4" />
-      <Button onClick={handlePayment} color="primary" size="lg" className="w-full">
+      <Button
+        onClick={handlePayment}
+        color="primary"
+        size="lg"
+        className="w-full"
+      >
         {isPending ? (
           <>
             <Spinner color="default" size="sm" /> <span>waiting..</span>
