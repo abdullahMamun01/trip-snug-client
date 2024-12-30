@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import React, { useEffect } from "react";
 
 import {
@@ -17,9 +17,6 @@ import Link from "next/link";
 import { Card } from "@nextui-org/card";
 import { usePathname, useRouter } from "next/navigation";
 
-
-
-
 export function AccountSidebar() {
   const pathname = usePathname();
 
@@ -36,7 +33,6 @@ export function AccountSidebar() {
     }
   };
 
-
   return (
     <nav className="space-y-2">
       <Card className="p-4">
@@ -48,26 +44,28 @@ export function AccountSidebar() {
           },
           {
             href: "/account/bookings",
-            icon: <Book/>,
+            icon: <Book />,
             label: "My Bookings",
-          }
+          },
+          {
+            href: "/account/payments",
+            icon: <CreditCard />,
+            label: "Payments",
+          },
         ].map((item) => {
-          const isActive = pathname === item.href
+          const isActive = pathname === item.href;
           return (
             <Link
               key={item.href}
               href={{
-                pathname: item.href ,
-              
+                pathname: item.href,
               }}
               prefetch={true}
-              
               className={`flex items-center gap-3 ${
                 isActive
                   ? "bg-blue-50 font-medium text-blue-600"
                   : "text-gray-600 hover:bg-gray-50"
               } rounded-lg p-2`}
-           
             >
               {item.icon}
               {item.label}

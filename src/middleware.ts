@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
 // This function can be marked `async` if using `await` inside
-const public_routes = ["/", "/hotels", "/login", "/register"];
+const public_routes = ["/", "/hotels", "/login", "/register", "/contact" , "/about"];
 
 export async function middleware(request: NextRequest) {
   const currentUser = await getCurrentUser();

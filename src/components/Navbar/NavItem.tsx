@@ -24,11 +24,8 @@ export default function NavItem() {
 
   const menuItems = [
     "Home",
-    "About",
     "Hotels",
-    "Restaurant",
-    "Blog",
-    "Shop",
+    "About",
     "Contact",
   ];
   const ref = useRef<any>();
@@ -98,10 +95,10 @@ export default function NavItem() {
         justify="center"
       >
         {menuItems.map((item) => (
-          <NavbarItem key={item}>
+          <NavbarItem key={item} >
             <Link
               className="text-md font-medium text-default-600 transition-colors hover:text-default-900"
-              href={`/${item.toLowerCase()}`}
+              href={item === 'Home' ? '/' : `/${item.toLowerCase()}`}
             >
               {item}
             </Link>
@@ -169,7 +166,7 @@ export default function NavItem() {
             {menuItems.map((item) => (
               <li key={item}>
                 <Link
-                  href={`/${item.toLowerCase()}`}
+                  href={item === 'Home' ? '/' : `/${item.toLowerCase()}`}
                   className="text-md block font-medium text-gray-700 hover:text-blue-600 dark:text-gray-300"
                 >
                   {item}

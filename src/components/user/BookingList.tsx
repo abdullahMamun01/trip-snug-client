@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { use, useState } from "react";
 import { Button } from "@nextui-org/button";
 import {
   Table,
@@ -26,6 +26,8 @@ import {
 } from "@nextui-org/modal";
 import { MdCancel } from "react-icons/md";
 import CancelBookingModal from "../booking/CancelBookingModal";
+import { useSearchParams } from "next/navigation";
+import PaginationComponent from "../PaginationComponent";
 
 const getStatusStyles = (status: string) => {
   switch (status) {
@@ -42,23 +44,24 @@ export default function BookingList() {
   const { isOpen, onOpen, onOpenChange,onClose } = useDisclosure();
   const [hotelId , setHotelId] = useState('')
   const { token, user } = useAuth();
-
+  const queryParams  = useSearchParams()
   const { data, isLoading } = useQuery({
-    queryKey: ["bookings", user?.id],
-    queryFn: async () => await myBookings(token as string),
+    queryKey: ["bookings", user?.id , queryParams.toString()],
+    queryFn: async () => await myBookings( queryParams.toString(),token as string),
   });
 
   if (isLoading) {
     return <Loader />;
   }
-  const bookings = data?.data || [];
+
+  console.log(data?.data)
 
   const handleReviewModal = (hotelId:string) => {
     setHotelId(hotelId)
     onOpen()
   }
   
-
+  const bookings  = data?.data.bookings || [];
   return (
     <div className="mx-auto max-w-7xl p-6">
       <div className="flex flex-col gap-6">
@@ -84,10 +87,6 @@ export default function BookingList() {
             )}
           </ModalContent>
         </Modal>
-
-
-
-
 
         <Table aria-label="Bookings table" className="mt-4">
           <TableHeader>
@@ -128,6 +127,9 @@ export default function BookingList() {
             ))}
           </TableBody>
         </Table>
+      </div>
+      <div className="mt-6 w-full flex items-center justify-center">
+        <PaginationComponent totalPage={data?.data.totalPage as number || 1}/>
       </div>
     </div>
   );

@@ -1,12 +1,13 @@
 import ApiResponse from "@/types/apiResponse.types";
 import apiClient from "./axios";
-import { IReservation } from "@/types/booking.type";
+import { IBookingsWithPagination, IReservation } from "@/types/booking.type";
 import { setBearerToken } from "@/lib/setBearerToken";
 
 const myBookings = async (
+  query:string ,
   token: string,
-): Promise<ApiResponse<IReservation[]>> => {
-  const response = await apiClient.get("/bookings/user", setBearerToken(token));
+): Promise<ApiResponse<IBookingsWithPagination>> => {
+  const response = await apiClient.get(`/bookings/user?${query}&limit=5`, setBearerToken(token));
   return response.data;
 };
 

@@ -18,6 +18,11 @@ export interface  IReservation {
       adults: number;
     };
   };
+
+
+  export interface IBookingsWithPagination extends PaginatedResponse {
+    bookings: IReservation[];
+  }
   
   export interface IBookings {
     id: string

@@ -35,7 +35,10 @@ export interface IPaymentConfirm {
   
   export interface IPayment extends PaginatedResponse{
     payments:   {
-      id: string
+      id: string 
+      hotel : {
+        title: string
+      }
       user: User
       booking: string
       paymentStatus: string

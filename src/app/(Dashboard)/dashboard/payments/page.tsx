@@ -20,6 +20,7 @@ import { useSearchParams } from "next/navigation";
 import TableLoadingSkeleton from "@/components/ui/skeleton/TableLoadingSkeleton";
 import { format } from "path";
 import { formatDate } from "@/lib/date";
+import { Chip } from "@nextui-org/chip";
 
 // Dummy payment data
 const dummyPayments = [
@@ -57,7 +58,7 @@ const dummyPayments = [
 
 const columns = [
   { key: "user", label: "User" },
-  { key: "booking", label: "Booking" },
+  { key: "hotel", label: "Hotel" },
   { key: "paymentStatus", label: "Status" },
   { key: "method", label: "Method" },
   { key: "amount", label: "Amount" },
@@ -92,8 +93,20 @@ export default function PaymentListPage() {
             {payments.map((payment) => (
               <TableRow key={payment.id}>
                 <TableCell className="font-lg">{payment?.user?.firstName} {payment?.user?.lastName}</TableCell>
-                <TableCell className="font-lg">{payment.booking}</TableCell>
-                <TableCell className="font-lg">{payment.paymentStatus}</TableCell>
+                <TableCell className="font-lg line-clamp-1">{payment.hotel.title}</TableCell>
+                <TableCell className="font-lg">
+                  <Chip
+                    color={
+                      payment.paymentStatus.toLowerCase() === "completed"
+                        ? "success"
+                        : payment.paymentStatus.toLowerCase() === "pending"
+                        ? "warning"
+                        : "default"
+                    }
+                  >
+                    {payment.paymentStatus}
+                  </Chip>
+                </TableCell>
                 <TableCell className="font-lg">{payment.method}</TableCell>
                 <TableCell className="font-lg">{payment.amount}</TableCell>
                 <TableCell className="font-lg">{payment.currency}</TableCell>

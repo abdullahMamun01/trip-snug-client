@@ -11,7 +11,8 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import Stripe from '@/assests/stripe.png'
+import Stripe from "@/assests/stripe.png";
+import LogoImage from "../LogoImage";
 export default function Footer() {
   return (
     <footer className="bg-white pb-8  pt-16 shadow-lg dark:bg-boxdark-2 dark:text-bodydark">
@@ -19,9 +20,12 @@ export default function Footer() {
         <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-4">
           {/* Logo and Description */}
           <div className="space-y-6">
-            <h1 className="uppercase font-bold text-2xl">Trip-<span className="text-blue-500">Snug</span></h1>
+            <div className="flex h-14 w-full items-end justify-start">
+              <LogoImage classNames="w-44 h-24 object-cover" />
+            </div>
             <p className="leading-relaxed text-gray-600">
-              We are a leading online travel agency that offers a wide range of services to help you plan and book your trip.
+              We are a leading online travel agency that offers a wide range of
+              services to help you plan and book your trip.
             </p>
             <div className="space-y-2 text-gray-600">
               <p>10101 SW 52nd St, Miami, FL 33165</p>
@@ -158,30 +162,14 @@ export default function Footer() {
 
           <div className="mt-8 flex flex-col items-center justify-between gap-4 text-gray-600 md:flex-row">
             <p className="flex items-center gap-1">
-              © Copyright  {new Date().getFullYear()} TripSnug
-             
+              © Copyright {new Date().getFullYear()} TripSnug
             </p>
             <div className="flex items-center gap-2">
               <span className="text-sm">We Accept</span>
               <div className="flex gap-2">
-                <Image
-                  src={Stripe}
-                  alt="Mastercard"
-                  width={45}
-                  height={30}
-                />
-               <Image
-                  src={Stripe}
-                  alt="Mastercard"
-                  width={45}
-                  height={30}
-                />
-               <Image
-                  src={Stripe}
-                  alt="Mastercard"
-                  width={45}
-                  height={30}
-                />
+                <Image src={Stripe} alt="Mastercard" width={45} height={30} />
+                <Image src={Stripe} alt="Mastercard" width={45} height={30} />
+                <Image src={Stripe} alt="Mastercard" width={45} height={30} />
               </div>
             </div>
           </div>

@@ -68,19 +68,13 @@ export default function UserNav() {
               <User className="h-4 w-4" /> My account
             </Link>
             <Link
-              href="/account"
+              href="/account/bookings"
               className="flex h-12 items-center justify-start gap-3 rounded-none px-4  hover:bg-gray-100"
             >
               <Calendar className="h-4 w-4" /> Bookings
             </Link>
 
-            <Button
-              variant="light"
-              className="flex h-12 items-center justify-start gap-3 rounded-none px-4 hover:bg-gray-100"
-              startContent={<Star className="h-4 w-4" />}
-            >
-              Reviews
-            </Button>
+         
             <Button
               variant="light"
               className="flex h-12 items-center justify-start gap-3 rounded-none px-4 hover:bg-gray-100"

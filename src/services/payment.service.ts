@@ -45,8 +45,14 @@ const confirmStripePayment = async (
 };
 
 const fetchALlPayment = async (query : string ,token : string): Promise<ApiResponse<IPayment>> => {
-  const response = await apiClient.get(`/payments?${query}` ,setBearerToken(token));
+  const response = await apiClient.get(`/payments?${query}&limit=10` ,setBearerToken(token));
   return response.data;
 };
 
-export { sendPaymentRequest, confirmStripePayment,fetchALlPayment };
+const fetchUserPayment = async (query : string ,token : string): Promise<ApiResponse<IPayment>> => {
+  const response = await apiClient.get(`/payments/user?${query}&limit=5` ,setBearerToken(token));
+  return response.data;
+};
+
+
+export { sendPaymentRequest, confirmStripePayment,fetchALlPayment ,fetchUserPayment };
