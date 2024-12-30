@@ -1,6 +1,7 @@
 import React from 'react';
 import { Tag, Clock, Percent } from 'lucide-react';
 import Image from 'next/image';
+import Link from 'next/link';
 
 interface PromotionCardProps {
   title: string;
@@ -50,8 +51,10 @@ export function PromotionCard({
         </div>
         
         <button className="w-full mt-6 bg-blue-600 text-white py-2 rounded-lg font-semibold hover:bg-blue-700 transition-colors flex items-center justify-center space-x-2">
+          <Link href="/hotels" className="flex items-center space-x-2">
           <Percent className="w-4 h-4" />
           <span>Book Now</span>
+          </Link>
         </button>
       </div>
     </div>

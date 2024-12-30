@@ -27,9 +27,21 @@ const updateUserRole  = async (payload: {role:string , userId:string} ,token:str
   const response = await apiClient.patch(`/users/${payload.userId}/role` , {role: payload.role} , setBearerToken(token))
   return response.data
 } 
+
+const updateProfileImage = async (payload: FormData , token: string) : Promise<ApiResponse<TUser>> =>{
+  const response = await apiClient.patch("/users/profile", payload, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+      Authorization: `Bearer ${token}`,
+    },
+  })
+  return response.data
+}
+
 /* select('firstName lastName email role country phone'); */
 export {
     updateProfile ,
     fetchAllUser,
-    updateUserRole
+    updateUserRole,
+    updateProfileImage
 }

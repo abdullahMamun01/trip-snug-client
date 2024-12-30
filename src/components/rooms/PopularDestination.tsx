@@ -13,7 +13,6 @@ import {
 import { fetchTopRatedHotel } from "@/services/hotel.service";
 import Link from "next/link";
 
-
 export type RatingType = "Best" | "Better" | "Average" | "Poor";
 
 export const getRatingType = (rating: number): RatingType => {
@@ -28,29 +27,22 @@ export const getRatingType = (rating: number): RatingType => {
   }
 };
 
-
 export default async function PopularDestination() {
   const hotels = await fetchTopRatedHotel();
   return (
-    <section className=" mx-auto container py-12">
+    <section className=" container mx-auto py-12">
       <div className="mb-10  text-center ">
         <h2 className="text-3xl font-bold text-[#1e2022] dark:text-gray-400">
           Most Popular Hotel Destinations
         </h2>
       </div>
 
-      <div className="relative px-4 container mx-auto">
+      <div className="container relative mx-auto px-4">
         <Carousel>
           <CarouselContent className="gap-3 ">
-
-              {hotels.data.map((hotel) => (
-                <CarouselItem key={hotel.id} className=" py-4 lg:basis-1/4">
-                  <Link href={`/hotels/${hotel.id}`}>
-
-                  <Card
-                    
-                    className="group overflow-hidden border-x dark:border dark:border-boxdark-2  dark:bg-boxdark-2 dark:text-bodydark  shadow-xl"
-                  >
+            {hotels.data.map((hotel) => (
+              <CarouselItem key={hotel.id} className=" py-4 lg:basis-1/4">
+                  <Card className="group overflow-hidden border-x shadow-xl dark:border  dark:border-boxdark-2 dark:bg-boxdark-2  dark:text-bodydark">
                     <div className="relative">
                       <Image
                         src={hotel?.images[0]}
@@ -66,22 +58,22 @@ export default async function PopularDestination() {
                         <Heart className="h-4 w-4" />
                       </Button>
                       <Badge
-                      className={`absolute left-3 top-3 text-[12px] font-medium text-gray-100  ${
-                        getRatingType(hotel.rating) === 'Best'
-                          ? "bg-[#82ce34]"
-                          : getRatingType(hotel.rating) === "Better"
-                            ? "rounded-md  bg-[#82ce34]"
-                            : "bg-[#82ce34]"
-                      } hover:${
-                        getRatingType(hotel.rating) === "Average"
-                          ? "bg-[#74b92e]"
-                          : getRatingType(hotel.rating)=== "Poor"
+                        className={`absolute left-3 top-3 text-[12px] font-medium text-gray-100  ${
+                          getRatingType(hotel.rating) === "Best"
+                            ? "bg-[#82ce34]"
+                            : getRatingType(hotel.rating) === "Better"
+                              ? "rounded-md  bg-[#82ce34]"
+                              : "bg-[#82ce34]"
+                        } hover:${
+                          getRatingType(hotel.rating) === "Average"
                             ? "bg-[#74b92e]"
-                            : "bg-[#74b92e]"
-                      }`}
-                    >
-                      {getRatingType(hotel.rating)}
-                    </Badge>
+                            : getRatingType(hotel.rating) === "Poor"
+                              ? "bg-[#74b92e]"
+                              : "bg-[#74b92e]"
+                        }`}
+                      >
+                        {getRatingType(hotel.rating)}
+                      </Badge>
                     </div>
                     <CardBody className="p-5">
                       <h3 className="mb-1 line-clamp-1 text-lg font-semibold text-[#1e2022] dark:text-gray-200">
@@ -94,7 +86,9 @@ export default async function PopularDestination() {
                         <Badge className="bg-[#ffc107] text-white hover:bg-[#ffc107]">
                           {hotel.rating}/5
                         </Badge>
-                        <span className="text-sm text-orange-300">{getRatingType(hotel.rating)}</span>
+                        <span className="text-sm text-orange-300">
+                          {getRatingType(hotel.rating)}
+                        </span>
                         <span className="text-muted-foreground text-sm">
                           ({hotel.reviews} Reviews)
                         </span>
@@ -113,17 +107,16 @@ export default async function PopularDestination() {
                         </div>
                         <Button
                           variant="solid"
-                          className="text-primary hover:text-primary/90 dark:bg-[#1A222C] dark:border dark:border-gray-400"
+                          className="text-primary hover:text-primary/90 dark:border dark:border-gray-400 dark:bg-[#1A222C]"
                         >
-                          See details
+                          <Link href={`/hotels/${hotel.id}`}>See details</Link>
                         </Button>
                       </div>
                     </CardBody>
                   </Card>
-                  </Link>
-                </CarouselItem>
-              ))}
-
+    
+              </CarouselItem>
+            ))}
           </CarouselContent>
           <CarouselNavigation
             className="absolute  left-auto top-50 w-full justify-end gap-2"
