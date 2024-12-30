@@ -1,6 +1,7 @@
 "use client";
 import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 import DefaultLayout from "@/components/Layouts/DefaultLayout";
+import PaginationComponent from "@/components/PaginationComponent";
 import TableLoadingSkeleton from "@/components/ui/skeleton/TableLoadingSkeleton";
 import UserAvatar from "@/components/user/UserAvatar";
 import useUserRoleUpdate from "@/hooks/useUserRoleUpdate";
@@ -19,6 +20,7 @@ import {
   TableRow,
 } from "@nextui-org/table";
 import { useQuery } from "@tanstack/react-query";
+import { useSearchParams } from "next/navigation";
 import React from "react";
 const columns = [
   {
@@ -48,13 +50,14 @@ const columns = [
 ];
 export default function DashboardUsersPage() {
   const { token } = useAuth();
+  const queryParams = useSearchParams();
   const { data, isLoading } = useQuery({
-    queryKey: ["users"],
-    queryFn: async () => await fetchAllUser(token as string),
+    queryKey: ["users" , queryParams.toString()],
+    queryFn: async () => await fetchAllUser( queryParams.toString() ,token as string),
   });
   const { mutateAsync, isPending } = useUserRoleUpdate();
   const users =
-    data?.data.map((user) => ({
+    data?.data.users.map((user) => ({
       id: user.id,
       firstName: user.firstName,
       lastName: user.lastName,
@@ -115,6 +118,9 @@ export default function DashboardUsersPage() {
             </TableBody>
           </Table>
         )}
+        <div className="my-4 flex justify-center">
+          <PaginationComponent totalPage={data?.data.totalPage || 1} />
+        </div>
       </div>
     </DefaultLayout>
   );

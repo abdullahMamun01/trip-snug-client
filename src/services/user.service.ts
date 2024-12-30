@@ -1,4 +1,4 @@
-import { TProfile, TUser } from "@/types/user.type";
+import { IUserWithPagination, TProfile, TUser } from "@/types/user.type";
 import apiClient from "./axios";
 import { AxiosResponse } from "axios";
 import ApiResponse from "@/types/apiResponse.types";
@@ -16,9 +16,9 @@ const updateProfile = async <T>(
   return response.data;
 };
 
-const fetchAllUser  = async (token: string) : Promise<ApiResponse<TUser[]>> => {
+const fetchAllUser  = async ( query: string,token: string) : Promise<ApiResponse<IUserWithPagination>> => {
   console.log(token)
-  const response = await apiClient.get('/users' , setBearerToken(token))
+  const response = await apiClient.get(`/users?${query}&limit=5` , setBearerToken(token))
   return response.data
 }
 

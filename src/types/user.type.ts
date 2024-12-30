@@ -1,3 +1,5 @@
+import { PaginatedResponse } from "./hotel.types";
+
 export type TUser = {
   id: string;
   firstName: string;
@@ -15,6 +17,10 @@ export type TUser = {
   currency?: string;
   gender?: string;
 };
+
+export interface IUserWithPagination extends PaginatedResponse{
+  users : TUser[]
+}
 
 export type TProfile = {
   firstName?: string;
