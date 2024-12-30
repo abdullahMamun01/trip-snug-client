@@ -1,3 +1,4 @@
+import { PaginatedResponse } from "./hotel.types";
 
 
 export interface IPaymentBody {
@@ -31,4 +32,24 @@ export interface IPaymentConfirm {
     paymentDate: string; 
 
   };
+  
+  export interface IPayment extends PaginatedResponse{
+    payments:   {
+      id: string
+      user: User
+      booking: string
+      paymentStatus: string
+      method: string
+      amount: number
+      currency: string
+      paymentDate: string
+    }[]
+  }
+
+
+  
+   interface User {
+    firstName: string
+    lastName: string
+  }
   

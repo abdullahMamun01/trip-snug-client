@@ -1,5 +1,7 @@
 "use client";
-import useDeletedHotel from "@/hooks/useDeletedHotel";
+
+import useCancelBookings from "@/hooks/useCancelBookings";
+import useBookingStore from "@/stores/booking.store";
 import { useHotelStore } from "@/stores/hotels/hotel.store";
 import { Button } from "@nextui-org/button";
 import {
@@ -11,23 +13,26 @@ import {
   useDisclosure,
 } from "@nextui-org/modal";
 import React from "react";
+import { MdCancel } from "react-icons/md";
 interface IProps {
-  children: React.ReactNode;
+  bookingId: string;
 }
 
-export default function DeleteHotelDialog({ children }: IProps) {
-  const { selectedHotelId } = useHotelStore();
+export default function CancelBookingModal({ bookingId }: IProps) {
   const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
-  const { mutateAsync, isPending } = useDeletedHotel();
-  const handleDelete = async () => {
-    if (selectedHotelId) {
-      await mutateAsync(selectedHotelId);
+  const {mutateAsync ,isPending} = useCancelBookings()
+  const handleCancelBookings = async () => {
+    if (bookingId) {
+      await mutateAsync(bookingId);
       onClose();
     }
   };
   return (
     <>
-      <button onClick={onOpen}>{children}</button>
+      <Button onClick={onOpen} size="sm" color="primary" variant="flat">
+        <MdCancel className="h-3 w-3" />
+        cancel
+      </Button>
       <Modal
         backdrop="opaque"
         classNames={{
@@ -41,17 +46,17 @@ export default function DeleteHotelDialog({ children }: IProps) {
           {(onClose) => (
             <>
               <ModalHeader className="flex flex-col gap-1">
-                Delete Hotel
+                Cancel Booking
               </ModalHeader>
               <ModalBody className="text-red-500">
-                Do you want to delete this Hotel? 
+                Do you want to cancel this Booking? {bookingId}
               </ModalBody>
               <ModalFooter>
                 <Button color="danger" variant="light" onPress={onClose}>
                   Close
                 </Button>
-                <Button color="primary" onClick={handleDelete}>
-                  {isPending ? "deleting..." : "delete"}
+                <Button color="primary" onClick={handleCancelBookings}>
+                  {isPending ? "cancelling..." : "cancel"}
                 </Button>
               </ModalFooter>
             </>

@@ -16,7 +16,7 @@ export function HotelRating({ rating, totalReviews, classification }: HotelRatin
         {[...Array(Math.floor(rating))].map((_, i) => (
           <Star key={i} className="h-3.5 w-3.5 text-yellow-400 fill-current" />
         ))}
-        <span className="ml-1 text-xs text-default-500">{rating}</span>
+        <span className="ml-1 text-xs text-default-500">{rating.toFixed(1)}</span>
       </div>
       <span className="text-xs text-default-400">({totalReviews} reviews)</span>
       <Chip

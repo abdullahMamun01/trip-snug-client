@@ -15,7 +15,9 @@ import ToggleDark from "./ToggleDark";
 import UserNav from "../user/UserNav";
 import { User } from "lucide-react";
 import useAuth from "@/stores/auth.store";
-
+import Logo from "../../../public/images/logo/web_logo-removebg-preview.png";
+import Image from "next/image";
+import LogoImage from "../LogoImage";
 export default function NavItem() {
   const { token } = useAuth();
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
@@ -33,9 +35,8 @@ export default function NavItem() {
   if (ref.current) console.log(ref);
   return (
     <Navbar
-
       maxWidth="full"
-      className="w-full border-b bg-white md:py-2 dark:border-0 dark:bg-boxdark-2 dark:text-bodydark md:px-20"
+      className="w-full border-b bg-white dark:border-0 dark:bg-boxdark-2 dark:text-bodydark md:px-20 md:py-2"
       classNames={{
         wrapper: "px-8 gap-16",
       }}
@@ -78,20 +79,16 @@ export default function NavItem() {
           )}
         </button>
 
-        <NavbarBrand>
+        <NavbarBrand className="">
           <Link href="/">
-            <p className="font-serif text-md font-bold uppercase">
-              Trip-<span className="font-bold text-blue-500">Snug</span>{" "}
-            </p>
+            <LogoImage classNames=" object-cover w-34 h-34" />
           </Link>
         </NavbarBrand>
       </NavbarContent>
       <NavbarContent className="max-sm:hidden" justify="start">
         <NavbarBrand>
           <Link href="/">
-            <p className="font-serif max-sm:text-md text-2xl font-bold uppercase">
-              Trip-<span className="font-bold text-blue-500">Snug</span>{" "}
-            </p>
+            <LogoImage classNames="object-cover w-44 h-44" />
           </Link>
         </NavbarBrand>
       </NavbarContent>
@@ -142,7 +139,6 @@ export default function NavItem() {
             Login / Register
           </Link> */}
         </NavbarItem>
-
       </NavbarContent>
       {/* <NavbarMenu className=" bg-white dark:bg-boxdark-2"  >
         {menuItems.map((item, index) => (
@@ -168,7 +164,7 @@ export default function NavItem() {
       </NavbarMenu> */}
 
       {isMenuOpen && (
-        <div className="absolute sm:hidden left-0 top-full w-full bg-white shadow-md dark:bg-gray-800 px-5">
+        <div className="absolute left-0 top-full w-full bg-white px-5 shadow-md dark:bg-gray-800 sm:hidden">
           <ul className="flex flex-col space-y-2 p-4">
             {menuItems.map((item) => (
               <li key={item}>

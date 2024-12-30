@@ -41,7 +41,7 @@ export function Promotions() {
   ];
 
   return (
-    <div className="bg-gray-50 py-20">
+    <div className="bg-gray-50 py-20   dark:bg-boxdark-2">
       <div className="max-w-7xl mx-auto px-4">
         <div className="text-center mb-12">
           <h2 className="text-3xl font-bold mb-4">Special Offers</h2>

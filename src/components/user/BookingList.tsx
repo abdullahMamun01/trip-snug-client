@@ -24,6 +24,8 @@ import {
   ModalHeader,
   useDisclosure,
 } from "@nextui-org/modal";
+import { MdCancel } from "react-icons/md";
+import CancelBookingModal from "../booking/CancelBookingModal";
 
 const getStatusStyles = (status: string) => {
   switch (status) {
@@ -83,6 +85,10 @@ export default function BookingList() {
           </ModalContent>
         </Modal>
 
+
+
+
+
         <Table aria-label="Bookings table" className="mt-4">
           <TableHeader>
             <TableColumn>ROOM NAME</TableColumn>
@@ -111,9 +117,7 @@ export default function BookingList() {
                 <TableCell>
                   {bookingStatus(booking.checkInDate, booking.checkOutDate) ===
                   "upcoming" ? (
-                    <Button size="sm" color="primary" variant="flat">
-                      cancel
-                    </Button>
+                    <CancelBookingModal bookingId={booking.id} />
                   ) : (
                     <Button onClick={() => handleReviewModal(booking.hotel)} size="sm" color="primary" variant="flat">
                       review

@@ -1,3 +1,5 @@
+import { PaginatedResponse } from "./hotel.types";
+
 export interface  IReservation {
     id: string;
     room: {
@@ -42,4 +44,7 @@ export interface  IReservation {
   
   export interface Room {
     title: string
+  }
+  export interface ICancelBookings extends PaginatedResponse{
+    bookings : IBookings[]
   }

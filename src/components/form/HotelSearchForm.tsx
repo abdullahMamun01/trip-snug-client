@@ -12,7 +12,9 @@ import {
   CalendarDate,
   CalendarDateTime,
   DateValue,
+  getLocalTimeZone,
   parseDate,
+  today,
   ZonedDateTime,
 } from "@internationalized/date";
 import { useRouter } from "next/navigation";
@@ -61,8 +63,8 @@ export default function HotelSearchForm() {
       children: 1,
     },
   });
-  const checkinIn = getDateWithOffset();
-  const checkOut = getDateWithOffset(1);
+  const checkinIn = getDateWithOffset(1);
+  const checkOut = getDateWithOffset(2);
   const onSubmit = (data: HotelSearchFormValues) => {
     console.log("Form submitted:", data);
     // Add your submission logic here
@@ -125,7 +127,6 @@ export default function HotelSearchForm() {
           <CiCalendarDate className="h-6 w-6" />
         </span>
         <DateRangePicker
-          label="Select Dates"
           visibleMonths={2}
           classNames={{
             label: "text-md font-bold dark:text-black",
@@ -135,6 +136,7 @@ export default function HotelSearchForm() {
             start: parseDate(checkinIn) as any,
             end: parseDate(checkOut) as any,
           }}
+          minValue={today(getLocalTimeZone())}
           onChange={handleRangeChange}
           className=""
         />

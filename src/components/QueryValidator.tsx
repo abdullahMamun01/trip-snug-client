@@ -10,7 +10,7 @@ export default function QueryValidator({children} : IProps) {
     const router  = useRouter()
     const pathname = usePathname()
     const searchParams = useSearchParams()
-    console.log(searchParams.get("checkIn") , 'checkIn')
+    
     useEffect(() => {
         if(!searchParams.get("checkIn") || !searchParams.get("checkOut")) {
             const queryParams = new URLSearchParams(searchParams);
@@ -18,6 +18,11 @@ export default function QueryValidator({children} : IProps) {
             queryParams.append("checkOut", getDateWithOffset(1));
             router.push(`${pathname}?${queryParams.toString()}`);
             console.log(pathname, "pathname");
+        }
+        if(!searchParams.get("adults")) {
+            const queryParams = new URLSearchParams(searchParams);
+            queryParams.append("adults", "1");
+            router.push(`${pathname}?${queryParams.toString()}`);
         }
     } , [searchParams,pathname,router])
 

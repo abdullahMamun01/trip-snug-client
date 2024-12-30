@@ -9,7 +9,7 @@ export default function useUserRoleUpdate() {
   return useMutation({
     mutationFn: updateUserRoleAction,
     onSuccess: (data) => {
-      toast.success(data.message, { position: "top-right" });
+      toast.success('user role update success', { position: "top-right" });
       queryClient.invalidateQueries({queryKey:['users']})
     },
     onError: (error) => {

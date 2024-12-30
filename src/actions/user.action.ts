@@ -15,7 +15,7 @@ const profileAction = async (payload: TProfile) => {
 const updateUserRoleAction = async (payload: { role: string; userId: string; }) => {
   const user  = await getCurrentUser()
   const response = await updateUserRole(payload ,user?.token as string)
-  return response
+  return response.data
 }
 
 export { profileAction , updateUserRoleAction};

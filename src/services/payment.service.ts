@@ -1,4 +1,5 @@
 import {
+  IPayment,
   IPaymentBody,
   IPaymentConfirm,
   IPaymentResponse,
@@ -43,4 +44,9 @@ const confirmStripePayment = async (
   return response.data;
 };
 
-export { sendPaymentRequest, confirmStripePayment };
+const fetchALlPayment = async (query : string ,token : string): Promise<ApiResponse<IPayment>> => {
+  const response = await apiClient.get(`/payments?${query}` ,setBearerToken(token));
+  return response.data;
+};
+
+export { sendPaymentRequest, confirmStripePayment,fetchALlPayment };

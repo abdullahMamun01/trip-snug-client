@@ -20,7 +20,7 @@ export function PromotionCard({
   code 
 }: PromotionCardProps) {
   return (
-    <div className="bg-white rounded-xl overflow-hidden shadow-lg group">
+    <div className="bg-white dark:border-boxdark-2 dark:bg-boxdark-2 rounded-xl overflow-hidden shadow-lg group">
       <div className="relative h-48">
         <Image
         width={1000}

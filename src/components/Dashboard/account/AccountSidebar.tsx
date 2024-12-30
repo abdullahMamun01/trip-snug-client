@@ -18,26 +18,7 @@ import { Card } from "@nextui-org/card";
 import { usePathname, useRouter } from "next/navigation";
 
 
-const navItems = [
-  {
-    key: "personal",
-    label: "Personal Details",
-    icon: "user",
-    path: "/account",
-  },
-  {
-    key: "payments",
-    label: "Payment Methods",
-    icon: "credit-card",
-    path: "/account/payments",
-  },
-  {
-    key: "bookings",
-    label: "Booking History",
-    icon: "calendar",
-    path: "/account/bookings",
-  },
-];
+
 
 export function AccountSidebar() {
   const pathname = usePathname();
@@ -69,27 +50,7 @@ export function AccountSidebar() {
             href: "/account/bookings",
             icon: <Book/>,
             label: "My Bookings",
-          },
-          {
-            href: "/account/security",
-            icon: <Lock />,
-            label: "Security settings",
-          },
-          {
-            href: "/account/travelers",
-            icon: <Users />,
-            label: "Other travelers",
-          },
-          {
-            href: "/account/preferences",
-            icon: <Settings />,
-            label: "Customization preferences",
-          },
-          {
-            href: "/account/payment",
-            icon: <CreditCard />,
-            label: "Payment methods",
-          },
+          }
         ].map((item) => {
           const isActive = pathname === item.href
           return (

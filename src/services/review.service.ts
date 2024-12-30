@@ -2,6 +2,8 @@ import { IReview, IUserReview } from "@/types/review.type";
 import apiClient from "./axios";
 import { setBearerToken } from "@/lib/setBearerToken";
 import ApiResponse from "@/types/apiResponse.types";
+import { set } from "zod";
+import { IReviews } from "@/types/review.types";
 interface IReviewPayload extends IUserReview {
   hotelId: string;
   token: string;
@@ -29,4 +31,14 @@ const fetchHotelReviews = async (
   return response.data;
 };
 
-export { makeReview,fetchHotelReviews };
+const fetchAllReviews = async ( query:string,token:string): Promise<ApiResponse<IReviews>> => {
+  const response = await apiClient.get(
+    `/reviews?${query}`,
+    setBearerToken(token),
+  );
+
+  return response.data;
+};
+
+
+export { makeReview,fetchHotelReviews,fetchAllReviews };

@@ -15,12 +15,12 @@ export default function HotelList({ queries }: { queries: string }) {
   const {setQueryParams , getQueryParams} = useSetQueryParams()
   
 
-  const { data, isLoading, isError, error } = useQuery({
+  const { data, isLoading , isFetching, isError, error } = useQuery({
     queryKey: ["hotels", queries.toString()],
     queryFn: async () => await fetchHotels(queries),
   });
 
-  if (isLoading) {
+  if (isLoading || isFetching) {
     return (
       <div className="w-full flex-1 space-y-4">
         <HotelListSkeleton />;
