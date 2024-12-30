@@ -45,7 +45,7 @@ const queryParams  = useSearchParams()
         <TableBody>
           {payments.map((payment, index) => (
             <TableRow key={index}>
-              <TableCell  className='line-clamp-1'>{payment.hotel.title}</TableCell>
+              <TableCell  className='line-clamp-1'>{payment.hotel.title.slice(0, 30)}</TableCell>
               <TableCell>{payment.amount}</TableCell>
               <TableCell>{payment.method}</TableCell>
               <TableCell>{formatDate(new Date(payment.paymentDate as string))}</TableCell>

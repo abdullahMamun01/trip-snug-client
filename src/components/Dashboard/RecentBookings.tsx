@@ -1,7 +1,6 @@
 "use client";
 import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 import DefaultLayout from "@/components/Layouts/DefaultLayout";
-import PaginationComponent from "@/components/PaginationComponent";
 import TableLoadingSkeleton from "@/components/ui/skeleton/TableLoadingSkeleton";
 import UserAvatar from "@/components/user/UserAvatar";
 import useUserRoleUpdate from "@/hooks/useUserRoleUpdate";
@@ -11,6 +10,7 @@ import { fetchAllUser } from "@/services/user.service";
 import useAuth from "@/stores/auth.store";
 import { Avatar } from "@nextui-org/avatar";
 import { Button } from "@nextui-org/button";
+import { Card } from "@nextui-org/card";
 import { Chip } from "@nextui-org/chip";
 import { Input } from "@nextui-org/input";
 import { Select, SelectItem } from "@nextui-org/select";
@@ -23,17 +23,13 @@ import {
   TableRow,
 } from "@nextui-org/table";
 import { useQuery } from "@tanstack/react-query";
-import { useSearchParams } from "next/navigation";
 import React from "react";
 const columns = [
   {
     key: "user",
     label: "User",
   },
-  {
-    key: "hotel",
-    label: "HotelName",
-  },
+
   {
     key: "room",
     label: "Room Type",
@@ -46,23 +42,13 @@ const columns = [
     key: "check Out",
     label: "Check Out",
   },
-  {
-    key: "amount",
-    label: "Total Pay",
-  },
-  {
-    key: "status",
-    label: "Booking status",
-  },
 ];
-export default function DashboardBookingsPage() {
+export default function RecentBookings() {
   const { token } = useAuth();
-  const querParams  = useSearchParams()
   const { data, isLoading } = useQuery({
-    queryKey: ["bookings", querParams.toString()],
-    queryFn: async () => await fetchBookings( querParams.toString(), token as string),
+    queryKey: ["users"],
+    queryFn: async () => await fetchBookings( "",token as string),
   });
-
   const bookings =
     data?.data.bookings.map((booking) => ({
       id: booking.id,
@@ -108,10 +94,10 @@ export default function DashboardBookingsPage() {
   };
 
   return (
-    <DefaultLayout>
-      <div className="min-h-screen">
-        <div className="mx-auto max-w-270">
-          <Breadcrumb pageName="Bookings" />
+    <>
+      <Card className=" p-2 my-4">
+        <div className="">
+          <h1 className="text-2xl font-bold px-4 py-2">Recent Bookings</h1>
         </div>
         {isLoading ? (
           <TableLoadingSkeleton />
@@ -130,9 +116,6 @@ export default function DashboardBookingsPage() {
                   </TableCell>
 
                   <TableCell className="font-md text-gray-500">
-                    {booking.hotel}
-                  </TableCell>
-                  <TableCell className="font-md text-gray-500">
                     {booking.room}
                   </TableCell>
                   <TableCell className="font-md text-gray-500">
@@ -141,21 +124,13 @@ export default function DashboardBookingsPage() {
                   <TableCell className="font-md text-gray-500">
                     {formatDate(new Date(booking.checkout))}
                   </TableCell>
-                  <TableCell className="font-md text-gray-500">
-                    {booking.amount}
-                  </TableCell>
-                  <TableCell className="font-md text-gray-500">
-                    {statusColor(booking.status)}
-                  </TableCell>
+                 
                 </TableRow>
               ))}
             </TableBody>
           </Table>
         )}
-        <div className="my-4 flex justify-center">
-          <PaginationComponent totalPage={data?.data.totalPage || 1} />
-        </div>
-      </div>
-    </DefaultLayout>
+      </Card>
+    </>
   );
 }

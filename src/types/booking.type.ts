@@ -37,6 +37,9 @@ export interface  IReservation {
     duration: number
     status: string
   }
+  export interface IBookingsList extends PaginatedResponse {
+    bookings: IBookings[];
+  }
   
   export interface Hotel {
     title: string

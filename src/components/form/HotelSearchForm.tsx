@@ -17,12 +17,13 @@ import {
   today,
   ZonedDateTime,
 } from "@internationalized/date";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import getDateWithOffset from "@/lib/date";
 import useSetQueryParams from "@/hooks/useSetQueryParams";
 import { Input } from "@nextui-org/input";
 import { Locate, MapPin } from "lucide-react";
 import locations from "@/lib/location.constant";
+import { use } from "react";
 
 type RangeValue<T = DateValue> = {
   start: T | null;
@@ -48,6 +49,7 @@ const hotelSearchSchema = z.object({
 type HotelSearchFormValues = z.infer<typeof hotelSearchSchema>;
 
 export default function HotelSearchForm() {
+  const searchParam  = useSearchParams();
   const router = useRouter();
   const {
     register,
@@ -61,6 +63,7 @@ export default function HotelSearchForm() {
       checkOut: getDateWithOffset(1),
       adults: 1,
       children: 1,
+      location: searchParam.get("location") || "",
     },
   });
   const checkinIn = getDateWithOffset(1);
