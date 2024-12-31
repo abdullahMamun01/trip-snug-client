@@ -55,9 +55,7 @@ export default function HotelOverView({
                   <Star className="h-4 w-4 fill-current" />
                 </span>
                 <span className="font-semibold">Exceptional</span>
-                <button className="text-blue-600 hover:underline">
-                  See 1 review
-                </button>
+                
               </div>
             </div>
 
@@ -95,9 +93,6 @@ export default function HotelOverView({
                   <span className="text-gray-700">Parking available</span>
                 </div>
               </div>
-              <Button className="mt-4" variant="light" color="primary">
-                See all property amenities
-              </Button>
             </div>
 
             {/* <div>

@@ -14,12 +14,18 @@ const cancelBooking  = async (bookingId:string , token:string) :Promise<ApiRespo
     return response.data
 }
 
-const fetchCancelBookings  =async (query:string ,token:string) : Promise<ApiResponse<ICancelBookings>> => {
+const myCancelBookings  = async (query:string ,token:string) : Promise<ApiResponse<ICancelBookings>> => {
+    const response = await apiClient.get(`/bookings/user/cancel?${query}&limit=5` , setBearerToken(token))
+    return response.data
+}
+
+const fetchCancelBookings  = async (query:string ,token:string) : Promise<ApiResponse<ICancelBookings>> => {
     const response = await apiClient.get(`/bookings/cancel?${query}` , setBearerToken(token))
     return response.data
 }
 export {
     fetchBookings,
     cancelBooking,
-    fetchCancelBookings
+    fetchCancelBookings,
+    myCancelBookings
 }

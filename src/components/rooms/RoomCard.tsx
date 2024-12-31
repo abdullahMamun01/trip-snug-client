@@ -7,9 +7,10 @@ import { Button } from "@nextui-org/button";
 import { useQueryClient } from "@tanstack/react-query";
 import { InfoIcon, Wifi, Coffee, Tv, Bath } from "lucide-react";
 import { useParams, useSearchParams } from "next/navigation";
+import toast from "react-hot-toast";
 
 export default function RoomCard({ room }: { room: IRoom }) {
-  const { saveBooking } = useBookingStore();
+  const { saveBooking , booking } = useBookingStore();
   const { hotelId } = useParams();
   const queryParams = useSearchParams();
   const queryClient = useQueryClient();
@@ -35,6 +36,8 @@ export default function RoomCard({ room }: { room: IRoom }) {
       hotel: hotelId as string,
       room: room.id,
     });
+
+    toast.success("Room Selected", { position: "top-right" });
   };
   return (
     <div className="flex flex-col gap-4 rounded-lg border bg-white p-6 shadow-sm transition-shadow hover:shadow-md">
@@ -98,8 +101,15 @@ export default function RoomCard({ room }: { room: IRoom }) {
               Sold Out
             </div>
           ) : (
-            <Button onClick={handleBooking} className="mt-2 rounded bg-blue-600 px-4 py-2 text-sm text-white transition-colors hover:bg-blue-700">
-              Select
+            <Button
+              onClick={handleBooking}
+              className={
+                booking?.room === room.id
+                  ? "mt-2 rounded bg-green-600 px-4 py-2 text-sm text-white transition-colors hover:bg-green-700"
+                  : "mt-2 rounded bg-blue-600 px-4 py-2 text-sm text-white transition-colors hover:bg-blue-700"
+              }
+            >
+              {booking?.room === room.id ? "Selected" : "Select"} 
             </Button>
           )}
         </div>

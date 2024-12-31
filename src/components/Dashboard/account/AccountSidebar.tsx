@@ -46,6 +46,12 @@ export function AccountSidebar() {
             href: "/account/bookings",
             icon: <Book />,
             label: "My Bookings",
+            
+          },
+          {
+            href: "/account/cancel",
+            icon: <Lock />,
+            label: "Cancel Booking",
           },
           {
             href: "/account/payments",
