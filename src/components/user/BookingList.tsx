@@ -28,6 +28,7 @@ import { MdCancel } from "react-icons/md";
 import CancelBookingModal from "../booking/CancelBookingModal";
 import { useSearchParams } from "next/navigation";
 import PaginationComponent from "../PaginationComponent";
+import Link from "next/link";
 
 const getStatusStyles = (status: string) => {
   switch (status) {
@@ -41,27 +42,28 @@ const getStatusStyles = (status: string) => {
 };
 
 export default function BookingList() {
-  const { isOpen, onOpen, onOpenChange,onClose } = useDisclosure();
-  const [hotelId , setHotelId] = useState('')
+  const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
+  const [hotelId, setHotelId] = useState("");
   const { token, user } = useAuth();
-  const queryParams  = useSearchParams()
+  const queryParams = useSearchParams();
   const { data, isLoading } = useQuery({
-    queryKey: ["bookings", user?.id , queryParams.toString()],
-    queryFn: async () => await myBookings( queryParams.toString(),token as string),
+    queryKey: ["bookings", user?.id, queryParams.toString()],
+    queryFn: async () =>
+      await myBookings(queryParams.toString(), token as string),
   });
 
   if (isLoading) {
     return <Loader />;
   }
 
-  console.log(data?.data)
+  console.log(data?.data);
 
-  const handleReviewModal = (hotelId:string) => {
-    setHotelId(hotelId)
-    onOpen()
-  }
-  
-  const bookings  = data?.data.bookings || [];
+  const handleReviewModal = (hotelId: string) => {
+    setHotelId(hotelId);
+    onOpen();
+  };
+
+  const bookings = data?.data.bookings || [];
   return (
     <div className="mx-auto max-w-7xl p-6">
       <div className="flex flex-col gap-6">
@@ -69,19 +71,21 @@ export default function BookingList() {
           <div>
             <h1 className="text-2xl font-bold text-primary">Booking History</h1>
           </div>
-          <Button color="primary">Book New Room</Button>
+          <Button color="primary">
+            <Link href="/hotels">Book New Room</Link>
+          </Button>
         </div>
 
-      {/* user reivew modal */}
+        {/* user reivew modal */}
         <Modal isOpen={isOpen} onClose={onClose} size="2xl">
           <ModalContent>
             {(onClose) => (
               <>
                 <ModalHeader className="flex flex-col gap-1">
-                  Write a Review 
+                  Write a Review
                 </ModalHeader>
                 <ModalBody>
-                  <ReviewHotelForm onClose={onClose} hotelId={hotelId}/>
+                  <ReviewHotelForm onClose={onClose} hotelId={hotelId} />
                 </ModalBody>
               </>
             )}
@@ -118,7 +122,12 @@ export default function BookingList() {
                   "upcoming" ? (
                     <CancelBookingModal bookingId={booking.id} />
                   ) : (
-                    <Button onClick={() => handleReviewModal(booking.hotel)} size="sm" color="primary" variant="flat">
+                    <Button
+                      onClick={() => handleReviewModal(booking.hotel)}
+                      size="sm"
+                      color="primary"
+                      variant="flat"
+                    >
                       review
                     </Button>
                   )}
@@ -128,8 +137,10 @@ export default function BookingList() {
           </TableBody>
         </Table>
       </div>
-      <div className="mt-6 w-full flex items-center justify-center">
-        <PaginationComponent totalPage={data?.data.totalPage as number || 1}/>
+      <div className="mt-6 flex w-full items-center justify-center">
+        <PaginationComponent
+          totalPage={(data?.data.totalPage as number) || 1}
+        />
       </div>
     </div>
   );

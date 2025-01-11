@@ -1,13 +1,11 @@
 "use client";
-import { Button } from "@nextui-org/button";
+
 import {
   Navbar,
   NavbarBrand,
   NavbarContent,
   NavbarItem,
-  NavbarMenu,
-  NavbarMenuItem,
-  NavbarMenuToggle,
+
 } from "@nextui-org/navbar";
 import Link from "next/link";
 import React, { useRef } from "react";
@@ -15,8 +13,7 @@ import ToggleDark from "./ToggleDark";
 import UserNav from "../user/UserNav";
 import { User } from "lucide-react";
 import useAuth from "@/stores/auth.store";
-import Logo from "../../../public/images/logo/web_logo-removebg-preview.png";
-import Image from "next/image";
+
 import LogoImage from "../LogoImage";
 export default function NavItem() {
   const { token } = useAuth();
